@@ -12,11 +12,11 @@
   </parent>
 
   <groupId>mx.ipn.upiicsa.web</groupId>
-  <artifactId>ejemplo-04</artifactId>
+  <artifactId>citas-monolithic</artifactId>
   <version>v0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>ejemplo-04 Maven Webapp</name>
+  <name>citas-monolithic</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

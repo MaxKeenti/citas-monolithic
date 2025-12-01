@@ -1,7 +1,6 @@
 package mx.ipn.upiicsa.web.controlacceso.external.jpa.dao;
 
 import mx.ipn.upiicsa.web.controlacceso.internal.bs.entity.Persona;
-import mx.ipn.upiicsa.web.controlacceso.internal.bs.entity.Usuario;
 import mx.ipn.upiicsa.web.controlacceso.external.jpa.repository.UsuarioJpaRepository;
 import mx.ipn.upiicsa.web.controlacceso.internal.output.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;

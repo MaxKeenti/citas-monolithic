@@ -3,7 +3,6 @@ package mx.ipn.upiicsa.web.controlacceso.external.mvc.controller;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import mx.ipn.upiicsa.web.controlacceso.internal.bs.implemet.LoginBs;
 import mx.ipn.upiicsa.web.controlacceso.external.mvc.dto.LoginDto;
 import mx.ipn.upiicsa.web.controlacceso.internal.input.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

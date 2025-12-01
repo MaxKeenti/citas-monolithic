@@ -4,8 +4,6 @@ import io.vavr.control.Either;
 import mx.ipn.upiicsa.web.controlacceso.external.mvc.dto.LoginDto;
 import mx.ipn.upiicsa.web.controlacceso.internal.bs.entity.Persona;
 
-import java.util.Optional;
-
 public interface LoginService {
     Either<Integer, Persona> login(LoginDto login);
 }
