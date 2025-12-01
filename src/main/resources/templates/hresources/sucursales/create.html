@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Sucursal</title>
+</head>
+<body>
+<h1>Crear Sucursal</h1>
+<form th:action="@{/sucursales/create}" th:object="${sucursalForm}" method="post">
+    <div>
+        <label>Establecimiento</label>
+        <select th:field="*{idEstablecimiento}">
+            <option th:each="e : ${establecimientos}" th:value="${e.id}" th:text="${e.txNombre}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idEstablecimiento')}" th:errors="*{idEstablecimiento}"></p>
+    </div>
+    <div>
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" />
+        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+    </div>
+    <div>
+        <label>Ubicación (WKT)</label>
+        <input type="text" th:field="*{ubicacion}" placeholder="POINT(lon lat)" />
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+<p><a th:href="@{/sucursales/list}">Volver a la lista</a></p>
+</body>
+</html>

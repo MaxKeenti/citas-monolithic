@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Cita</title>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+</head>
+<body>
+<h1>Crear Cita</h1>
+<form th:action="@{/citas/create}" th:object="${citaForm}" method="post">
+    <div>
+        <label>Persona</label>
+        <select th:field="*{idPersona}">
+            <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Servicio</label>
+        <select th:field="*{idServicio}" id="servicio-select">
+            <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.txNombre}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Lista de Precio</label>
+        <select th:field="*{idListaPrecio}" id="lista-select">
+            <option th:each="l : ${listas}" th:value="${l.idListaPrecio}" th:text="${l.txNombre}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Sucursal</label>
+        <select th:field="*{idSucursal}">
+            <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Empleado</label>
+        <select th:field="*{idEmpleado}">
+            <option th:each="e : ${empleados}" th:value="${e.idEmpleado}" th:text="${e.idEmpleado}"></option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+
+<script>
+    // when servicio changes, fetch listas via AJAX
+    document.getElementById('servicio-select').addEventListener('change', function(){
+        var servicioId = this.value;
+        fetch('/citas/listas-by-servicio?servicioId=' + servicioId)
+            .then(res => res.json())
+            .then(data => {
+                var select = document.getElementById('lista-select');
+                select.innerHTML = '';
+                data.forEach(function(item){
+                    var opt = document.createElement('option');
+                    opt.value = item.idListaPrecio || item.id;
+                    opt.text = item.txNombre || item.nombre;
+                    select.appendChild(opt);
+                });
+            });
+    });
+</script>
+
+<p><a th:href="@{/citas/list}">Volver a la lista</a></p>
+</body>
+</html>

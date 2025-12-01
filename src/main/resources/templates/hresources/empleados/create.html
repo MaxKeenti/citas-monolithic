@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Empleado</title>
+</head>
+<body>
+<h1>Crear Empleado</h1>
+<form th:action="@{/empleados/create}" th:object="${empleadoForm}" method="post">
+    <div>
+        <label>Persona</label>
+        <select th:field="*{idPersona}">
+            <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}"></p>
+    </div>
+    <div>
+        <label>Sucursal</label>
+        <select th:field="*{idSucursal}">
+            <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idSucursal')}" th:errors="*{idSucursal}"></p>
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+<p><a th:href="@{/empleados/list}">Volver a la lista</a></p>
+</body>
+</html>

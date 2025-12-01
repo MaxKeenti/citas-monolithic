@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Usuario</title>
+</head>
+<body>
+<h1>Crear Usuario</h1>
+<form th:action="@{/usuarios/create}" th:object="${usuarioForm}" method="post">
+    <div>
+        <label>Persona</label>
+        <select th:field="*{idPersona}">
+            <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}"></p>
+    </div>
+    <div>
+        <label>Rol</label>
+        <select th:field="*{idRol}">
+            <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idRol')}" th:errors="*{idRol}"></p>
+    </div>
+    <div>
+        <label>Login (correo)</label>
+        <input type="text" th:field="*{login}" />
+        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" th:field="*{password}" />
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+    </div>
+    <div>
+        <label>Activo</label>
+        <input type="checkbox" th:field="*{activo}" />
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+<p><a th:href="@{/usuarios/list}">Volver a la lista</a></p>
+</body>
+</html>

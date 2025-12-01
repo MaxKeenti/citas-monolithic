@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Servicio</title>
+</head>
+<body>
+<h1>Crear Servicio</h1>
+<form th:action="@{/servicios/create}" th:object="${servicioForm}" method="post">
+    <div>
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" />
+        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+    </div>
+    <div>
+        <label>Descripción</label>
+        <textarea th:field="*{descripcion}"></textarea>
+    </div>
+    <div>
+        <label>Duración (min)</label>
+        <input type="number" th:field="*{duracion}" />
+        <p th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></p>
+    </div>
+    <div>
+        <label>Activo</label>
+        <input type="checkbox" th:field="*{activo}" />
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+<p><a th:href="@{/servicios/list}">Volver a la lista</a></p>
+</body>
+</html>

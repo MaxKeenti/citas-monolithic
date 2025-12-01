@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Servicios</title>
+</head>
+<body>
+<h1>Servicios</h1>
+<p><a th:href="@{/servicios/create}">Crear nuevo servicio</a></p>
+<table>
+    <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Duración</th><th>Activo</th></tr>
+    </thead>
+    <tbody>
+        <tr th:each="s : ${servicios}">
+            <td th:text="${s.idServicio}"></td>
+            <td th:text="${s.txNombre}"></td>
+            <td th:text="${s.nuDuracion}"></td>
+            <td th:text="${s.stActivo}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

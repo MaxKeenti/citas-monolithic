@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "cca01_genero")
 public class GeneroJpa {

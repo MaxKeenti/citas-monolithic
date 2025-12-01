@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sucursales</title>
+</head>
+<body>
+<h1>Sucursales</h1>
+<p><a th:href="@{/sucursales/create}">Crear nueva sucursal</a></p>
+<table>
+    <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Establecimiento</th></tr>
+    </thead>
+    <tbody>
+        <tr th:each="s : ${sucursales}">
+            <td th:text="${s.idSucursal}"></td>
+            <td th:text="${s.txNombre}"></td>
+            <td th:text="${s.establecimiento != null ? s.establecimiento.txNombre : ''}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

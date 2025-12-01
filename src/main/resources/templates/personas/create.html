@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Persona</title>
+</head>
+<body>
+<h1>Crear Persona</h1>
+<form th:action="@{/personas/create}" th:object="${personaForm}" method="post">
+    <div>
+        <label>Género</label>
+        <select th:field="*{idGenero}">
+            <option th:each="g : ${generos}" th:value="${g.id}" th:text="${g.nombre}"></option>
+        </select>
+        <p th:if="${#fields.hasErrors('idGenero')}" th:errors="*{idGenero}"></p>
+    </div>
+    <div>
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" />
+        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+    </div>
+    <div>
+        <label>Primer Apellido</label>
+        <input type="text" th:field="*{primerApellido}" />
+        <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}"></p>
+    </div>
+    <div>
+        <label>Segundo Apellido</label>
+        <input type="text" th:field="*{segundoApellido}" />
+    </div>
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+</form>
+<p><a th:href="@{/personas/list}">Volver a la lista</a></p>
+</body>
+</html>
