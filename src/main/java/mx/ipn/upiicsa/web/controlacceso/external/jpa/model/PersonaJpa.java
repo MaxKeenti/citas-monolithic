@@ -25,6 +25,8 @@ public class PersonaJpa {
     private String primerApellido;
     @Column(name = "tx_segundo_apellido")
     private String segundoApellido;
+    @Column(name = "fh_nacimiento")
+    private java.time.LocalDate fechaNacimiento;
     @ManyToOne
     @JoinColumn(name = "fk_id_genero", referencedColumnName = "id_genero", insertable = false, updatable = false)
     private GeneroJpa genero;

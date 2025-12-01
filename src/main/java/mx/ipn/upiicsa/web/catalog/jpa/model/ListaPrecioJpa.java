@@ -3,7 +3,7 @@ package mx.ipn.upiicsa.web.catalog.jpa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "lista_precio")
+@Table(name = "tci03_lista_precio")
 public class ListaPrecioJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

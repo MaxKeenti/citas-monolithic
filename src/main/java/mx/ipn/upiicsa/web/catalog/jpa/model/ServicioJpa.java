@@ -3,7 +3,7 @@ package mx.ipn.upiicsa.web.catalog.jpa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "servicio")
+@Table(name = "cci01_servicio")
 public class ServicioJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,7 @@ package mx.ipn.upiicsa.web.hresources.jpa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "sucursal")
+@Table(name = "tce02_sucursal")
 public class SucursalJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,6 +12,8 @@ public class PersonaForm {
     @NotBlank(message = "Favor de proporcionar el primer apellido")
     private String primerApellido;
     private String segundoApellido;
+    @NotNull(message = "Favor de proporcionar la fecha de nacimiento")
+    private java.time.LocalDate fechaNacimiento;
 
     // getters/setters
     public Integer getId() { return id; }
@@ -24,4 +26,6 @@ public class PersonaForm {
     public void setPrimerApellido(String primerApellido) { this.primerApellido = primerApellido; }
     public String getSegundoApellido() { return segundoApellido; }
     public void setSegundoApellido(String segundoApellido) { this.segundoApellido = segundoApellido; }
+    public java.time.LocalDate getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(java.time.LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
 }

@@ -44,6 +44,7 @@ public class PersonaController {
         p.setNombre(form.getNombre());
         p.setPrimerApellido(form.getPrimerApellido());
         p.setSegundoApellido(form.getSegundoApellido());
+        p.setFechaNacimiento(form.getFechaNacimiento());
         personaJpaRepository.save(p);
         return "redirect:/personas/list";
     }

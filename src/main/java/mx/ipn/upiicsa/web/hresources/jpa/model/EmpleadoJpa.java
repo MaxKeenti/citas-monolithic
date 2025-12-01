@@ -3,7 +3,7 @@ package mx.ipn.upiicsa.web.hresources.jpa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "empleado")
+@Table(name = "tce03_empleado")
 public class EmpleadoJpa {
     @Id
     @Column(name = "id_empleado")

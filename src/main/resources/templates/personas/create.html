@@ -29,6 +29,11 @@
         <input type="text" th:field="*{segundoApellido}" />
     </div>
     <div>
+        <label>Fecha de Nacimiento</label>
+        <input type="date" th:field="*{fechaNacimiento}" />
+        <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
+    </div>
+    <div>
         <button type="submit">Crear</button>
     </div>
 </form>
