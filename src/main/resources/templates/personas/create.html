@@ -3,40 +3,57 @@
 <head>
     <meta charset="UTF-8" />
     <title>Crear Persona</title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
-<h1>Crear Persona</h1>
-<form th:action="@{/personas/create}" th:object="${personaForm}" method="post">
-    <div>
-        <label>Género</label>
-        <select th:field="*{idGenero}">
-            <option th:each="g : ${generos}" th:value="${g.id}" th:text="${g.nombre}"></option>
-        </select>
-        <p th:if="${#fields.hasErrors('idGenero')}" th:errors="*{idGenero}"></p>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
+            <div class="flex space-x-4">
+                <a href="/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
+                <a href="/citas/list" class="text-white hover:text-blue-200">Citas</a>
+                <a href="/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
+                <a href="/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
+                <a href="/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
+                <a href="/personas/list" class="text-white font-bold border-b-2 border-white">Personas</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Crear Persona</h1>
+        <form th:action="@{/personas/create}" th:object="${personaForm}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Género</label>
+                <select th:field="*{idGenero}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="g : ${generos}" th:value="${g.id}" th:text="${g.nombre}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('idGenero')}" th:errors="*{idGenero}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+                <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Primer Apellido</label>
+                <input type="text" th:field="*{primerApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Segundo Apellido</label>
+                <input type="text" th:field="*{segundoApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Fecha de Nacimiento</label>
+                <input type="date" th:field="*{fechaNacimiento}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear</button>
+                <a th:href="@{/personas/list}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Volver a la lista</a>
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Nombre</label>
-        <input type="text" th:field="*{nombre}" />
-        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
-    </div>
-    <div>
-        <label>Primer Apellido</label>
-        <input type="text" th:field="*{primerApellido}" />
-        <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}"></p>
-    </div>
-    <div>
-        <label>Segundo Apellido</label>
-        <input type="text" th:field="*{segundoApellido}" />
-    </div>
-    <div>
-        <label>Fecha de Nacimiento</label>
-        <input type="date" th:field="*{fechaNacimiento}" />
-        <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
-    </div>
-    <div>
-        <button type="submit">Crear</button>
-    </div>
-</form>
-<p><a th:href="@{/personas/list}">Volver a la lista</a></p>
 </body>
 </html>
