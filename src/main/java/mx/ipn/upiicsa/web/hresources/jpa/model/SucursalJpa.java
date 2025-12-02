@@ -1,6 +1,7 @@
 package mx.ipn.upiicsa.web.hresources.jpa.model;
 
 import jakarta.persistence.*;
+import org.locationtech.jts.geom.Point;
 
 @Entity
 @Table(name = "tce02_sucursal")
@@ -20,8 +21,8 @@ public class SucursalJpa {
     @Column(name = "tx_nombre")
     private String txNombre;
 
-    @Column(name = "gm_ubicacion")
-    private String gmUbicacion; // Assuming string for simplicity as per scaffold
+    @Column(name = "gm_ubicacion", columnDefinition = "geometry(Point,4326)")
+    private Point gmUbicacion;
 
     // getters/setters
     public Integer getIdSucursal() { return idSucursal; }
@@ -32,6 +33,6 @@ public class SucursalJpa {
     public void setEstablecimiento(EstablecimientoJpa establecimiento) { this.establecimiento = establecimiento; }
     public String getTxNombre() { return txNombre; }
     public void setTxNombre(String txNombre) { this.txNombre = txNombre; }
-    public String getGmUbicacion() { return gmUbicacion; }
-    public void setGmUbicacion(String gmUbicacion) { this.gmUbicacion = gmUbicacion; }
+    public Point getGmUbicacion() { return gmUbicacion; }
+    public void setGmUbicacion(Point gmUbicacion) { this.gmUbicacion = gmUbicacion; }
 }
