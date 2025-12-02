@@ -67,8 +67,11 @@ public class CitaController {
             model.addAttribute("empleados", empleadoJpaRepository.findAll());
             if (form.getIdServicio() != null) {
                 model.addAttribute("listas", servicioListaPrecioJpaRepository.findByFkIdServicio(form.getIdServicio()).stream()
-                        .map(sp -> listaPrecioJpaRepository.findById(sp.getFkIdListaPrecio()).orElse(null))
+                        .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
                         .filter(Objects::nonNull)
+                        .map(listaPrecioJpaRepository::findById)
+                        .flatMap(Optional::stream)
+                        .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
                         .collect(Collectors.toList()));
             } else {
                 model.addAttribute("listas", List.of());
