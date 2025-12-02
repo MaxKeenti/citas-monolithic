@@ -3,42 +3,61 @@
 <head>
     <meta charset="UTF-8" />
     <title>Crear Usuario</title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
-<h1>Crear Usuario</h1>
-<form th:action="@{/usuarios/create}" th:object="${usuarioForm}" method="post">
-    <div>
-        <label>Persona</label>
-        <select th:field="*{idPersona}">
-            <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
-        </select>
-        <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}"></p>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
+            <div class="flex space-x-4">
+                <a href="/accesscontrol/usuarios/list" class="text-white font-bold border-b-2 border-white">Usuarios</a>
+                <a href="/appointment/citas/list" class="text-white hover:text-blue-200">Citas</a>
+                <a href="/catalog/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
+                <a href="/hresources/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
+                <a href="/hresources/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
+                <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Crear Usuario</h1>
+        <form th:action="@{/accesscontrol/usuarios/create}" th:object="${usuarioForm}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
+                <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Rol</label>
+                <select th:field="*{idRol}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('idRol')}" th:errors="*{idRol}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Login (correo)</label>
+                <input type="text" th:field="*{login}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" th:field="*{password}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-500 text-xs italic mt-1"></p>
+            </div>
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" th:field="*{activo}" class="form-checkbox h-5 w-5 text-blue-600" />
+                    <span class="ml-2 text-gray-700 text-sm font-bold">Activo</span>
+                </label>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear</button>
+                <a th:href="@{/accesscontrol/usuarios/list}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Volver a la lista</a>
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Rol</label>
-        <select th:field="*{idRol}">
-            <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
-        </select>
-        <p th:if="${#fields.hasErrors('idRol')}" th:errors="*{idRol}"></p>
-    </div>
-    <div>
-        <label>Login (correo)</label>
-        <input type="text" th:field="*{login}" />
-        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
-    </div>
-    <div>
-        <label>Password</label>
-        <input type="password" th:field="*{password}" />
-        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-    </div>
-    <div>
-        <label>Activo</label>
-        <input type="checkbox" th:field="*{activo}" />
-    </div>
-    <div>
-        <button type="submit">Crear</button>
-    </div>
-</form>
-<p><a th:href="@{/usuarios/list}">Volver a la lista</a></p>
 </body>
 </html>

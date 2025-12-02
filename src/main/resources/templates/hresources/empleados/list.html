@@ -3,21 +3,47 @@
 <head>
     <meta charset="UTF-8" />
     <title>Empleados</title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
-<h1>Empleados</h1>
-<p><a th:href="@{/empleados/create}">Crear nuevo empleado</a></p>
-<table>
-    <thead>
-        <tr><th>ID</th><th>Persona</th><th>Sucursal</th></tr>
-    </thead>
-    <tbody>
-        <tr th:each="e : ${empleados}">
-            <td th:text="${e.idEmpleado}"></td>
-            <td th:text="${e.idEmpleado}"></td>
-            <td th:text="${e.fkIdSucursal}"></td>
-        </tr>
-    </tbody>
-</table>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
+            <div class="flex space-x-4">
+                <a href="/accesscontrol/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
+                <a href="/appointment/citas/list" class="text-white hover:text-blue-200">Citas</a>
+                <a href="/catalog/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
+                <a href="/hresources/empleados/list" class="text-white font-bold border-b-2 border-white">Empleados</a>
+                <a href="/hresources/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
+                <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Empleados</h1>
+            <a th:href="@{/hresources/empleados/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nuevo empleado</a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">ID</th>
+                        <th class="py-3 px-6 text-left">Persona</th>
+                        <th class="py-3 px-6 text-left">Sucursal</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    <tr th:each="e : ${empleados}" class="border-b border-gray-200 hover:bg-gray-100">
+                        <td th:text="${e.idEmpleado}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                        <td th:text="${e.idEmpleado}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${e.fkIdSucursal}" class="py-3 px-6 text-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

@@ -4,64 +4,80 @@
     <meta charset="UTF-8" />
     <title>Crear Cita</title>
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
-<h1>Crear Cita</h1>
-<form th:action="@{/citas/create}" th:object="${citaForm}" method="post">
-    <div>
-        <label>Persona</label>
-        <select th:field="*{idPersona}">
-            <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
-        </select>
-    </div>
-    <div>
-        <label>Servicio</label>
-        <select th:field="*{idServicio}" id="servicio-select">
-            <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.txNombre}"></option>
-        </select>
-    </div>
-    <div>
-        <label>Lista de Precio</label>
-        <select th:field="*{idListaPrecio}" id="lista-select">
-            <option th:each="l : ${listas}" th:value="${l.idListaPrecio}" th:text="${l.txNombre}"></option>
-        </select>
-    </div>
-    <div>
-        <label>Sucursal</label>
-        <select th:field="*{idSucursal}">
-            <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
-        </select>
-    </div>
-    <div>
-        <label>Empleado</label>
-        <select th:field="*{idEmpleado}">
-            <option th:each="e : ${empleados}" th:value="${e.idEmpleado}" th:text="${e.idEmpleado}"></option>
-        </select>
-    </div>
-    <div>
-        <button type="submit">Crear</button>
-    </div>
-</form>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
+            <div class="flex space-x-4">
+                <a href="/accesscontrol/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
+                <a href="/appointment/citas/list" class="text-white font-bold border-b-2 border-white">Citas</a>
+                <a href="/catalog/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
+                <a href="/hresources/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
+                <a href="/hresources/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
+                <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
+            </div>
+        </div>
+    </nav>
 
-<script>
-    // when servicio changes, fetch listas via AJAX
-    document.getElementById('servicio-select').addEventListener('change', function(){
-        var servicioId = this.value;
-        fetch('/citas/listas-by-servicio?servicioId=' + servicioId)
-            .then(res => res.json())
-            .then(data => {
-                var select = document.getElementById('lista-select');
-                select.innerHTML = '';
-                data.forEach(function(item){
-                    var opt = document.createElement('option');
-                    opt.value = item.idListaPrecio || item.id;
-                    opt.text = item.txNombre || item.nombre;
-                    select.appendChild(opt);
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Crear Cita</h1>
+        <form th:action="@{/appointment/citas/create}" th:object="${citaForm}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
+                <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Servicio</label>
+                <select th:field="*{idServicio}" id="servicio-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.txNombre}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Lista de Precio</label>
+                <select th:field="*{idListaPrecio}" id="lista-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="l : ${listas}" th:value="${l.idListaPrecio}" th:text="${l.txNombre}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Sucursal</label>
+                <select th:field="*{idSucursal}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Empleado</label>
+                <select th:field="*{idEmpleado}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="e : ${empleados}" th:value="${e.idEmpleado}" th:text="${e.idEmpleado}"></option>
+                </select>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear</button>
+                <a th:href="@{/appointment/citas/list}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // when servicio changes, fetch listas via AJAX
+        document.getElementById('servicio-select').addEventListener('change', function(){
+            var servicioId = this.value;
+            fetch('/citas/listas-by-servicio?servicioId=' + servicioId)
+                .then(res => res.json())
+                .then(data => {
+                    var select = document.getElementById('lista-select');
+                    select.innerHTML = '';
+                    data.forEach(function(item){
+                        var opt = document.createElement('option');
+                        opt.value = item.idListaPrecio || item.id;
+                        opt.text = item.txNombre || item.nombre;
+                        select.appendChild(opt);
+                    });
                 });
-            });
-    });
-</script>
-
-<p><a th:href="@{/citas/list}">Volver a la lista</a></p>
+        });
+    </script>
 </body>
 </html>
