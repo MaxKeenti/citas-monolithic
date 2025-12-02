@@ -10,7 +10,7 @@ import mx.ipn.upiicsa.web.catalog.jpa.model.ServicioListaPrecioJpa;
 import mx.ipn.upiicsa.web.catalog.jpa.repository.ListaPrecioJpaRepository;
 import mx.ipn.upiicsa.web.hresources.jpa.repository.SucursalJpaRepository;
 import mx.ipn.upiicsa.web.hresources.jpa.repository.EmpleadoJpaRepository;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.repository.PersonaJpaRepository;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.repository.PersonaJpaRepository;
 import mx.ipn.upiicsa.web.appointment.mvc.dto.CitaForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

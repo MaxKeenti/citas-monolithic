@@ -1,8 +1,8 @@
 package mx.ipn.upiicsa.web.hresources.mvc.controller;
 
 import jakarta.validation.Valid;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.model.PersonaJpa;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.repository.PersonaJpaRepository;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.model.PersonaJpa;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.repository.PersonaJpaRepository;
 import mx.ipn.upiicsa.web.hresources.jpa.model.EmpleadoJpa;
 import mx.ipn.upiicsa.web.hresources.jpa.model.SucursalJpa;
 import mx.ipn.upiicsa.web.hresources.jpa.repository.EmpleadoJpaRepository;

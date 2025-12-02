@@ -1,13 +1,13 @@
 package mx.ipn.upiicsa.web.accesscontrol.mvc.controller;
 
 import jakarta.validation.Valid;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.model.PersonaJpa;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.model.RolJpa;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.model.UsuarioJpa;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.repository.PersonaJpaRepository;
 import mx.ipn.upiicsa.web.accesscontrol.jpa.repository.RolJpaRepository;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.repository.UsuarioJpaRepository;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.repository.PersonaJpaRepository;
+import mx.ipn.upiicsa.web.accesscontrol.jpa.repository.UsuarioJpaRepository;
 import mx.ipn.upiicsa.web.accesscontrol.mvc.dto.UsuarioForm;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.model.PersonaJpa;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.model.RolJpa;
-import mx.ipn.upiicsa.web.controlacceso.external.jpa.model.UsuarioJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
