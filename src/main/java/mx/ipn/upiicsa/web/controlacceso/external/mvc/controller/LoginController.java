@@ -62,4 +62,13 @@ public class LoginController {
         }
         return resultado;
     }
+
+    @GetMapping("/welcome")
+    public String welcome(HttpSession session, Model model) {
+        if (session.getAttribute("persona") == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("persona", session.getAttribute("persona"));
+        return "welcome";
+    }
 }

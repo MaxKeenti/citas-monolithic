@@ -10,11 +10,11 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
             <div class="flex space-x-4">
-                <a href="/accesscontrol/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
-                <a href="/appointment/citas/list" class="text-white font-bold border-b-2 border-white">Citas</a>
-                <a href="/catalog/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
-                <a href="/hresources/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
-                <a href="/hresources/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
+                <a href="/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
+                <a href="/citas/list" class="text-white font-bold border-b-2 border-white">Citas</a>
+                <a href="/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
+                <a href="/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
+                <a href="/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
                 <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
             </div>
         </div>
@@ -23,7 +23,7 @@
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Citas</h1>
-            <a th:href="@{/appointment/citas/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nueva cita</a>
+            <a th:href="@{/citas/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nueva cita</a>
         </div>
         
         <div class="overflow-x-auto">
