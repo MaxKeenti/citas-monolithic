@@ -84,6 +84,7 @@ public class CitaController {
         c.setFkIdListaPrecio(form.getIdListaPrecio());
         c.setFkIdSucursal(form.getIdSucursal());
         c.setFkIdEmpleado(form.getIdEmpleado());
+        c.setFechaHora(form.getFechaHora());
         citaJpaRepository.save(c);
         return "redirect:/citas/list";
     }
