@@ -3,16 +3,16 @@ package mx.ipn.upiicsa.web.catalog.application.service;
 import mx.ipn.upiicsa.web.catalog.application.port.in.ServicioService;
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioJpaRepository;
 import mx.ipn.upiicsa.web.catalog.domain.ServicioJpa;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@lombok.RequiredArgsConstructor
 public class ServicioServiceImpl implements ServicioService {
 
-    @Autowired
-    private ServicioJpaRepository servicioJpaRepository;
+    private final ServicioJpaRepository servicioJpaRepository;
 
     @Override
     public List<ServicioJpa> findAll() {
@@ -20,6 +20,7 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
+    @SuppressWarnings("null")
     public ServicioJpa save(ServicioJpa servicio) {
         return servicioJpaRepository.save(servicio);
     }
