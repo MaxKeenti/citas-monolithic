@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -63,7 +65,14 @@ public class CitaController {
             model.addAttribute("servicios", servicioJpaRepository.findAll());
             model.addAttribute("sucursales", sucursalJpaRepository.findAll());
             model.addAttribute("empleados", empleadoJpaRepository.findAll());
-            model.addAttribute("listas", servicioListaPrecioJpaRepository.findByFkIdServicio(form.getIdServicio()).stream().map(sp -> listaPrecioJpaRepository.findById(sp.getFkIdListaPrecio()).orElse(null)).filter(lp -> lp!=null).collect(Collectors.toList()));
+            if (form.getIdServicio() != null) {
+                model.addAttribute("listas", servicioListaPrecioJpaRepository.findByFkIdServicio(form.getIdServicio()).stream()
+                        .map(sp -> listaPrecioJpaRepository.findById(sp.getFkIdListaPrecio()).orElse(null))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList()));
+            } else {
+                model.addAttribute("listas", List.of());
+            }
             return "appointment/citas/create";
         }
         CitaJpa c = new CitaJpa();
@@ -89,6 +98,12 @@ public class CitaController {
         // find servicio-lista entries for this servicio
         List<ServicioListaPrecioJpa> sps = servicioListaPrecioJpaRepository.findByFkIdServicio(servicioId);
         // for each, load listaPrecio and filter by estado activo (we assume estado id for active is known or Estado has 'st_activo')
-        return sps.stream().map(sp -> listaPrecioJpaRepository.findById(sp.getFkIdListaPrecio()).orElse(null)).filter(lp -> lp != null && Boolean.TRUE.equals(lp.getStActivo())).collect(Collectors.toList());
+        return sps.stream()
+            .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
+            .filter(Objects::nonNull)
+            .map(listaPrecioJpaRepository::findById)
+            .flatMap(Optional::stream)
+            .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
+            .collect(Collectors.toList());
     }
 }
