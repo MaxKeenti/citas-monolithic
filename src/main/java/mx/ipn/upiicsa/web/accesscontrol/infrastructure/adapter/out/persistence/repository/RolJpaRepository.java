@@ -3,5 +3,6 @@ package mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.RolJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RolJpaRepository extends JpaRepository<RolJpa,Integer> {
+public interface RolJpaRepository extends JpaRepository<RolJpa, Integer> {
+    java.util.Optional<RolJpa> findByNombre(String nombre);
 }
