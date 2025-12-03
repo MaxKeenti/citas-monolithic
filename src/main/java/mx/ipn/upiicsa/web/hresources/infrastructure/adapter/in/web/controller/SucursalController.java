@@ -41,7 +41,13 @@ public class SucursalController {
         SucursalJpa s = new SucursalJpa();
         s.setFkIdEstablecimiento(form.getIdEstablecimiento());
         s.setTxNombre(form.getNombre());
-        s.setGmUbicacion(null); // placeholder, store null or implement later
+
+        org.locationtech.jts.geom.GeometryFactory gf = new org.locationtech.jts.geom.GeometryFactory();
+        org.locationtech.jts.geom.Point point = gf
+                .createPoint(new org.locationtech.jts.geom.Coordinate(form.getLongitud(), form.getLatitud()));
+        point.setSRID(4326);
+        s.setGmUbicacion(point);
+
         sucursalService.save(s);
         return "redirect:/sucursales/list";
     }

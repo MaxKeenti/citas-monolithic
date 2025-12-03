@@ -11,5 +11,8 @@ public class SucursalForm {
     private Integer idEstablecimiento;
     @NotBlank(message = "Favor de proporcionar el nombre de la sucursal")
     private String nombre;
-    private String ubicacion; // placeholder for geometry
+    @NotNull(message = "Favor de seleccionar la ubicación en el mapa")
+    private Double latitud;
+    @NotNull(message = "Favor de seleccionar la ubicación en el mapa")
+    private Double longitud;
 }

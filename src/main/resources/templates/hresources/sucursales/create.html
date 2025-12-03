@@ -1,49 +1,81 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
     <title>Crear Sucursal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/output.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map { height: 400px; width: 100%; margin-bottom: 1rem; border-radius: 0.5rem; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <nav class="bg-blue-600 p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
-            <div class="flex space-x-4">
-                <a href="/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
-                <a href="/citas/list" class="text-white hover:text-blue-200">Citas</a>
-                <a href="/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
-                <a href="/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
-                <a href="/sucursales/list" class="text-white font-bold border-b-2 border-white">Sucursales</a>
-                <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
-            </div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen py-12">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-bold text-gray-800">Crear Nueva Sucursal</h1>
         </div>
-    </nav>
-
-    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Crear Sucursal</h1>
-        <form th:action="@{/sucursales/create}" th:object="${sucursalForm}" method="post">
+        <form action="/sucursales/create" th:object="${sucursalForm}" method="post">
+            
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Establecimiento</label>
-                <select th:field="*{idEstablecimiento}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <label class="block text-gray-700 text-sm font-bold mb-2 required">Establecimiento</label>
+                <select th:field="*{idEstablecimiento}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Seleccione...</option>
                     <option th:each="e : ${establecimientos}" th:value="${e.id}" th:text="${e.txNombre}"></option>
                 </select>
                 <p th:if="${#fields.hasErrors('idEstablecimiento')}" th:errors="*{idEstablecimiento}" class="text-red-500 text-xs italic mt-1"></p>
             </div>
+
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-                <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <label class="block text-gray-700 text-sm font-bold mb-2 required">Nombre de la Sucursal</label>
+                <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-red-500 text-xs italic mt-1"></p>
             </div>
+
             <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Ubicación (WKT)</label>
-                <input type="text" th:field="*{ubicacion}" placeholder="POINT(lon lat)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <label class="block text-gray-700 text-sm font-bold mb-2 required">Ubicación</label>
+                <div id="map"></div>
+                <p class="text-sm text-gray-600 mb-2">Haga clic en el mapa para seleccionar la ubicación.</p>
+                
+                <input type="hidden" id="latitud" th:field="*{latitud}">
+                <input type="hidden" id="longitud" th:field="*{longitud}">
+                
+                <p th:if="${#fields.hasErrors('latitud')}" class="text-red-500 text-xs italic mt-1">Debe seleccionar una ubicación en el mapa.</p>
             </div>
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear</button>
-                <a th:href="@{/sucursales/list}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Volver a la lista</a>
+
+            <div class="flex items-center justify-between gap-4">
+                <a href="/sucursales/list" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                    Cancelar
+                </a>
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Guardar Sucursal
+                </button>
             </div>
         </form>
     </div>
+
+    <script>
+        // Initialize map centered on Mexico City
+        var map = L.map('map').setView([19.4326, -99.1332], 13);
+        var marker;
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        function onMapClick(e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementById('latitud').value = e.latlng.lat;
+            document.getElementById('longitud').value = e.latlng.lng;
+        }
+
+        map.on('click', onMapClick);
+    </script>
 </body>
 </html>
