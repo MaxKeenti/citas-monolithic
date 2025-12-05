@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    
+    <!-- Tab styling mixins -->
+    <!-- Active Tab: bg-white border-t border-l border-r border-gray-200 rounded-t text-blue-700 -->
+    <!-- Inactive Tab: bg-gray-100 text-blue-500 hover:text-blue-800 -->
+
+    <!-- Access Control Tabs -->
+    <div th:fragment="accesscontrol(activeTab)" class="flex border-b border-gray-200">
+        <a href="/usuarios/list" 
+           th:class="${activeTab == 'usuarios' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Usuarios
+        </a>
+        <a href="/personas/list" 
+           th:class="${activeTab == 'personas' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Personas
+        </a>
+    </div>
+
+    <!-- Appointment Tabs -->
+    <div th:fragment="appointment(activeTab)" class="flex border-b border-gray-200">
+        <a href="/citas/list" 
+           th:class="${activeTab == 'list' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Listado de Citas
+        </a>
+        <a href="/citas/create" 
+           th:class="${activeTab == 'create' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Agendar Cita
+        </a>
+    </div>
+
+    <!-- Catalog Tabs -->
+    <div th:fragment="catalog(activeTab)" class="flex border-b border-gray-200">
+        <a href="/servicios/list" 
+           th:class="${activeTab == 'servicios' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Servicios
+        </a>
+        <a href="/catalog/estado-lista-precio/list" 
+           th:class="${activeTab == 'estadalistaprecio' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'}">
+           Estados de Precio
+        </a>
+    </div>
+
+    <!-- HR Tabs -->
+    <div th:fragment="hresources(activeTab)" class="flex border-b border-gray-200 overflow-x-auto">
+        <a href="/sucursales/list" 
+           th:class="${activeTab == 'sucursales' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Sucursales
+        </a>
+        <a href="/empleados/list" 
+           th:class="${activeTab == 'empleados' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Empleados
+        </a>
+        <a href="/hresources/horario/list" 
+           th:class="${activeTab == 'horarios' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Horarios
+        </a>
+        <a href="/hresources/dia-laboral/list" 
+           th:class="${activeTab == 'dia-laboral' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Días Laborales
+        </a>
+        <a href="/hresources/dia-descanso/list" 
+           th:class="${activeTab == 'dia-descanso' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Días Descanso
+        </a>
+        <a href="/hresources/empleado-horario/list" 
+           th:class="${activeTab == 'empleado-horario' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Asignar Horarios
+        </a>
+        <a href="/hresources/bloque-cita/list" 
+           th:class="${activeTab == 'bloque-cita' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold whitespace-nowrap'}">
+           Bloques Cita
+        </a>
+    </div>
+</body>
+</html>

@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <div th:replace="fragments/nav :: nav"></div>
+    <!-- 1. Main Navigation -->
+    <div th:replace="fragments/nav :: main(activeModule='hresources')"></div>
 
-    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+    <div class="container mx-auto mt-10">
+        <!-- 2. Secondary Tabs -->
+        <div th:replace="fragments/tabs :: hresources(activeTab='horarios')"></div>
+
+        <!-- 3. Content Card -->
+        <div class="p-6 bg-white rounded-b-lg shadow-lg rounded-tr-lg border border-gray-200">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Horarios de Sucursales</h1>
             <a th:href="@{/hresources/horario/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Horario</a>
@@ -34,6 +40,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 </body>
 </html>

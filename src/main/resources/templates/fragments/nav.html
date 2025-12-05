@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <nav th:fragment="nav" class="bg-blue-600 p-4 shadow-md">
+    <!-- Main Navigation Module Bar -->
+    <nav th:fragment="main(activeModule)" class="bg-blue-600 p-4 shadow-md">
         <div class="container mx-auto flex flex-wrap justify-between items-center">
             <a href="/welcome" class="text-white text-xl font-bold mr-6">Sistema de Citas</a>
             
-            <div class="flex flex-wrap space-x-4 text-sm">
-                <!-- Access Control -->
-                <div class="group relative inline-block text-left">
-                     <span class="text-white font-semibold cursor-pointer">Accesos</span>
-                     <div class="hidden group-hover:block absolute z-50 bg-white text-gray-800 py-2 rounded shadow-lg">
-                        <a href="/usuarios/list" class="block px-4 py-2 hover:bg-gray-200">Usuarios</a>
-                        <a href="/personas/list" class="block px-4 py-2 hover:bg-gray-200">Personas</a>
-                     </div>
-                </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="/usuarios/list" 
+                   th:class="${activeModule == 'accesscontrol' ? 'text-white font-bold border-b-2 border-white pb-1' : 'text-blue-200 hover:text-white transition duration-150'}">
+                   Accesos
+                </a>
 
-                <!-- Appointment -->
-                <a href="/citas/list" class="text-white hover:text-blue-200 font-semibold">Citas</a>
+                <a href="/citas/list" 
+                   th:class="${activeModule == 'appointment' ? 'text-white font-bold border-b-2 border-white pb-1' : 'text-blue-200 hover:text-white transition duration-150'}">
+                   Agenda
+                </a>
 
-                <!-- Catalog -->
-                <div class="group relative inline-block text-left">
-                     <span class="text-white font-semibold cursor-pointer">Catálogos</span>
-                     <div class="hidden group-hover:block absolute z-50 bg-white text-gray-800 py-2 rounded shadow-lg">
-                        <a href="/servicios/list" class="block px-4 py-2 hover:bg-gray-200">Servicios</a>
-                        <a href="/catalog/estado-lista-precio/list" class="block px-4 py-2 hover:bg-gray-200">Estados Precio</a>
-                     </div>
-                </div>
+                <a href="/servicios/list" 
+                   th:class="${activeModule == 'catalog' ? 'text-white font-bold border-b-2 border-white pb-1' : 'text-blue-200 hover:text-white transition duration-150'}">
+                   Catálogos
+                </a>
 
-                <!-- HR -->
-                <div class="group relative inline-block text-left">
-                     <span class="text-white font-semibold cursor-pointer">Recursos Humanos</span>
-                     <div class="hidden group-hover:block absolute z-50 bg-white text-gray-800 py-2 rounded shadow-lg w-48">
-                        <a href="/sucursales/list" class="block px-4 py-2 hover:bg-gray-200">Sucursales</a>
-                        <a href="/empleados/list" class="block px-4 py-2 hover:bg-gray-200">Empleados</a>
-                        <hr class="border-gray-200 my-1">
-                        <a href="/hresources/horario/list" class="block px-4 py-2 hover:bg-gray-200">Horarios</a>
-                        <a href="/hresources/dia-laboral/list" class="block px-4 py-2 hover:bg-gray-200">Días Laborales</a>
-                        <a href="/hresources/dia-descanso/list" class="block px-4 py-2 hover:bg-gray-200">Días Descanso</a>
-                        <hr class="border-gray-200 my-1">
-                        <a href="/hresources/empleado-horario/list" class="block px-4 py-2 hover:bg-gray-200">Asignar Horarios</a>
-                        <a href="/hresources/bloque-cita/list" class="block px-4 py-2 hover:bg-gray-200">Bloques Cita</a>
-                     </div>
-                </div>
+                <a href="/sucursales/list" 
+                   th:class="${activeModule == 'hresources' ? 'text-white font-bold border-b-2 border-white pb-1' : 'text-blue-200 hover:text-white transition duration-150'}">
+                   Recursos Humanos
+                </a>
             </div>
         </div>
     </nav>

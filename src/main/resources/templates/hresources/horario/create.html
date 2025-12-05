@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <div th:replace="fragments/nav :: nav"></div>
+    <!-- 1. Main Navigation -->
+    <div th:replace="fragments/nav :: main(activeModule='hresources')"></div>
 
-    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg max-w-lg">
+    <div class="container mx-auto mt-10">
+        <!-- 2. Secondary Tabs -->
+        <div th:replace="fragments/tabs :: hresources(activeTab='horarios')"></div>
+
+        <!-- 3. Content Card -->
+        <div class="p-6 bg-white rounded-b-lg shadow-lg rounded-tr-lg border border-gray-200">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo Horario</h1>
         
         <form th:action="@{/hresources/horario/create}" th:object="${horarioForm}" method="post">
@@ -42,6 +48,7 @@
                 </button>
             </div>
         </form>
+    </div>
     </div>
 </body>
 </html>
