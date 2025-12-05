@@ -6,19 +6,7 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <nav class="bg-blue-600 p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/welcome" class="text-white text-xl font-bold">Sistema de Citas</a>
-            <div class="flex space-x-4">
-                <a href="/usuarios/list" class="text-white hover:text-blue-200">Usuarios</a>
-                <a href="/citas/list" class="text-white hover:text-blue-200">Citas</a>
-                <a href="/servicios/list" class="text-white hover:text-blue-200">Servicios</a>
-                <a href="/empleados/list" class="text-white hover:text-blue-200">Empleados</a>
-                <a href="/sucursales/list" class="text-white hover:text-blue-200">Sucursales</a>
-                <a href="/personas/list" class="text-white hover:text-blue-200">Personas</a>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="fragments/nav :: nav"></div>
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
         <div class="text-center">

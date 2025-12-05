@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Servicios</title>
+    <title>Días Laborales</title>
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -10,8 +10,8 @@
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Servicios</h1>
-            <a th:href="@{/servicios/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nuevo servicio</a>
+            <h1 class="text-3xl font-bold text-gray-800">Días Laborales</h1>
+            <a th:href="@{/hresources/dia-laboral/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Día Laboral</a>
         </div>
         
         <div class="overflow-x-auto">
@@ -20,18 +20,18 @@
                     <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                         <th class="py-3 px-6 text-left">ID</th>
                         <th class="py-3 px-6 text-left">Nombre</th>
-                        <th class="py-3 px-6 text-left">Duración</th>
+                        <th class="py-3 px-6 text-left">Descripción</th>
                         <th class="py-3 px-6 text-left">Activo</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                    <tr th:each="s : ${servicios}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${s.idServicio}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${s.txNombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${s.nuDuracion}" class="py-3 px-6 text-left"></td>
+                    <tr th:each="d : ${diasLaborales}" class="border-b border-gray-200 hover:bg-gray-100">
+                        <td th:text="${d.idDiaLaboral}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                        <td th:text="${d.nombre}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${d.descripcion}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-left">
-                            <span th:if="${s.stActivo}" class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Activo</span>
-                            <span th:unless="${s.stActivo}" class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
+                            <span th:if="${d.activo}" class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Activo</span>
+                            <span th:unless="${d.activo}" class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
                         </td>
                     </tr>
                 </tbody>

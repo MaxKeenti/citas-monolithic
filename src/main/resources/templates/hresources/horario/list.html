@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Horarios</title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div th:replace="fragments/nav :: nav"></div>
+
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Horarios de Sucursales</h1>
+            <a th:href="@{/hresources/horario/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Horario</a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Sucursal ID</th>
+                        <th class="py-3 px-6 text-left">Día ID</th>
+                        <th class="py-3 px-6 text-left">Inicio</th>
+                        <th class="py-3 px-6 text-left">Fin</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    <tr th:each="h : ${horarios}" class="border-b border-gray-200 hover:bg-gray-100">
+                        <td th:text="${h.idSucursal}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.idDia}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.horaInicio}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.horaFin}" class="py-3 px-6 text-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

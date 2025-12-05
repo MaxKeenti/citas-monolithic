@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Sucursales</title>
+    <title>Estados Lista de Precio</title>
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -10,8 +10,8 @@
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Sucursales</h1>
-            <a th:href="@{/sucursales/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nueva sucursal</a>
+            <h1 class="text-3xl font-bold text-gray-800">Estados de Lista de Precio</h1>
+            <a th:href="@{/catalog/estado-lista-precio/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Estado</a>
         </div>
         
         <div class="overflow-x-auto">
@@ -20,14 +20,12 @@
                     <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                         <th class="py-3 px-6 text-left">ID</th>
                         <th class="py-3 px-6 text-left">Nombre</th>
-                        <th class="py-3 px-6 text-left">Establecimiento</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                    <tr th:each="s : ${sucursales}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${s.idSucursal}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${s.txNombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${s.establecimiento != null ? s.establecimiento.txNombre : ''}" class="py-3 px-6 text-left"></td>
+                    <tr th:each="e : ${estados}" class="border-b border-gray-200 hover:bg-gray-100">
+                        <td th:text="${e.idEstadoListaPrecio}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                        <td th:text="${e.nombre}" class="py-3 px-6 text-left"></td>
                     </tr>
                 </tbody>
             </table>
