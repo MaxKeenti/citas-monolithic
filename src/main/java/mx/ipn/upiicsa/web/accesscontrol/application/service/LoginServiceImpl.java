@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class LoginBs implements LoginService {
+public class LoginServiceImpl implements LoginService {
     @Autowired
     private LoginRepository loginRepository;
 
     public Either<Integer, Persona> login(LoginDto login) {
         var resultadoLogin = loginRepository.findByLoginAndPassword(login.getUsername(), login.getPassword());
         Either<Integer, Persona> resultado;
-        if(resultadoLogin.isPresent()) {
+        if (resultadoLogin.isPresent()) {
             var persona = resultadoLogin.get();
             log.info("El usuario {} se autenticó exitosamente", login.getUsername());
-            if(!persona.getUsuario().getActivo()) {
+            if (!persona.getUsuario().getActivo()) {
                 resultado = Either.left(2);
             } else {
                 resultado = Either.right(persona);
