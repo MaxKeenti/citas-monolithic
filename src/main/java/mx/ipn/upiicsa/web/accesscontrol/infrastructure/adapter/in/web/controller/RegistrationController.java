@@ -7,10 +7,7 @@ import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.dto.Regist
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.RolJpa;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.UsuarioJpa;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.GeneroJpaRepository;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.PersonaJpaRepository;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.RolJpaRepository;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.UsuarioJpaRepository;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,15 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final PersonaJpaRepository personaJpaRepository;
-    private final UsuarioJpaRepository usuarioJpaRepository;
-    private final RolJpaRepository rolJpaRepository;
-    private final GeneroJpaRepository generoJpaRepository;
+    private final mx.ipn.upiicsa.web.accesscontrol.application.port.in.PersonaService personaService;
+    private final mx.ipn.upiicsa.web.accesscontrol.application.port.in.UsuarioService usuarioService;
+    private final mx.ipn.upiicsa.web.accesscontrol.application.port.in.RolService rolService;
+    private final mx.ipn.upiicsa.web.accesscontrol.application.port.in.GeneroService generoService;
 
     @GetMapping
     public String registerForm(Model model) {
         model.addAttribute("registrationForm", new RegistrationForm());
-        model.addAttribute("generos", generoJpaRepository.findAll());
+        model.addAttribute("generos", generoService.findAll());
         return "accesscontrol/login/register";
     }
 
@@ -41,7 +38,7 @@ public class RegistrationController {
     public String register(@Valid @ModelAttribute("registrationForm") RegistrationForm form, BindingResult br,
             Model model) {
         if (br.hasErrors()) {
-            model.addAttribute("generos", generoJpaRepository.findAll());
+            model.addAttribute("generos", generoService.findAll());
             return "accesscontrol/login/register";
         }
 
@@ -52,10 +49,11 @@ public class RegistrationController {
         p.setPrimerApellido(form.getPrimerApellido());
         p.setSegundoApellido(form.getSegundoApellido());
         p.setFechaNacimiento(form.getFechaNacimiento());
-        p = personaJpaRepository.save(p);
+        p.setFechaNacimiento(form.getFechaNacimiento());
+        p = personaService.save(p);
 
         // 2. Find Role 'cliente'
-        RolJpa rolCliente = rolJpaRepository.findById(3)
+        RolJpa rolCliente = rolService.findById(3)
                 .orElseThrow(() -> new RuntimeException("Role 'cliente' not found"));
 
         // 3. Create Usuario
@@ -65,7 +63,7 @@ public class RegistrationController {
         u.setLogin(form.getLogin());
         u.setPassword(form.getPassword());
         u.setActivo(true);
-        usuarioJpaRepository.save(u);
+        usuarioService.save(u);
 
         log.info("Registered new client: {}", form.getLogin());
 
