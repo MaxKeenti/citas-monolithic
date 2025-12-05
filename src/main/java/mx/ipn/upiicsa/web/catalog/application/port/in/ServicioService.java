@@ -7,4 +7,8 @@ public interface ServicioService {
     List<ServicioJpa> findAll();
 
     ServicioJpa save(ServicioJpa servicio);
+
+    java.util.Optional<ServicioJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

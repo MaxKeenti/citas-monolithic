@@ -18,8 +18,27 @@ public class HorarioServiceImpl implements HorarioService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public HorarioJpa save(HorarioJpa horario) {
-        return horarioJpaRepository.save(horario);
+        if (horario == null) {
+            throw new IllegalArgumentException("horario cannot be null");
+        }
+        HorarioJpa saved = horarioJpaRepository.save(horario);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<HorarioJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return horarioJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        horarioJpaRepository.deleteById(id);
     }
 }

@@ -18,8 +18,27 @@ public class BloqueCitaServiceImpl implements BloqueCitaService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public BloqueCitaJpa save(BloqueCitaJpa bloqueCita) {
-        return bloqueCitaJpaRepository.save(bloqueCita);
+        if (bloqueCita == null) {
+            throw new IllegalArgumentException("bloqueCita cannot be null");
+        }
+        BloqueCitaJpa saved = bloqueCitaJpaRepository.save(bloqueCita);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<BloqueCitaJpa> findById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return bloqueCitaJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        bloqueCitaJpaRepository.deleteById(id);
     }
 }

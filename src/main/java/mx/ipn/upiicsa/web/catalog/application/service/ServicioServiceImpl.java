@@ -20,8 +20,27 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public ServicioJpa save(ServicioJpa servicio) {
-        return servicioJpaRepository.save(servicio);
+        if (servicio == null) {
+            throw new IllegalArgumentException("servicio cannot be null");
+        }
+        ServicioJpa saved = servicioJpaRepository.save(servicio);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<ServicioJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return servicioJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        servicioJpaRepository.deleteById(id);
     }
 }

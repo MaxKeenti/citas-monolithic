@@ -7,4 +7,8 @@ public interface CitaService {
     List<CitaJpa> findAll();
 
     CitaJpa save(CitaJpa cita);
+
+    java.util.Optional<CitaJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

@@ -20,8 +20,26 @@ public class CitaServiceImpl implements CitaService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public CitaJpa save(CitaJpa cita) {
+        if (cita == null) {
+            throw new IllegalArgumentException("cita cannot be null");
+        }
         return citaJpaRepository.save(cita);
+    }
+
+    @Override
+    public java.util.Optional<CitaJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return citaJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        citaJpaRepository.deleteById(id);
     }
 }

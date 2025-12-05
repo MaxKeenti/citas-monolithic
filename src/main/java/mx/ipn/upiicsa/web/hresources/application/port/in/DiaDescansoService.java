@@ -7,4 +7,8 @@ public interface DiaDescansoService {
     List<DiaDescansoJpa> findAll();
 
     DiaDescansoJpa save(DiaDescansoJpa diaDescanso);
+
+    java.util.Optional<DiaDescansoJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

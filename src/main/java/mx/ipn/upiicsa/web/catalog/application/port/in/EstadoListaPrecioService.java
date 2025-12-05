@@ -7,4 +7,8 @@ public interface EstadoListaPrecioService {
     List<EstadoListaPrecioJpa> findAll();
 
     EstadoListaPrecioJpa save(EstadoListaPrecioJpa estadoListaPrecio);
+
+    java.util.Optional<EstadoListaPrecioJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

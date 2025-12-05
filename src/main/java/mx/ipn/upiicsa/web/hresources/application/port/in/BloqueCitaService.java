@@ -7,4 +7,8 @@ public interface BloqueCitaService {
     List<BloqueCitaJpa> findAll();
 
     BloqueCitaJpa save(BloqueCitaJpa bloqueCita);
+
+    java.util.Optional<BloqueCitaJpa> findById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id);
+
+    void deleteById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id);
 }

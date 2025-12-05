@@ -7,4 +7,8 @@ public interface EmpleadoHorarioService {
     List<EmpleadoHorarioJpa> findAll();
 
     EmpleadoHorarioJpa save(EmpleadoHorarioJpa empleadoHorario);
+
+    java.util.Optional<EmpleadoHorarioJpa> findById(mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id);
+
+    void deleteById(mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id);
 }

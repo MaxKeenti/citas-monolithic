@@ -18,8 +18,27 @@ public class DiaLaboralServiceImpl implements DiaLaboralService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public DiaLaboralJpa save(DiaLaboralJpa diaLaboral) {
-        return diaLaboralJpaRepository.save(diaLaboral);
+        if (diaLaboral == null) {
+            throw new IllegalArgumentException("diaLaboral cannot be null");
+        }
+        DiaLaboralJpa saved = diaLaboralJpaRepository.save(diaLaboral);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<DiaLaboralJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return diaLaboralJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        diaLaboralJpaRepository.deleteById(id);
     }
 }

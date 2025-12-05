@@ -18,8 +18,27 @@ public class EstadoListaPrecioServiceImpl implements EstadoListaPrecioService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public EstadoListaPrecioJpa save(EstadoListaPrecioJpa estadoListaPrecio) {
-        return estadoListaPrecioJpaRepository.save(estadoListaPrecio);
+        if (estadoListaPrecio == null) {
+            throw new IllegalArgumentException("estadoListaPrecio cannot be null");
+        }
+        EstadoListaPrecioJpa saved = estadoListaPrecioJpaRepository.save(estadoListaPrecio);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<EstadoListaPrecioJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return estadoListaPrecioJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        estadoListaPrecioJpaRepository.deleteById(id);
     }
 }

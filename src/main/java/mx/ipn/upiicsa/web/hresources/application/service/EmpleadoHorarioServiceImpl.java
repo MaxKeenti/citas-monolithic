@@ -18,8 +18,27 @@ public class EmpleadoHorarioServiceImpl implements EmpleadoHorarioService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public EmpleadoHorarioJpa save(EmpleadoHorarioJpa empleadoHorario) {
-        return empleadoHorarioJpaRepository.save(empleadoHorario);
+        if (empleadoHorario == null) {
+            throw new IllegalArgumentException("empleadoHorario cannot be null");
+        }
+        EmpleadoHorarioJpa saved = empleadoHorarioJpaRepository.save(empleadoHorario);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<EmpleadoHorarioJpa> findById(mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return empleadoHorarioJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        empleadoHorarioJpaRepository.deleteById(id);
     }
 }

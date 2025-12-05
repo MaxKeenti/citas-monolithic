@@ -20,8 +20,27 @@ public class SucursalServiceImpl implements SucursalService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public SucursalJpa save(SucursalJpa sucursal) {
-        return sucursalJpaRepository.save(sucursal);
+        if (sucursal == null) {
+            throw new IllegalArgumentException("sucursal cannot be null");
+        }
+        SucursalJpa saved = sucursalJpaRepository.save(sucursal);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<SucursalJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return sucursalJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        sucursalJpaRepository.deleteById(id);
     }
 }

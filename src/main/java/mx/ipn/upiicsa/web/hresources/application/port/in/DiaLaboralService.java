@@ -7,4 +7,8 @@ public interface DiaLaboralService {
     List<DiaLaboralJpa> findAll();
 
     DiaLaboralJpa save(DiaLaboralJpa diaLaboral);
+
+    java.util.Optional<DiaLaboralJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

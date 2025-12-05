@@ -18,8 +18,27 @@ public class DiaDescansoServiceImpl implements DiaDescansoService {
     }
 
     @Override
-    @SuppressWarnings("null")
     public DiaDescansoJpa save(DiaDescansoJpa diaDescanso) {
-        return diaDescansoJpaRepository.save(diaDescanso);
+        if (diaDescanso == null) {
+            throw new IllegalArgumentException("diaDescanso cannot be null");
+        }
+        DiaDescansoJpa saved = diaDescansoJpaRepository.save(diaDescanso);
+        return saved;
+    }
+
+    @Override
+    public java.util.Optional<DiaDescansoJpa> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        return diaDescansoJpaRepository.findById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
+        diaDescansoJpaRepository.deleteById(id);
     }
 }

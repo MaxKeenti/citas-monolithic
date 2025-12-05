@@ -7,4 +7,8 @@ public interface HorarioService {
     List<HorarioJpa> findAll();
 
     HorarioJpa save(HorarioJpa horario);
+
+    java.util.Optional<HorarioJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }

@@ -7,4 +7,8 @@ public interface SucursalService {
     List<SucursalJpa> findAll();
 
     SucursalJpa save(SucursalJpa sucursal);
+
+    java.util.Optional<SucursalJpa> findById(Integer id);
+
+    void deleteById(Integer id);
 }
