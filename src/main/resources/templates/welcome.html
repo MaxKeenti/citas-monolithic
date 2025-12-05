@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Menú principal de administrador</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/output.css" />
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <div th:replace="~{fragments/nav :: nav}"></div>
+    <div th:replace="~{fragments/nav :: main(activeModule='')}"></div>
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
         <div class="text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenido</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">¡Te damos la bienvenida!</h1>
             <p class="text-xl text-gray-600">
                 Hola, <span th:text="${persona.nombre}" class="font-semibold text-blue-600"></span> 
                 <span th:text="${persona.primerApellido}" class="font-semibold text-blue-600"></span> 
