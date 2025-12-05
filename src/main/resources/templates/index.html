@@ -19,16 +19,16 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2 required">Usuario</label>
-                <input type="text" name="username" th:field="*{username}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" name="username" th:field="*{username}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-red-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
-                <input type="password" name="password" th:field="*{password}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="password" name="password" th:field="*{password}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-500 text-xs italic mt-1"></p>
             </div>
             <div class="flex items-center justify-between flex-col gap-4">
-                <input type="submit" value="Ingresar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer">
+                <input type="submit" value="Ingresar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer" />
                 <a href="/register" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                     ¿No tienes cuenta? Regístrate aquí
                 </a>
