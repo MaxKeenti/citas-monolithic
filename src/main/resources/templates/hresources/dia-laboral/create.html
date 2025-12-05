@@ -7,11 +7,11 @@
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <!-- 1. Main Navigation -->
-    <div th:replace="fragments/nav :: main(activeModule='hresources')"></div>
+    <div th:replace="~{fragments/nav :: main(activeModule='hresources')}"></div>
 
     <div class="container mx-auto mt-10">
         <!-- 2. Secondary Tabs -->
-        <div th:replace="fragments/tabs :: hresources(activeTab='dia-laboral')"></div>
+        <div th:replace="~{fragments/tabs :: hresources(activeTab='dia-laboral')}"></div>
 
         <!-- 3. Content Card -->
         <div class="p-6 bg-white rounded-b-lg shadow-lg rounded-tr-lg border border-gray-200">
