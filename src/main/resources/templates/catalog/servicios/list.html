@@ -17,7 +17,7 @@
         <div class="p-6 bg-white rounded-b-lg shadow-lg rounded-tr-lg border border-gray-200">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Servicios</h1>
-            <a th:href="@{/servicios/create}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear nuevo servicio</a>
+            <a th:href="@{/servicios/create}" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Crear nuevo servicio</a>
         </div>
         
         <div class="overflow-x-auto">
@@ -36,8 +36,8 @@
                         <td th:text="${s.txNombre}" class="py-3 px-6 text-left"></td>
                         <td th:text="${s.nuDuracion}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-left">
-                            <span th:if="${s.stActivo}" class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Activo</span>
-                            <span th:unless="${s.stActivo}" class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
+                            <span th:if="${s.stActivo}" class="bg-teal-200 text-teal-600 py-1 px-3 rounded-full text-xs">Activo</span>
+                            <span th:unless="${s.stActivo}" class="bg-rose-200 text-rose-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
                         </td>
                     </tr>
                 </tbody>
