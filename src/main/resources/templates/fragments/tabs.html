@@ -44,6 +44,10 @@
 
     <!-- HR Tabs -->
     <div th:fragment="hresources(activeTab)" class="flex border-b border-gray-200 overflow-x-auto">
+        <a href="/hresources/establecimiento/list" 
+           th:class="${activeTab == 'establecimiento' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold whitespace-nowrap'}">
+           Establecimientos
+        </a>
         <a href="/sucursales/list" 
            th:class="${activeTab == 'sucursales' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold whitespace-nowrap' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold whitespace-nowrap'}">
            Sucursales

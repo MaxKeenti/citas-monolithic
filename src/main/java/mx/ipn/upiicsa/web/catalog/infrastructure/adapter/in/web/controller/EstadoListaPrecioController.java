@@ -29,8 +29,49 @@ public class EstadoListaPrecioController {
     @PostMapping("/create")
     public String create(@ModelAttribute EstadoListaPrecioForm form) {
         EstadoListaPrecioJpa estado = new EstadoListaPrecioJpa();
+        saveEstado(estado, form);
+        return "redirect:/catalog/estado-lista-precio/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable Integer id, Model model) {
+        return estadoListaPrecioService.findById(id)
+                .map(estado -> {
+                    EstadoListaPrecioForm form = new EstadoListaPrecioForm();
+                    form.setId(estado.getId());
+                    form.setNombre(estado.getNombre());
+                    model.addAttribute("estadoListaPrecioForm", form);
+                    return "catalog/estado-lista-precio/edit";
+                })
+                .orElse("redirect:/catalog/estado-lista-precio/list");
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute EstadoListaPrecioForm form) {
+        EstadoListaPrecioJpa estado = new EstadoListaPrecioJpa();
+        estado.setId(form.getId());
+        saveEstado(estado, form);
+        return "redirect:/catalog/estado-lista-precio/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConfirmation(@PathVariable Integer id, Model model) {
+        return estadoListaPrecioService.findById(id)
+                .map(estado -> {
+                    model.addAttribute("estado", estado);
+                    return "catalog/estado-lista-precio/delete";
+                })
+                .orElse("redirect:/catalog/estado-lista-precio/list");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam Integer id) {
+        estadoListaPrecioService.deleteById(id);
+        return "redirect:/catalog/estado-lista-precio/list";
+    }
+
+    private void saveEstado(EstadoListaPrecioJpa estado, EstadoListaPrecioForm form) {
         estado.setNombre(form.getNombre());
         estadoListaPrecioService.save(estado);
-        return "redirect:/catalog/estado-lista-precio/list";
     }
 }

@@ -55,25 +55,63 @@ public class CitaController {
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            model.addAttribute("personas", personaJpaRepository.findAll());
-            model.addAttribute("servicios", servicioJpaRepository.findAll());
-            model.addAttribute("sucursales", sucursalJpaRepository.findAll());
-            model.addAttribute("empleados", empleadoJpaRepository.findAll());
-            if (form.getIdServicio() != null) {
-                model.addAttribute("listas",
-                        servicioListaPrecioJpaRepository.findByFkIdServicio(form.getIdServicio()).stream()
-                                .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
-                                .filter(Objects::nonNull)
-                                .map(listaPrecioJpaRepository::findById)
-                                .flatMap(Optional::stream)
-                                .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
-                                .collect(Collectors.toList()));
-            } else {
-                model.addAttribute("listas", List.of());
-            }
+            populateModel(model, form.getIdServicio());
             return "appointment/citas/create";
         }
         CitaJpa c = new CitaJpa();
+        saveCita(c, form);
+        return "redirect:/citas/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return citaService.findById(id)
+                .map(cita -> {
+                    CitaForm form = new CitaForm();
+                    form.setId(cita.getIdCita());
+                    form.setIdPersona(cita.getFkIdPersona());
+                    form.setIdServicio(cita.getFkIdServicio());
+                    form.setIdListaPrecio(cita.getFkIdListaPrecio());
+                    form.setIdSucursal(cita.getFkIdSucursal());
+                    form.setIdEmpleado(cita.getFkIdEmpleado());
+                    form.setFechaHora(cita.getFechaHora());
+
+                    model.addAttribute("citaForm", form);
+                    populateModel(model, cita.getFkIdServicio());
+                    return "appointment/citas/edit";
+                })
+                .orElse("redirect:/citas/list");
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
+        if (br.hasErrors()) {
+            populateModel(model, form.getIdServicio());
+            return "appointment/citas/edit";
+        }
+        CitaJpa c = new CitaJpa();
+        c.setIdCita(form.getId());
+        saveCita(c, form);
+        return "redirect:/citas/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return citaService.findById(id)
+                .map(cita -> {
+                    model.addAttribute("cita", cita);
+                    return "appointment/citas/delete";
+                })
+                .orElse("redirect:/citas/list");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
+        citaService.deleteById(id);
+        return "redirect:/citas/list";
+    }
+
+    private void saveCita(CitaJpa c, CitaForm form) {
         c.setFkIdPersona(form.getIdPersona());
         c.setFkIdServicio(form.getIdServicio());
         c.setFkIdListaPrecio(form.getIdListaPrecio());
@@ -81,7 +119,26 @@ public class CitaController {
         c.setFkIdEmpleado(form.getIdEmpleado());
         c.setFechaHora(form.getFechaHora());
         citaService.save(c);
-        return "redirect:/citas/list";
+    }
+
+    private void populateModel(Model model, Integer idServicio) {
+        model.addAttribute("personas", personaJpaRepository.findAll());
+        model.addAttribute("servicios", servicioJpaRepository.findAll());
+        model.addAttribute("sucursales", sucursalJpaRepository.findAll());
+        model.addAttribute("empleados", empleadoJpaRepository.findAll());
+
+        if (idServicio != null) {
+            model.addAttribute("listas",
+                    servicioListaPrecioJpaRepository.findByFkIdServicio(idServicio).stream()
+                            .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
+                            .filter(Objects::nonNull)
+                            .map(listaPrecioJpaRepository::findById)
+                            .flatMap(Optional::stream)
+                            .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
+                            .collect(Collectors.toList()));
+        } else {
+            model.addAttribute("listas", List.of());
+        }
     }
 
     @GetMapping("/list")

@@ -33,12 +33,59 @@ public class ServicioController {
             return "catalog/servicios/create";
         }
         ServicioJpa s = new ServicioJpa();
-        s.setNombre(form.getNombre());
+        saveServicio(s, form);
+        return "redirect:/servicios/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return servicioService.findById(id)
+                .map(servicio -> {
+                    ServicioForm form = new ServicioForm();
+                    form.setId(servicio.getIdServicio());
+                    form.setNombre(servicio.getTxNombre());
+                    form.setDescripcion(servicio.getDescripcion());
+                    form.setDuracion(servicio.getNuDuracion());
+                    form.setActivo(servicio.getStActivo());
+                    model.addAttribute("servicioForm", form);
+                    return "catalog/servicios/edit";
+                })
+                .orElse("redirect:/servicios/list");
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("servicioForm") ServicioForm form, BindingResult br, Model model) {
+        if (br.hasErrors()) {
+            return "catalog/servicios/edit";
+        }
+        ServicioJpa s = new ServicioJpa();
+        s.setIdServicio(form.getId());
+        saveServicio(s, form);
+        return "redirect:/servicios/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return servicioService.findById(id)
+                .map(servicio -> {
+                    model.addAttribute("servicio", servicio);
+                    return "catalog/servicios/delete";
+                })
+                .orElse("redirect:/servicios/list");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
+        servicioService.deleteById(id);
+        return "redirect:/servicios/list";
+    }
+
+    private void saveServicio(ServicioJpa s, ServicioForm form) {
+        s.setTxNombre(form.getNombre());
         s.setDescripcion(form.getDescripcion());
         s.setNuDuracion(form.getDuracion());
         s.setStActivo(form.getActivo());
         servicioService.save(s);
-        return "redirect:/servicios/list";
     }
 
     @GetMapping("/list")

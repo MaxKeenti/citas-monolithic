@@ -39,6 +39,58 @@ public class SucursalController {
             return "hresources/sucursales/create";
         }
         SucursalJpa s = new SucursalJpa();
+        saveSucursal(s, form);
+        return "redirect:/sucursales/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return sucursalService.findById(id)
+                .map(sucursal -> {
+                    SucursalForm form = new SucursalForm();
+                    form.setId(sucursal.getIdSucursal());
+                    form.setIdEstablecimiento(sucursal.getFkIdEstablecimiento());
+                    form.setNombre(sucursal.getTxNombre());
+                    if (sucursal.getGmUbicacion() != null) {
+                        form.setLatitud(sucursal.getGmUbicacion().getY());
+                        form.setLongitud(sucursal.getGmUbicacion().getX());
+                    }
+                    model.addAttribute("sucursalForm", form);
+                    model.addAttribute("establecimientos", establecimientoJpaRepository.findAll());
+                    return "hresources/sucursales/edit";
+                })
+                .orElse("redirect:/sucursales/list");
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("sucursalForm") SucursalForm form, BindingResult br, Model model) {
+        if (br.hasErrors()) {
+            model.addAttribute("establecimientos", establecimientoJpaRepository.findAll());
+            return "hresources/sucursales/edit";
+        }
+        SucursalJpa s = new SucursalJpa();
+        s.setIdSucursal(form.getId());
+        saveSucursal(s, form);
+        return "redirect:/sucursales/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+        return sucursalService.findById(id)
+                .map(sucursal -> {
+                    model.addAttribute("sucursal", sucursal);
+                    return "hresources/sucursales/delete";
+                })
+                .orElse("redirect:/sucursales/list");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
+        sucursalService.deleteById(id);
+        return "redirect:/sucursales/list";
+    }
+
+    private void saveSucursal(SucursalJpa s, SucursalForm form) {
         s.setFkIdEstablecimiento(form.getIdEstablecimiento());
         s.setTxNombre(form.getNombre());
 
@@ -49,7 +101,6 @@ public class SucursalController {
         s.setGmUbicacion(point);
 
         sucursalService.save(s);
-        return "redirect:/sucursales/list";
     }
 
     @GetMapping("/list")

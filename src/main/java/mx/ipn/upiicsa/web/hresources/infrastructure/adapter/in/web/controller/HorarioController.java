@@ -29,11 +29,55 @@ public class HorarioController {
     @PostMapping("/create")
     public String create(@ModelAttribute HorarioForm form) {
         HorarioJpa horario = new HorarioJpa();
+        saveHorario(horario, form);
+        return "redirect:/hresources/horario/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable Integer id, Model model) {
+        return horarioService.findById(id)
+                .map(horario -> {
+                    HorarioForm form = new HorarioForm();
+                    form.setId(horario.getId());
+                    form.setIdSucursal(horario.getIdSucursal());
+                    form.setIdDia(horario.getIdDia());
+                    form.setHoraInicio(horario.getHoraInicio());
+                    form.setHoraFin(horario.getHoraFin());
+                    model.addAttribute("horarioForm", form);
+                    return "hresources/horario/edit";
+                })
+                .orElse("redirect:/hresources/horario/list");
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute HorarioForm form) {
+        HorarioJpa horario = new HorarioJpa();
+        horario.setId(form.getId());
+        saveHorario(horario, form);
+        return "redirect:/hresources/horario/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConfirmation(@PathVariable Integer id, Model model) {
+        return horarioService.findById(id)
+                .map(horario -> {
+                    model.addAttribute("horario", horario);
+                    return "hresources/horario/delete";
+                })
+                .orElse("redirect:/hresources/horario/list");
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam Integer id) {
+        horarioService.deleteById(id);
+        return "redirect:/hresources/horario/list";
+    }
+
+    private void saveHorario(HorarioJpa horario, HorarioForm form) {
         horario.setIdSucursal(form.getIdSucursal());
         horario.setIdDia(form.getIdDia());
         horario.setHoraInicio(form.getHoraInicio());
         horario.setHoraFin(form.getHoraFin());
         horarioService.save(horario);
-        return "redirect:/hresources/horario/list";
     }
 }
