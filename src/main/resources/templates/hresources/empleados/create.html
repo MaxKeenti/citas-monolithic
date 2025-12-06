@@ -22,14 +22,14 @@
                 <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
                 </select>
-                <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}" class="text-red-500 text-xs italic mt-1"></p>
+                <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Sucursal</label>
                 <select th:field="*{idSucursal}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
                 </select>
-                <p th:if="${#fields.hasErrors('idSucursal')}" th:errors="*{idSucursal}" class="text-red-500 text-xs italic mt-1"></p>
+                <p th:if="${#fields.hasErrors('idSucursal')}" th:errors="*{idSucursal}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear</button>
