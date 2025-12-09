@@ -1,6 +1,9 @@
 package mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.controller;
 
 import jakarta.validation.Valid;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.dto.RegistrationForm;
@@ -37,6 +40,20 @@ public class RegistrationController {
     @PostMapping
     public String register(@Valid @ModelAttribute("registrationForm") RegistrationForm form, BindingResult br,
             Model model) {
+        // Password Validation
+        if (form.getPassword() != null) {
+            if (!form.getPassword().equals(form.getConfirmPassword())) {
+                br.rejectValue("confirmPassword", "error.registrationForm", "Las contraseñas no coinciden");
+            }
+            if (form.getPassword().length() <= 8) {
+                br.rejectValue("password", "error.registrationForm", "La contraseña debe tener más de 8 caracteres");
+            }
+            if (!form.getPassword().matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+                br.rejectValue("password", "error.registrationForm",
+                        "La contraseña debe tener al menos un carácter especial");
+            }
+        }
+
         if (br.hasErrors()) {
             model.addAttribute("generos", generoService.findAll());
             return "accesscontrol/login/register";
@@ -61,12 +78,22 @@ public class RegistrationController {
         u.setId(p.getId()); // OneToOne shared PK
         u.setIdRol(rolCliente.getId());
         u.setLogin(form.getLogin());
-        u.setPassword(form.getPassword());
+        u.setPassword(encodePassword(form.getPassword()));
         u.setActivo(true);
         usuarioService.save(u);
 
         log.info("Registered new client: {}", form.getLogin());
 
         return "redirect:/?registered=true";
+    }
+
+    private String encodePassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] digest = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(digest);
+        } catch (Exception e) {
+            throw new RuntimeException("Error encoding password", e);
+        }
     }
 }

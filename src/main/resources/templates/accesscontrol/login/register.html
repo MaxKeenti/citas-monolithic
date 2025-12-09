@@ -18,26 +18,26 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Nombre</label>
-                        <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Nombre">
                         <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-rose-500 text-xs italic mt-1"></p>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Primer Apellido</label>
-                        <input type="text" th:field="*{primerApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="text" th:field="*{primerApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Primer Apellido">
                         <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="text-rose-500 text-xs italic mt-1"></p>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Segundo Apellido</label>
-                        <input type="text" th:field="*{segundoApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="text" th:field="*{segundoApellido}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Segundo Apellido">
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Fecha de Nacimiento</label>
-                        <input type="date" th:field="*{fechaNacimiento}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="date" th:field="*{fechaNacimiento}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Fecha de Nacimiento">
                         <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="text-rose-500 text-xs italic mt-1"></p>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Género</label>
-                        <select th:field="*{idGenero}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <select th:field="*{idGenero}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Género">
                             <option value="">Seleccione...</option>
                             <option th:each="g : ${generos}" th:value="${g.id}" th:text="${g.nombre}"></option>
                         </select>
@@ -52,13 +52,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Correo Electrónico (Login)</label>
-                        <input type="email" th:field="*{login}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="email" th:field="*{login}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Correo Electrónico (Login)">
                         <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="text-rose-500 text-xs italic mt-1"></p>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2 required">Contraseña</label>
-                        <input type="password" th:field="*{password}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <input type="password" th:field="*{password}" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Contraseña">
                         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-rose-500 text-xs italic mt-1"></p>
+                        <ul id="passwordCriteria" class="text-xs text-gray-500 mt-1 list-disc list-inside hidden">
+                            <li id="lengthCheck">Más de 8 caracteres</li>
+                            <li id="specialCheck">Al menos un carácter especial</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 required">Confirmar Contraseña</label>
+                        <input type="password" th:field="*{confirmPassword}" id="confirmPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="Confirmar Contraseña">
+                        <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="text-rose-500 text-xs italic mt-1"></p>
+                        <p id="matchError" class="text-rose-500 text-xs italic mt-1 hidden">Las contraseñas no coinciden</p>
                     </div>
                 </div>
             </div>
@@ -73,5 +83,64 @@
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirmPassword');
+            const criteriaList = document.getElementById('passwordCriteria');
+            const lengthCheck = document.getElementById('lengthCheck');
+            const specialCheck = document.getElementById('specialCheck');
+            const matchError = document.getElementById('matchError');
+
+            function validatePassword() {
+                const password = passwordInput.value;
+                criteriaList.classList.remove('hidden');
+                
+                // Length check
+                if (password.length > 8) {
+                    lengthCheck.classList.remove('text-rose-500');
+                    lengthCheck.classList.add('text-teal-500');
+                } else {
+                    lengthCheck.classList.remove('text-teal-500');
+                    lengthCheck.classList.add('text-rose-500');
+                }
+
+                // Special char check
+                if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
+                    specialCheck.classList.remove('text-rose-500');
+                    specialCheck.classList.add('text-teal-500');
+                } else {
+                    specialCheck.classList.remove('text-teal-500');
+                    specialCheck.classList.add('text-rose-500');
+                }
+            }
+
+            function validateMatch() {
+                const password = passwordInput.value;
+                const confirm = confirmInput.value;
+                
+                if (confirm.length > 0) {
+                    if (password !== confirm) {
+                        matchError.classList.remove('hidden');
+                        confirmInput.classList.add('border-rose-500');
+                    } else {
+                        matchError.classList.add('hidden');
+                        confirmInput.classList.remove('border-rose-500');
+                        confirmInput.classList.add('border-teal-500');
+                    }
+                } else {
+                    matchError.classList.add('hidden');
+                    confirmInput.classList.remove('border-rose-500', 'border-teal-500');
+                }
+            }
+
+            passwordInput.addEventListener('input', function() {
+                validatePassword();
+                validateMatch();
+            });
+
+            confirmInput.addEventListener('input', validateMatch);
+        });
+    </script>
 </body>
 </html>
