@@ -1,3 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE TABLE cca01_genero (id_genero int4 NOT NULL, tx_nombre varchar(50) NOT NULL, tx_descripcion varchar(255) NOT NULL, st_activo bool NOT NULL, PRIMARY KEY (id_genero));
 CREATE TABLE cca02_rol (id_rol int4 NOT NULL, tx_nombre varchar(50) NOT NULL, tx_descripcion varchar(255) NOT NULL, st_activo bool NOT NULL, PRIMARY KEY (id_rol));
 CREATE TABLE cci01_servicio (id_servicio int4 NOT NULL, tx_nombre varchar(50) NOT NULL, tx_descripcion varchar(255) NOT NULL, st_activo int4 NOT NULL, nu_duracion int4 NOT NULL, PRIMARY KEY (id_servicio));
@@ -35,5 +36,3 @@ ALTER TABLE tce05_dia_descanso ADD CONSTRAINT FKtce05_dia_792374 FOREIGN KEY (fk
 ALTER TABLE tce07_bloque_cita ADD CONSTRAINT FKtce07_bloq663954 FOREIGN KEY (fk_id_cita) REFERENCES tci05_cita (id_cita);
 ALTER TABLE tci05_cita ADD CONSTRAINT FKtci05_cita867560 FOREIGN KEY (fk_id_empleado) REFERENCES tce03_empleado (id_empleado);
 ALTER TABLE tce03_empleado ADD CONSTRAINT FKtce03_empl771275 FOREIGN KEY (fk_id_sucursal) REFERENCES tce02_sucursal (id_sucursal);
-
-CREATE EXTENSION postgis;

@@ -1,3 +1,13 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!mvnw
+*.cmd
+.git
+.gitignore
+*.md
+.vscode
+node_modules
+.DS_Store
 # Include any files or directories that you don't want to be copied to your
 # container here (e.g., local build artifacts, temporary files, etc.).
 #
