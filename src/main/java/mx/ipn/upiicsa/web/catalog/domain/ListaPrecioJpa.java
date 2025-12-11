@@ -1,7 +1,11 @@
 package mx.ipn.upiicsa.web.catalog.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDateTime; // Correct import for timestamp
+import org.springframework.format.annotation.DateTimeFormat; // For binding
 
+@Data
 @Entity
 @Table(name = "tci03_lista_precio")
 public class ListaPrecioJpa {
@@ -10,17 +14,21 @@ public class ListaPrecioJpa {
     @Column(name = "id_lista_precio")
     private Integer idListaPrecio;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_id_estado")
+    private EstadoListaPrecioJpa estado;
+
     @Column(name = "tx_nombre")
     private String txNombre;
 
+    @Column(name = "fh_inicio")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime fhInicio;
+
+    @Column(name = "fh_fin")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime fhFin;
+
     @Column(name = "st_activo")
     private Boolean stActivo;
-
-    // getters/setters
-    public Integer getIdListaPrecio() { return idListaPrecio; }
-    public void setIdListaPrecio(Integer idListaPrecio) { this.idListaPrecio = idListaPrecio; }
-    public String getTxNombre() { return txNombre; }
-    public void setTxNombre(String txNombre) { this.txNombre = txNombre; }
-    public Boolean getStActivo() { return stActivo; }
-    public void setStActivo(Boolean stActivo) { this.stActivo = stActivo; }
 }

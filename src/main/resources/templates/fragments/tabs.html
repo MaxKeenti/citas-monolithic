@@ -16,6 +16,14 @@
            th:class="${activeTab == 'personas' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
            Personas
         </a>
+        <a href="/generos/list" 
+           th:class="${activeTab == 'generos' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
+           Géneros
+        </a>
+        <a href="/roles/list" 
+           th:class="${activeTab == 'roles' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
+           Roles
+        </a>
     </div>
 
     <!-- Appointment Tabs -->
@@ -39,6 +47,14 @@
         <a href="/catalog/estado-lista-precio/list" 
            th:class="${activeTab == 'estadalistaprecio' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
            Estados de Precio
+        </a>
+        <a href="/listas-precio/list" 
+           th:class="${activeTab == 'listas-precio' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
+           Listas de Precio
+        </a>
+        <a href="/servicio-lista-precios/list" 
+           th:class="${activeTab == 'servicio-lista-precios' ? '-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold' : 'mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold'}">
+           Precios por Servicio
         </a>
     </div>
 

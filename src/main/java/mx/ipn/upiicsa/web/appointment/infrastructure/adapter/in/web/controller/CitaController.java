@@ -7,7 +7,7 @@ import mx.ipn.upiicsa.web.appointment.application.port.in.CitaService;
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioJpaRepository;
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioListaPrecioJpaRepository;
 import mx.ipn.upiicsa.web.catalog.domain.ServicioListaPrecioJpa;
-import mx.ipn.upiicsa.web.catalog.application.port.out.ListaPrecioJpaRepository;
+
 import mx.ipn.upiicsa.web.hresources.application.port.out.SucursalJpaRepository;
 import mx.ipn.upiicsa.web.hresources.application.port.out.EmpleadoJpaRepository;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.PersonaJpaRepository;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,7 +36,7 @@ public class CitaController {
     private final PersonaJpaRepository personaJpaRepository;
     private final ServicioJpaRepository servicioJpaRepository;
     private final ServicioListaPrecioJpaRepository servicioListaPrecioJpaRepository;
-    private final ListaPrecioJpaRepository listaPrecioJpaRepository;
+
     private final SucursalJpaRepository sucursalJpaRepository;
     private final EmpleadoJpaRepository empleadoJpaRepository;
 
@@ -129,11 +129,9 @@ public class CitaController {
 
         if (idServicio != null) {
             model.addAttribute("listas",
-                    servicioListaPrecioJpaRepository.findByFkIdServicio(idServicio).stream()
-                            .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
+                    servicioListaPrecioJpaRepository.findByServicioIdServicio(idServicio).stream()
+                            .map(ServicioListaPrecioJpa::getListaPrecio)
                             .filter(Objects::nonNull)
-                            .map(listaPrecioJpaRepository::findById)
-                            .flatMap(Optional::stream)
                             .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
                             .collect(Collectors.toList()));
         } else {
@@ -153,14 +151,12 @@ public class CitaController {
     @ResponseBody
     public List<?> listasByServicio(@RequestParam Integer servicioId) {
         // find servicio-lista entries for this servicio
-        List<ServicioListaPrecioJpa> sps = servicioListaPrecioJpaRepository.findByFkIdServicio(servicioId);
+        List<ServicioListaPrecioJpa> sps = servicioListaPrecioJpaRepository.findByServicioIdServicio(servicioId);
         // for each, load listaPrecio and filter by estado activo (we assume estado id
         // for active is known or Estado has 'st_activo')
         return sps.stream()
-                .map(ServicioListaPrecioJpa::getFkIdListaPrecio)
+                .map(ServicioListaPrecioJpa::getListaPrecio)
                 .filter(Objects::nonNull)
-                .map(listaPrecioJpaRepository::findById)
-                .flatMap(Optional::stream)
                 .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
                 .collect(Collectors.toList());
     }

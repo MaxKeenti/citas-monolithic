@@ -1,7 +1,9 @@
 package mx.ipn.upiicsa.web.catalog.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "tci02_servicio_lista_precio")
 public class ServicioListaPrecioJpa {
@@ -10,17 +12,14 @@ public class ServicioListaPrecioJpa {
     @Column(name = "id_servicio_lista_precio")
     private Integer id;
 
-    @Column(name = "fk_id_servicio")
-    private Integer fkIdServicio;
+    @ManyToOne
+    @JoinColumn(name = "fk_id_servicio")
+    private ServicioJpa servicio;
 
-    @Column(name = "fk_id_lista_precio")
-    private Integer fkIdListaPrecio;
+    @ManyToOne
+    @JoinColumn(name = "fk_id_lista_precio")
+    private ListaPrecioJpa listaPrecio;
 
-    // getters/setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public Integer getFkIdServicio() { return fkIdServicio; }
-    public void setFkIdServicio(Integer fkIdServicio) { this.fkIdServicio = fkIdServicio; }
-    public Integer getFkIdListaPrecio() { return fkIdListaPrecio; }
-    public void setFkIdListaPrecio(Integer fkIdListaPrecio) { this.fkIdListaPrecio = fkIdListaPrecio; }
+    @Column(name = "nu_precio")
+    private Integer precio;
 }
