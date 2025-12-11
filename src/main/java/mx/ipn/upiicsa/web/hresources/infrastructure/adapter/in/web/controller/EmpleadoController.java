@@ -3,9 +3,9 @@ package mx.ipn.upiicsa.web.hresources.infrastructure.adapter.in.web.controller;
 import jakarta.validation.Valid;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.repository.PersonaJpaRepository;
+import mx.ipn.upiicsa.web.hresources.application.port.in.EmpleadoService;
 import mx.ipn.upiicsa.web.hresources.domain.EmpleadoJpa;
 import mx.ipn.upiicsa.web.hresources.domain.SucursalJpa;
-import mx.ipn.upiicsa.web.hresources.application.port.out.EmpleadoJpaRepository;
 import mx.ipn.upiicsa.web.hresources.application.port.out.SucursalJpaRepository;
 import mx.ipn.upiicsa.web.hresources.infrastructure.adapter.in.web.dto.EmpleadoForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/empleados")
 public class EmpleadoController {
+
     @Autowired
-    private EmpleadoJpaRepository empleadoJpaRepository;
+    private EmpleadoService empleadoService;
+
     @Autowired
     private PersonaJpaRepository personaJpaRepository;
+
     @Autowired
     private SucursalJpaRepository sucursalJpaRepository;
 
@@ -56,7 +59,7 @@ public class EmpleadoController {
 
     @GetMapping("/edit/{id}")
     public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
-        return empleadoJpaRepository.findById(java.util.Objects.requireNonNull(id))
+        return empleadoService.findById(java.util.Objects.requireNonNull(id))
                 .map(empleado -> {
                     EmpleadoForm form = new EmpleadoForm();
                     form.setIdPersona(empleado.getIdEmpleado());
@@ -83,7 +86,7 @@ public class EmpleadoController {
 
     @GetMapping("/delete/{id}")
     public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
-        return empleadoJpaRepository.findById(java.util.Objects.requireNonNull(id))
+        return empleadoService.findById(java.util.Objects.requireNonNull(id))
                 .map(empleado -> {
                     model.addAttribute("empleado", empleado);
                     return "hresources/empleados/delete";
@@ -93,19 +96,19 @@ public class EmpleadoController {
 
     @PostMapping("/delete")
     public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
-        empleadoJpaRepository.deleteById(java.util.Objects.requireNonNull(id));
+        empleadoService.deleteById(java.util.Objects.requireNonNull(id));
         return "redirect:/empleados/list";
     }
 
     private void saveEmpleado(EmpleadoJpa e, EmpleadoForm form) {
         e.setIdEmpleado(form.getIdPersona()); // employee id equals persona id
         e.setFkIdSucursal(form.getIdSucursal());
-        empleadoJpaRepository.save(e);
+        empleadoService.save(e);
     }
 
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("empleados", empleadoJpaRepository.findAll());
+        model.addAttribute("empleados", empleadoService.findAll());
         return "hresources/empleados/list";
     }
 }

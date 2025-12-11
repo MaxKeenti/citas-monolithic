@@ -60,6 +60,7 @@ CREATE TABLE public.cca02_rol (
 -- Name: cci01_servicio; Type: TABLE; Schema: public; Owner: maximilianogonzalezcalzada
 --
 
+
 CREATE TABLE public.cci01_servicio (
     id_servicio integer NOT NULL,
     tx_nombre character varying(50) NOT NULL,
@@ -67,6 +68,17 @@ CREATE TABLE public.cci01_servicio (
     st_activo boolean NOT NULL,
     nu_duracion integer NOT NULL
 );
+
+CREATE SEQUENCE public.cci01_servicio_id_servicio_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE public.cci01_servicio_id_servicio_seq OWNED BY public.cci01_servicio.id_servicio;
+
 
 
 
@@ -491,6 +503,14 @@ CREATE SEQUENCE public.tci05_cita_id_cita_seq
 --
 
 ALTER SEQUENCE public.tci05_cita_id_cita_seq OWNED BY public.tci05_cita.id_cita;
+
+
+--
+-- TOC entry 4680 (class 2604 OID 18653)
+-- Name: cci01_servicio id_servicio; Type: DEFAULT; Schema: public; Owner: maximilianogonzalezcalzada
+--
+
+ALTER TABLE ONLY public.cci01_servicio ALTER COLUMN id_servicio SET DEFAULT nextval('public.cci01_servicio_id_servicio_seq'::regclass);
 
 
 --
