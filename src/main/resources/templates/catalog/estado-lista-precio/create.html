@@ -28,7 +28,7 @@
 
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar</button>
-                <a th:href="@{/catalog/estado-lista-precio/list}" class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800">Volver a la lista</a>
+                <button type="button" th:onclick="|window.location.href='@{/catalog/estado-lista-precio/list}'|" class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800">Volver a la lista</button>
             </div>
         </form>
     </div>

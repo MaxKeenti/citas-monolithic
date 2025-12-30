@@ -56,7 +56,7 @@
 
                 <div class="flex items-center justify-between gap-4">
                     <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Actualizar Sucursal</button>
-                    <a href="/sucursales/list" class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800">Cancelar</a>
+                    <button type="button" onclick="window.location.href='/sucursales/list'" class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -73,7 +73,7 @@
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; <button type="button" onclick="window.location.href='http://www.openstreetmap.org/copyright'" >OpenStreetMap</button>'
         }).addTo(map);
 
         if (initialLat && initialLng) {
