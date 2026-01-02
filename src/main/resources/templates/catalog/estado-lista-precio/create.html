@@ -20,10 +20,10 @@
         <form th:action="@{/catalog/estado-lista-precio/create}" th:object="${estadoListaPrecioForm}" method="post">
             <div class="mb-4">
                 <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-                <input type="text" id="nombre" th:field="*{nombre}" 
+                <input type="text" id="nombre" th:field="*{name}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                        placeholder="Nombre del estado">
-                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-rose-500 text-xs italic mt-2"></p>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-rose-500 text-xs italic mt-2"></p>
             </div>
 
             <div class="flex items-center justify-between">

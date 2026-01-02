@@ -23,7 +23,7 @@
                         Nombre
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                           id="nombre" type="text" th:field="*{txNombre}" placeholder="Nombre de la lista" required>
+                           id="nombre" type="text" th:field="*{name}" placeholder="Nombre de la lista" required>
                 </div>
 
                 <div class="mb-4">
@@ -32,9 +32,9 @@
                     </label>
                     <div class="relative">
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="estado" th:field="*{estado}" required>
+                                id="estado" th:field="*{status}" required>
                             <option value="">Seleccione un estado</option>
-                            <option th:each="est : ${estados}" th:value="${est.id}" th:text="${est.nombre}"></option>
+                            <option th:each="est : ${estados}" th:value="${est.id}" th:text="${est.name}"></option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -48,20 +48,20 @@
                             Fecha Inicio
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                               id="fhInicio" type="datetime-local" th:field="*{fhInicio}" required>
+                               id="fhInicio" type="datetime-local" th:field="*{startDate}" required>
                     </div>
                     <div class="w-1/2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="fhFin">
                             Fecha Fin
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                               id="fhFin" type="datetime-local" th:field="*{fhFin}">
+                               id="fhFin" type="datetime-local" th:field="*{endDate}">
                     </div>
                 </div>
 
                 <div class="mb-6">
                     <label class="md:w-2/3 block text-gray-500 font-bold">
-                        <input class="mr-2 leading-tight" type="checkbox" th:field="*{stActivo}">
+                        <input class="mr-2 leading-tight" type="checkbox" th:field="*{active}">
                         <span class="text-sm">
                             Activo
                         </span>

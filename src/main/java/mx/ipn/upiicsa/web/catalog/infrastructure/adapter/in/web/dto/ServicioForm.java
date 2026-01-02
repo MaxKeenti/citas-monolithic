@@ -8,9 +8,9 @@ import lombok.Data;
 public class ServicioForm {
     private Integer id;
     @NotBlank(message = "Favor de proporcionar el nombre del servicio")
-    private String nombre;
-    private String descripcion;
+    private String name;
+    private String description;
     @NotNull(message = "Favor de proporcionar la duración en minutos")
-    private Integer duracion;
-    private Boolean activo = true;
+    private Integer duration;
+    private Boolean active = true;
 }

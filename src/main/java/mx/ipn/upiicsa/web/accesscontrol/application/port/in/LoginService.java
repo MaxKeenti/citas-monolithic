@@ -4,6 +4,8 @@ import io.vavr.control.Either;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.dto.LoginDto;
 import mx.ipn.upiicsa.web.accesscontrol.domain.Persona;
 
+import mx.ipn.upiicsa.web.accesscontrol.domain.LoginError;
+
 public interface LoginService {
-    Either<Integer, Persona> login(LoginDto login);
+    Either<LoginError, Persona> login(LoginDto login);
 }

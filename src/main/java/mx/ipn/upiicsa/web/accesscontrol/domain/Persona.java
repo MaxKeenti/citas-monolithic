@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 public class Persona {
     private Integer id;
-    private Integer idGenero;
-    private String nombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private Usuario usuario;
+    private Integer genderId;
+    private String firstName;
+    private String lastName;
+    private String secondLastName;
+    private Usuario user;
 }

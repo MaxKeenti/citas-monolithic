@@ -14,12 +14,12 @@ public class ServicioListaPrecioJpa {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_servicio")
-    private ServicioJpa servicio;
+    private ServicioJpa service;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_lista_precio")
-    private ListaPrecioJpa listaPrecio;
+    private ListaPrecioJpa priceList;
 
     @Column(name = "nu_precio")
-    private Integer precio;
+    private Integer price;
 }

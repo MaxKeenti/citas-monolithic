@@ -23,20 +23,15 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID: <span class="font-normal" th:text="${servicio.idServicio}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Nombre: <span class="font-normal" th:text="${servicio.txNombre}"></span></p>
+                <p class="mb-4 text-gray-700">¿Estás seguro de que deseas eliminar el servicio <strong th:text="${servicio.name}"></strong>?</p>
             </div>
+            <p class="mb-6 text-red-500 text-sm">Esta acción no se puede deshacer.</p>
 
             <form th:action="@{/servicios/delete}" method="post">
-                <input type="hidden" name="id" th:value="${servicio.idServicio}" />
-                
+                <input type="hidden" name="id" th:value="${servicio.id}" />
                 <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Eliminar Definitivamente
-                    </button>
-                    <button type="button" th:onclick="|window.location.href='@{/servicios/list}'|" class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-800">
-                        Cancelar
-                    </button>
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Eliminar</button>
+                    <button type="button" th:onclick="|window.location.href='@{/servicios/list}'|" class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800">Cancelar</button>
                 </div>
             </form>
         </div>

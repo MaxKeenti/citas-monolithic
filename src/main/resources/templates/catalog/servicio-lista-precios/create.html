@@ -24,9 +24,9 @@
                     </label>
                     <div class="relative">
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="servicio" th:field="*{servicio}" required>
+                                id="servicio" th:field="*{service}" required>
                             <option value="">Seleccione un servicio</option>
-                            <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.txNombre}"></option>
+                            <option th:each="s : ${servicios}" th:value="${s.id}" th:text="${s.name}"></option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -40,9 +40,9 @@
                     </label>
                     <div class="relative">
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="listaPrecio" th:field="*{listaPrecio}" required>
+                                id="listaPrecio" th:field="*{priceList}" required>
                             <option value="">Seleccione una lista</option>
-                            <option th:each="l : ${listas}" th:value="${l.idListaPrecio}" th:text="${l.txNombre}"></option>
+                            <option th:each="l : ${listas}" th:value="${l.id}" th:text="${l.name}"></option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -55,7 +55,7 @@
                         Precio
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                           id="precio" type="number" th:field="*{precio}" placeholder="0" required>
+                           id="precio" type="number" th:field="*{price}" placeholder="0" required>
                 </div>
 
                 <div class="flex items-center justify-between">

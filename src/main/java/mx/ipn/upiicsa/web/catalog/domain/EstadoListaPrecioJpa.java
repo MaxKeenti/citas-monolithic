@@ -13,5 +13,5 @@ public class EstadoListaPrecioJpa {
     private Integer id;
 
     @Column(name = "tx_nombre")
-    private String nombre;
+    private String name;
 }

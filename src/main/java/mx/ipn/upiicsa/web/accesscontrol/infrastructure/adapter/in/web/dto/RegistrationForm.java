@@ -9,14 +9,14 @@ import lombok.Data;
 public class RegistrationForm {
     // Persona fields
     @NotNull(message = "Seleccione un género")
-    private Integer idGenero;
+    private Integer genderId;
     @NotBlank(message = "Favor de proporcionar el nombre")
-    private String nombre;
+    private String firstName;
     @NotBlank(message = "Favor de proporcionar el primer apellido")
-    private String primerApellido;
-    private String segundoApellido;
+    private String lastName;
+    private String secondLastName;
     @NotNull(message = "Favor de proporcionar la fecha de nacimiento")
-    private java.time.LocalDate fechaNacimiento;
+    private java.time.LocalDate birthDate;
 
     // Usuario fields
     @NotBlank(message = "Favor de proporcionar el login (correo)")

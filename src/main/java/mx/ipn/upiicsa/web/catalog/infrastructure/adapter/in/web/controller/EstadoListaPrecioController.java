@@ -39,7 +39,7 @@ public class EstadoListaPrecioController {
                 .map(estado -> {
                     EstadoListaPrecioForm form = new EstadoListaPrecioForm();
                     form.setId(estado.getId());
-                    form.setNombre(estado.getNombre());
+                    form.setName(estado.getName());
                     model.addAttribute("estadoListaPrecioForm", form);
                     return "catalog/estado-lista-precio/edit";
                 })
@@ -71,7 +71,7 @@ public class EstadoListaPrecioController {
     }
 
     private void saveEstado(EstadoListaPrecioJpa estado, EstadoListaPrecioForm form) {
-        estado.setNombre(form.getNombre());
+        estado.setName(form.getName());
         estadoListaPrecioService.save(estado);
     }
 }

@@ -67,13 +67,13 @@ public class RegistrationController {
         }
 
         // 1. Create Persona
+        // 1. Create Persona
         PersonaJpa p = new PersonaJpa();
-        p.setIdGenero(form.getIdGenero());
-        p.setNombre(form.getNombre());
-        p.setPrimerApellido(form.getPrimerApellido());
-        p.setSegundoApellido(form.getSegundoApellido());
-        p.setFechaNacimiento(form.getFechaNacimiento());
-        p.setFechaNacimiento(form.getFechaNacimiento());
+        p.setGenderId(form.getGenderId());
+        p.setFirstName(form.getFirstName());
+        p.setLastName(form.getLastName());
+        p.setSecondLastName(form.getSecondLastName());
+        p.setBirthDate(form.getBirthDate());
         p = personaService.save(p);
 
         // 2. Find Role 'cliente'
@@ -83,10 +83,10 @@ public class RegistrationController {
         // 3. Create Usuario
         UsuarioJpa u = new UsuarioJpa();
         u.setId(p.getId()); // OneToOne shared PK
-        u.setIdRol(rolCliente.getId());
+        u.setRoleId(rolCliente.getId());
         u.setLogin(form.getLogin());
         u.setPassword(encodePassword(form.getPassword()));
-        u.setActivo(true);
+        u.setActive(true);
         usuarioService.save(u);
 
         log.info("Registered new client: {}", form.getLogin());

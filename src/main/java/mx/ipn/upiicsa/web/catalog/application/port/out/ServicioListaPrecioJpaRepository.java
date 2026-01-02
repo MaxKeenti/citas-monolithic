@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ServicioListaPrecioJpaRepository extends JpaRepository<ServicioListaPrecioJpa, Integer> {
-    List<ServicioListaPrecioJpa> findByServicioIdServicio(Integer idServicio);
+    List<ServicioListaPrecioJpa> findByServiceId(Integer id);
 }

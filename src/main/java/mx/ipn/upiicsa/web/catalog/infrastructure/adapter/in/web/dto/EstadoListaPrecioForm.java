@@ -7,5 +7,5 @@ import lombok.Data;
 public class EstadoListaPrecioForm {
     private Integer id;
     @NotBlank(message = "El nombre es requerido")
-    private String nombre;
+    private String name;
 }

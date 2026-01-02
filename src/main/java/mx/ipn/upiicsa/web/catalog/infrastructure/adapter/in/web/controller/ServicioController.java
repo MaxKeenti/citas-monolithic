@@ -42,11 +42,11 @@ public class ServicioController {
         return servicioService.findById(id)
                 .map(servicio -> {
                     ServicioForm form = new ServicioForm();
-                    form.setId(servicio.getIdServicio());
-                    form.setNombre(servicio.getTxNombre());
-                    form.setDescripcion(servicio.getDescripcion());
-                    form.setDuracion(servicio.getNuDuracion());
-                    form.setActivo(servicio.getStActivo());
+                    form.setId(servicio.getId());
+                    form.setName(servicio.getName());
+                    form.setDescription(servicio.getDescription());
+                    form.setDuration(servicio.getDuration());
+                    form.setActive(servicio.getActive());
                     model.addAttribute("servicioForm", form);
                     return "catalog/servicios/edit";
                 })
@@ -59,7 +59,7 @@ public class ServicioController {
             return "catalog/servicios/edit";
         }
         ServicioJpa s = new ServicioJpa();
-        s.setIdServicio(form.getId());
+        s.setId(form.getId());
         saveServicio(s, form);
         return "redirect:/servicios/list";
     }
@@ -81,10 +81,10 @@ public class ServicioController {
     }
 
     private void saveServicio(ServicioJpa s, ServicioForm form) {
-        s.setTxNombre(form.getNombre());
-        s.setDescripcion(form.getDescripcion());
-        s.setNuDuracion(form.getDuracion());
-        s.setStActivo(form.getActivo());
+        s.setName(form.getName());
+        s.setDescription(form.getDescription());
+        s.setDuration(form.getDuration());
+        s.setActive(form.getActive());
         servicioService.save(s);
     }
 

@@ -19,17 +19,17 @@
         <form th:action="@{/usuarios/create}" th:object="${usuarioForm}" method="post">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
-                <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+                <select th:field="*{personId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.firstName + ' ' + p.lastName}"></option>
                 </select>
-                <p th:if="${#fields.hasErrors('idPersona')}" th:errors="*{idPersona}" class="text-rose-500 text-xs italic mt-1"></p>
+                <p th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Rol</label>
-                <select th:field="*{idRol}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <select th:field="*{roleId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
                 </select>
-                <p th:if="${#fields.hasErrors('idRol')}" th:errors="*{idRol}" class="text-rose-500 text-xs italic mt-1"></p>
+                <p th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Login (correo)</label>
@@ -43,7 +43,7 @@
             </div>
             <div class="mb-6">
                 <label class="flex items-center">
-                    <input type="checkbox" th:field="*{activo}" class="form-checkbox h-5 w-5 accent-teal-500" />
+                    <input type="checkbox" th:field="*{active}" class="form-checkbox h-5 w-5 accent-teal-500" />
                     <span class="ml-2 text-gray-700 text-sm font-bold">Activo</span>
                 </label>
             </div>

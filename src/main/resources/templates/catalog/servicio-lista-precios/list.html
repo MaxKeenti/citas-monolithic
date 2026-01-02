@@ -45,9 +45,9 @@
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="p : ${precios}" class="border-b border-gray-200 hover:bg-gray-100">
                         <td th:text="${p.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${p.servicio != null ? p.servicio.txNombre : ''}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${p.listaPrecio != null ? p.listaPrecio.txNombre : ''}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${p.precio}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.service != null ? p.service.name : ''}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.priceList != null ? p.priceList.name : ''}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.price}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
                             <button type="button" th:onclick="|window.location.href='@{/servicio-lista-precios/edit/{id}(id=${p.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>

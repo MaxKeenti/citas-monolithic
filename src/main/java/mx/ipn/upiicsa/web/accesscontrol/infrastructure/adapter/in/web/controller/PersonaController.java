@@ -47,11 +47,11 @@ public class PersonaController {
         return personaService.findById(id)
                 .map(persona -> {
                     PersonaForm form = new PersonaForm();
-                    form.setIdGenero(persona.getIdGenero());
-                    form.setNombre(persona.getNombre());
-                    form.setPrimerApellido(persona.getPrimerApellido());
-                    form.setSegundoApellido(persona.getSegundoApellido());
-                    form.setFechaNacimiento(persona.getFechaNacimiento());
+                    form.setGenderId(persona.getGenderId());
+                    form.setFirstName(persona.getFirstName());
+                    form.setLastName(persona.getLastName());
+                    form.setSecondLastName(persona.getSecondLastName());
+                    form.setBirthDate(persona.getBirthDate());
 
                     model.addAttribute("personaForm", form);
                     model.addAttribute("generos", generoService.findAll());
@@ -94,11 +94,11 @@ public class PersonaController {
     }
 
     private void savePersona(PersonaJpa p, PersonaForm form) {
-        p.setIdGenero(form.getIdGenero());
-        p.setNombre(form.getNombre());
-        p.setPrimerApellido(form.getPrimerApellido());
-        p.setSegundoApellido(form.getSegundoApellido());
-        p.setFechaNacimiento(form.getFechaNacimiento());
+        p.setGenderId(form.getGenderId());
+        p.setFirstName(form.getFirstName());
+        p.setLastName(form.getLastName());
+        p.setSecondLastName(form.getSecondLastName());
+        p.setBirthDate(form.getBirthDate());
         personaService.save(p);
     }
 

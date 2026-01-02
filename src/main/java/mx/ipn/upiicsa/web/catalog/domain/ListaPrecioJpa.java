@@ -12,23 +12,23 @@ public class ListaPrecioJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_lista_precio")
-    private Integer idListaPrecio;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_estado")
-    private EstadoListaPrecioJpa estado;
+    private EstadoListaPrecioJpa status;
 
     @Column(name = "tx_nombre")
-    private String txNombre;
+    private String name;
 
     @Column(name = "fh_inicio")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime fhInicio;
+    private LocalDateTime startDate;
 
     @Column(name = "fh_fin")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime fhFin;
+    private LocalDateTime endDate;
 
     @Column(name = "st_activo")
-    private Boolean stActivo;
+    private Boolean active;
 }

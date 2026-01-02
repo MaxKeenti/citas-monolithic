@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class UsuarioForm {
     @NotNull(message = "Seleccione una persona")
-    private Integer idPersona;
+    private Integer personId;
 
     @NotNull(message = "Seleccione un rol")
-    private Integer idRol;
+    private Integer roleId;
 
     @NotBlank(message = "Favor de proporcionar el login (correo)")
     @Email(message = "El login debe ser un correo electrónico válido")
@@ -20,5 +20,5 @@ public class UsuarioForm {
     @NotBlank(message = "Favor de proporcionar la contraseña")
     private String password;
 
-    private Boolean activo = true;
+    private Boolean active = true;
 }

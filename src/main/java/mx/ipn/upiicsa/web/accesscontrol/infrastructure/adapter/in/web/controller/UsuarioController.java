@@ -31,7 +31,7 @@ public class UsuarioController {
         model.addAttribute("usuarioForm", new UsuarioForm());
         // personas that don't have usuario
         List<PersonaJpa> personas = personaService.findAll()
-                .stream().filter(p -> p.getUsuario() == null).collect(Collectors.toList());
+                .stream().filter(p -> p.getUser() == null).collect(Collectors.toList());
         List<RolJpa> roles = rolService.findAll().stream().filter(r -> Boolean.TRUE.equals(r.getActivo()))
                 .collect(Collectors.toList());
         model.addAttribute("personas", personas);
@@ -55,13 +55,13 @@ public class UsuarioController {
         return usuarioService.findById(id)
                 .map(usuario -> {
                     UsuarioForm form = new UsuarioForm();
-                    form.setIdPersona(usuario.getId());
-                    form.setIdRol(usuario.getIdRol());
+                    form.setPersonId(usuario.getId());
+                    form.setRoleId(usuario.getRoleId());
                     form.setLogin(usuario.getLogin());
                     // Password not pre-filled for security, but we need to handle if empty in
                     // update
                     // form.setPassword(usuario.getPassword());
-                    form.setActivo(usuario.getActivo());
+                    form.setActive(usuario.getActive());
 
                     model.addAttribute("usuarioForm", form);
                     populateModel(model);
@@ -77,7 +77,7 @@ public class UsuarioController {
             return "accesscontrol/usuarios/edit";
         }
         UsuarioJpa u = new UsuarioJpa();
-        u.setId(form.getIdPersona());
+        u.setId(form.getPersonId());
         // Handling password: if form password is empty, we might want to keep original.
         // But here we are building a new object.
         // Real implementation should probably fetch existing and only update changed
@@ -105,12 +105,12 @@ public class UsuarioController {
     }
 
     private void saveUsuario(UsuarioJpa u, UsuarioForm form) {
-        u.setId(form.getIdPersona());
-        u.setIdRol(form.getIdRol());
+        u.setId(form.getPersonId());
+        u.setRoleId(form.getRoleId());
         u.setLogin(form.getLogin());
         // Ideally hash password here if needed, or service does it.
         u.setPassword(form.getPassword());
-        u.setActivo(form.getActivo());
+        u.setActive(form.getActive());
         usuarioService.save(u);
     }
 

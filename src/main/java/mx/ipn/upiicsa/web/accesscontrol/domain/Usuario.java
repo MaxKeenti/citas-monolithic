@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 public class Usuario {
     private Integer id;
-    private Integer idRol;
+    private Integer roleId;
     private String login;
     private String password;
-    private Boolean activo;
+    private Boolean active;
 }

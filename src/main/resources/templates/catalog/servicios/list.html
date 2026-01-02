@@ -34,18 +34,17 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="s : ${servicios}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${s.idServicio}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${s.txNombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${s.nuDuracion}" class="py-3 px-6 text-left"></td>
-                        <td class="py-3 px-6 text-left">
-                            <span th:if="${s.stActivo}" class="bg-teal-200 text-teal-600 py-1 px-3 rounded-full text-xs">Activo</span>
-                            <span th:unless="${s.stActivo}" class="bg-rose-200 text-rose-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
+                        <td class="py-3 px-4" th:text="${s.id}"></td>
+                        <td class="py-3 px-4" th:text="${s.name}"></td>
+                        <td class="py-3 px-4" th:text="${s.description}"></td>
+                        <td class="py-3 px-4" th:text="${s.duration} + ' min'"></td>
+                        <td class="py-3 px-4">
+                            <span th:if="${s.active}" class="bg-green-200 text-green-700 py-1 px-3 rounded-full text-xs">Activo</span>
+                            <span th:unless="${s.active}" class="bg-red-200 text-red-700 py-1 px-3 rounded-full text-xs">Inactivo</span>
                         </td>
-                        <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/servicios/edit/{id}(id=${s.idServicio})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
-                        </td>
-                        <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/servicios/delete/{id}(id=${s.idServicio})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
+                        <td class="py-3 px-4">
+                            <a th:href="@{/servicios/edit/{id}(id=${s.id})}" class="text-blue-500 hover:text-blue-700 mr-2">Editar</a>
+                            <a th:href="@{/servicios/delete/{id}(id=${s.id})}" class="text-red-500 hover:text-red-700">Eliminar</a>
                         </td>
                     </tr>
                 </tbody>

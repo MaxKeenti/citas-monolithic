@@ -19,21 +19,21 @@
         <form th:action="@{/servicios/create}" th:object="${servicioForm}" method="post">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-                <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-rose-500 text-xs italic mt-1"></p>
+                <input type="text" th:field="*{name}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
-                <textarea th:field="*{descripcion}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3"></textarea>
+                <textarea th:field="*{description}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3"></textarea>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Duración (min)</label>
-                <input type="number" th:field="*{duracion}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                <p th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}" class="text-rose-500 text-xs italic mt-1"></p>
+                <input type="number" th:field="*{duration}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-rose-500 text-xs italic mt-1"></p>
             </div>
             <div class="mb-6">
                 <label class="flex items-center">
-                    <input type="checkbox" th:field="*{activo}" class="form-checkbox h-5 w-5 accent-teal-600" />
+                    <input type="checkbox" th:field="*{active}" class="form-checkbox h-5 w-5 accent-teal-600" />
                     <span class="ml-2 text-gray-700 text-sm font-bold">Activo</span>
                 </label>
             </div>

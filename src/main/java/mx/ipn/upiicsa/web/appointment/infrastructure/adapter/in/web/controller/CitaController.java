@@ -129,10 +129,10 @@ public class CitaController {
 
         if (idServicio != null) {
             model.addAttribute("listas",
-                    servicioListaPrecioJpaRepository.findByServicioIdServicio(idServicio).stream()
-                            .map(ServicioListaPrecioJpa::getListaPrecio)
+                    servicioListaPrecioJpaRepository.findByServiceId(idServicio).stream()
+                            .map(ServicioListaPrecioJpa::getPriceList)
                             .filter(Objects::nonNull)
-                            .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
+                            .filter(lp -> Boolean.TRUE.equals(lp.getActive()))
                             .collect(Collectors.toList()));
         } else {
             model.addAttribute("listas", List.of());
@@ -151,13 +151,13 @@ public class CitaController {
     @ResponseBody
     public List<?> listasByServicio(@RequestParam Integer servicioId) {
         // find servicio-lista entries for this servicio
-        List<ServicioListaPrecioJpa> sps = servicioListaPrecioJpaRepository.findByServicioIdServicio(servicioId);
+        List<ServicioListaPrecioJpa> sps = servicioListaPrecioJpaRepository.findByServiceId(servicioId);
         // for each, load listaPrecio and filter by estado activo (we assume estado id
         // for active is known or Estado has 'st_activo')
         return sps.stream()
-                .map(ServicioListaPrecioJpa::getListaPrecio)
+                .map(ServicioListaPrecioJpa::getPriceList)
                 .filter(Objects::nonNull)
-                .filter(lp -> Boolean.TRUE.equals(lp.getStActivo()))
+                .filter(lp -> Boolean.TRUE.equals(lp.getActive()))
                 .collect(Collectors.toList());
     }
 }

@@ -16,37 +16,37 @@ public class UsuarioJpa {
     @Column(name = "id_usuario")
     private Integer id;
     @Column(name = "fk_id_rol")
-    private Integer idRol;
+    private Integer roleId;
     @Column(name = "tx_login")
     private String login;
     @Column(name = "tx_password")
     private String password;
     @Column(name = "st_activo")
-    private Boolean activo;
+    private Boolean active;
     @ManyToOne
     @JoinColumn(name = "fk_id_rol", referencedColumnName = "id_rol", insertable = false, updatable = false)
     private RolJpa rol;
     @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_persona", insertable = false, updatable = false)
-    private PersonaJpa persona;
+    private PersonaJpa person;
 
     public static UsuarioJpa fromEntity(Usuario entity) {
         return UsuarioJpa.builder()
                 .id(entity.getId())
-                .idRol(entity.getIdRol())
+                .roleId(entity.getRoleId())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
-                .activo(entity.getActivo())
+                .active(entity.getActive())
                 .build();
     }
 
     public Usuario toEntity() {
         return Usuario.builder()
                 .id(id)
-                .idRol(idRol)
+                .roleId(roleId)
                 .login(login)
                 .password(password)
-                .activo(activo)
+                .active(active)
                 .build();
     }
 }

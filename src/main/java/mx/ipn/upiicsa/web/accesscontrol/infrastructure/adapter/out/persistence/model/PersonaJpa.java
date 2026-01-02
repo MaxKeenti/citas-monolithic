@@ -18,28 +18,28 @@ public class PersonaJpa {
     @Column(name = "id_persona")
     private Integer id;
     @Column(name = "fk_id_genero")
-    private Integer idGenero;
+    private Integer genderId;
     @Column(name = "tx_nombre")
-    private String nombre;
+    private String firstName;
     @Column(name = "tx_primer_apellido")
-    private String primerApellido;
+    private String lastName;
     @Column(name = "tx_segundo_apellido")
-    private String segundoApellido;
+    private String secondLastName;
     @Column(name = "fh_nacimiento")
-    private java.time.LocalDate fechaNacimiento;
+    private java.time.LocalDate birthDate;
     @ManyToOne
     @JoinColumn(name = "fk_id_genero", referencedColumnName = "id_genero", insertable = false, updatable = false)
     private GeneroJpa genero;
-    @OneToOne(mappedBy = "persona")
-    private UsuarioJpa usuario;
+    @OneToOne(mappedBy = "person")
+    private UsuarioJpa user;
 
     public Persona toEntity() {
         return Persona.builder()
                 .id(this.id)
-                .idGenero(this.idGenero)
-                .nombre(this.nombre)
-                .primerApellido(this.primerApellido)
-                .segundoApellido(this.segundoApellido)
+                .genderId(this.genderId)
+                .firstName(this.firstName)
+                .lastName(this.lastName)
+                .secondLastName(this.secondLastName)
                 .build();
     }
 }
