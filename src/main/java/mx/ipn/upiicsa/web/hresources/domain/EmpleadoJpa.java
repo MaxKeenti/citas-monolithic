@@ -7,50 +7,50 @@ import jakarta.persistence.*;
 public class EmpleadoJpa {
     @Id
     @Column(name = "id_empleado")
-    private Integer idEmpleado; // Same as Persona ID
+    private Integer id; // Same as Persona ID
 
     @Column(name = "fk_id_sucursal")
-    private Integer fkIdSucursal;
+    private Integer branchId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empleado", referencedColumnName = "id_persona", insertable = false, updatable = false)
-    private mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa persona;
+    private mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa person;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_sucursal", insertable = false, updatable = false)
-    private SucursalJpa sucursal;
+    private SucursalJpa branch;
 
     // getters/setters
-    public Integer getIdEmpleado() {
-        return idEmpleado;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdEmpleado(Integer idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getFkIdSucursal() {
-        return fkIdSucursal;
+    public Integer getBranchId() {
+        return branchId;
     }
 
-    public void setFkIdSucursal(Integer fkIdSucursal) {
-        this.fkIdSucursal = fkIdSucursal;
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
     }
 
-    public mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa getPersona() {
-        return persona;
+    public mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa getPerson() {
+        return person;
     }
 
-    public void setPersona(
-            mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa persona) {
-        this.persona = persona;
+    public void setPerson(
+            mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa person) {
+        this.person = person;
     }
 
-    public SucursalJpa getSucursal() {
-        return sucursal;
+    public SucursalJpa getBranch() {
+        return branch;
     }
 
-    public void setSucursal(SucursalJpa sucursal) {
-        this.sucursal = sucursal;
+    public void setBranch(SucursalJpa branch) {
+        this.branch = branch;
     }
 }

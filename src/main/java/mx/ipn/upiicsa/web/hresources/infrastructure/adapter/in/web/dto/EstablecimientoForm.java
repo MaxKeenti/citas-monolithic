@@ -13,5 +13,21 @@ public class EstablecimientoForm {
     private Integer id;
 
     @NotEmpty(message = "El nombre es requerido")
-    private String txNombre;
+    private String name;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

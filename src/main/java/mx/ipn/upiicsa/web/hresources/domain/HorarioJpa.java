@@ -14,22 +14,78 @@ public class HorarioJpa {
     private Integer id;
 
     @Column(name = "fk_id_sucursal")
-    private Integer idSucursal;
+    private Integer branchId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_sucursal", insertable = false, updatable = false)
-    private SucursalJpa sucursal;
+    private SucursalJpa branch;
 
     @Column(name = "fk_id_dia")
-    private Integer idDia;
+    private Integer dayId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_dia", insertable = false, updatable = false)
-    private DiaLaboralJpa diaLaboral;
+    private DiaLaboralJpa workingDay;
 
     @Column(name = "tm_inicio")
-    private LocalTime horaInicio;
+    private LocalTime startTime;
 
     @Column(name = "tm_fin")
-    private LocalTime horaFin;
+    private LocalTime endTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
+    }
+
+    public SucursalJpa getBranch() {
+        return branch;
+    }
+
+    public void setBranch(SucursalJpa branch) {
+        this.branch = branch;
+    }
+
+    public Integer getDayId() {
+        return dayId;
+    }
+
+    public void setDayId(Integer dayId) {
+        this.dayId = dayId;
+    }
+
+    public DiaLaboralJpa getWorkingDay() {
+        return workingDay;
+    }
+
+    public void setWorkingDay(DiaLaboralJpa workingDay) {
+        this.workingDay = workingDay;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
 }

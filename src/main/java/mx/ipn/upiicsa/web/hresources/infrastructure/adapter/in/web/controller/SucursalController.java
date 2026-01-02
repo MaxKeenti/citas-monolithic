@@ -48,12 +48,12 @@ public class SucursalController {
         return sucursalService.findById(id)
                 .map(sucursal -> {
                     SucursalForm form = new SucursalForm();
-                    form.setId(sucursal.getIdSucursal());
-                    form.setIdEstablecimiento(sucursal.getFkIdEstablecimiento());
-                    form.setNombre(sucursal.getTxNombre());
-                    if (sucursal.getGmUbicacion() != null) {
-                        form.setLatitud(sucursal.getGmUbicacion().getY());
-                        form.setLongitud(sucursal.getGmUbicacion().getX());
+                    form.setId(sucursal.getId());
+                    form.setEstablishmentId(sucursal.getEstablishmentId());
+                    form.setName(sucursal.getName());
+                    if (sucursal.getLocation() != null) {
+                        form.setLatitude(sucursal.getLocation().getY());
+                        form.setLongitude(sucursal.getLocation().getX());
                     }
                     model.addAttribute("sucursalForm", form);
                     model.addAttribute("establecimientos", establecimientoJpaRepository.findAll());
@@ -69,7 +69,7 @@ public class SucursalController {
             return "hresources/sucursales/edit";
         }
         SucursalJpa s = new SucursalJpa();
-        s.setIdSucursal(form.getId());
+        s.setId(form.getId());
         saveSucursal(s, form);
         return "redirect:/sucursales/list";
     }
@@ -91,14 +91,14 @@ public class SucursalController {
     }
 
     private void saveSucursal(SucursalJpa s, SucursalForm form) {
-        s.setFkIdEstablecimiento(form.getIdEstablecimiento());
-        s.setTxNombre(form.getNombre());
+        s.setEstablishmentId(form.getEstablishmentId());
+        s.setName(form.getName());
 
         org.locationtech.jts.geom.GeometryFactory gf = new org.locationtech.jts.geom.GeometryFactory();
         org.locationtech.jts.geom.Point point = gf
-                .createPoint(new org.locationtech.jts.geom.Coordinate(form.getLongitud(), form.getLatitud()));
+                .createPoint(new org.locationtech.jts.geom.Coordinate(form.getLongitude(), form.getLatitude()));
         point.setSRID(4326);
-        s.setGmUbicacion(point);
+        s.setLocation(point);
 
         sucursalService.save(s);
     }

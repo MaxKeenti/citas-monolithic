@@ -39,17 +39,17 @@ public class BloqueCitaController {
             @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin,
             Model model) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setIdSucursal(idSucursal);
-        id.setFechaInicio(fechaInicio);
-        id.setFechaFin(fechaFin);
+        id.setBranchId(idSucursal);
+        id.setStartDate(fechaInicio);
+        id.setEndDate(fechaFin);
 
         return bloqueCitaService.findById(id)
                 .map(bc -> {
                     BloqueCitaForm form = new BloqueCitaForm();
-                    form.setIdSucursal(bc.getIdSucursal());
-                    form.setIdCita(bc.getIdCita());
-                    form.setFechaInicio(bc.getFechaInicio());
-                    form.setFechaFin(bc.getFechaFin());
+                    form.setBranchId(bc.getBranchId());
+                    form.setAppointmentId(bc.getAppointmentId());
+                    form.setStartDate(bc.getStartDate());
+                    form.setEndDate(bc.getEndDate());
                     model.addAttribute("bloqueCitaForm", form);
                     return "hresources/bloque-cita/edit";
                 })
@@ -69,9 +69,9 @@ public class BloqueCitaController {
             @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin,
             Model model) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setIdSucursal(idSucursal);
-        id.setFechaInicio(fechaInicio);
-        id.setFechaFin(fechaFin);
+        id.setBranchId(idSucursal);
+        id.setStartDate(fechaInicio);
+        id.setEndDate(fechaFin);
 
         return bloqueCitaService.findById(id)
                 .map(bc -> {
@@ -86,19 +86,19 @@ public class BloqueCitaController {
             @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaInicio,
             @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setIdSucursal(idSucursal);
-        id.setFechaInicio(fechaInicio);
-        id.setFechaFin(fechaFin);
+        id.setBranchId(idSucursal);
+        id.setStartDate(fechaInicio);
+        id.setEndDate(fechaFin);
 
         bloqueCitaService.deleteById(id);
         return "redirect:/hresources/bloque-cita/list";
     }
 
     private void saveBloqueCita(BloqueCitaJpa bc, BloqueCitaForm form) {
-        bc.setIdSucursal(form.getIdSucursal());
-        bc.setIdCita(form.getIdCita());
-        bc.setFechaInicio(form.getFechaInicio());
-        bc.setFechaFin(form.getFechaFin());
+        bc.setBranchId(form.getBranchId());
+        bc.setAppointmentId(form.getAppointmentId());
+        bc.setStartDate(form.getStartDate());
+        bc.setEndDate(form.getEndDate());
         bloqueCitaService.save(bc);
     }
 }

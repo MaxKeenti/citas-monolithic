@@ -25,7 +25,7 @@
 
             <div class="mb-6">
                 <p class="text-gray-700 text-sm font-bold mb-2">ID: <span class="font-normal" th:text="${persona.id}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Nombre: <span class="font-normal" th:text="${persona.nombre + ' ' + persona.primerApellido}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Nombre: <span class="font-normal" th:text="${persona.firstName + ' ' + persona.lastName}"></span></p>
             </div>
 
             <form th:action="@{/personas/delete}" method="post">

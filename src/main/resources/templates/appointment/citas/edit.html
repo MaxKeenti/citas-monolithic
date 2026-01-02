@@ -22,19 +22,19 @@
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
                 <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
+                    <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.firstName + ' ' + p.lastName}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Servicio</label>
                 <select th:field="*{idServicio}" id="servicio-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.txNombre}"></option>
+                    <option th:each="s : ${servicios}" th:value="${s.id}" th:text="${s.name}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Lista de Precio</label>
                 <select th:field="*{idListaPrecio}" id="lista-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="l : ${listas}" th:value="${l.idListaPrecio}" th:text="${l.txNombre}"></option>
+                    <option th:each="l : ${listas}" th:value="${l.id}" th:text="${l.name}"></option>
                 </select>
             </div>
             <div class="mb-4">
@@ -67,8 +67,8 @@
                     select.innerHTML = '';
                     data.forEach(function(item){
                         var opt = document.createElement('option');
-                        opt.value = item.idListaPrecio || item.id;
-                        opt.text = item.txNombre || item.nombre;
+                        opt.value = item.id;
+                        opt.text = item.name;
                         select.appendChild(opt);
                     });
                 });

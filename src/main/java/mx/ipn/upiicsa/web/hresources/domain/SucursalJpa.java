@@ -9,30 +9,59 @@ public class SucursalJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sucursal")
-    private Integer idSucursal;
+    private Integer id;
 
     @Column(name = "fk_id_establecimiento")
-    private Integer fkIdEstablecimiento;
+    private Integer establishmentId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_establecimiento", insertable = false, updatable = false)
-    private EstablecimientoJpa establecimiento;
+    private EstablecimientoJpa establishment;
 
     @Column(name = "tx_nombre")
-    private String txNombre;
+    private String name;
 
     @Column(name = "gm_ubicacion", columnDefinition = "geometry(Point,4326)")
-    private Point gmUbicacion;
+    private Point location;
 
     // getters/setters
-    public Integer getIdSucursal() { return idSucursal; }
-    public void setIdSucursal(Integer idSucursal) { this.idSucursal = idSucursal; }
-    public Integer getFkIdEstablecimiento() { return fkIdEstablecimiento; }
-    public void setFkIdEstablecimiento(Integer fkIdEstablecimiento) { this.fkIdEstablecimiento = fkIdEstablecimiento; }
-    public EstablecimientoJpa getEstablecimiento() { return establecimiento; }
-    public void setEstablecimiento(EstablecimientoJpa establecimiento) { this.establecimiento = establecimiento; }
-    public String getTxNombre() { return txNombre; }
-    public void setTxNombre(String txNombre) { this.txNombre = txNombre; }
-    public Point getGmUbicacion() { return gmUbicacion; }
-    public void setGmUbicacion(Point gmUbicacion) { this.gmUbicacion = gmUbicacion; }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getEstablishmentId() {
+        return establishmentId;
+    }
+
+    public void setEstablishmentId(Integer establishmentId) {
+        this.establishmentId = establishmentId;
+    }
+
+    public EstablecimientoJpa getEstablishment() {
+        return establishment;
+    }
+
+    public void setEstablishment(EstablecimientoJpa establishment) {
+        this.establishment = establishment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 }

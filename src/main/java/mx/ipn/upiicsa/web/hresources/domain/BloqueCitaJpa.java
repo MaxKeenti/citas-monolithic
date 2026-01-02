@@ -12,24 +12,72 @@ import mx.ipn.upiicsa.web.appointment.domain.CitaJpa;
 public class BloqueCitaJpa {
     @Id
     @Column(name = "fk_id_sucursal")
-    private Integer idSucursal;
+    private Integer branchId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_sucursal", insertable = false, updatable = false)
-    private SucursalJpa sucursal;
+    private SucursalJpa branch;
 
     @Column(name = "fk_id_cita")
-    private Integer idCita;
+    private Integer appointmentId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_cita", insertable = false, updatable = false)
-    private CitaJpa cita;
+    private CitaJpa appointment;
 
     @Id
     @Column(name = "fh_inicio")
-    private LocalDateTime fechaInicio;
+    private LocalDateTime startDate;
 
     @Id
     @Column(name = "fh_fin")
-    private LocalDateTime fechaFin;
+    private LocalDateTime endDate;
+
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
+    }
+
+    public SucursalJpa getBranch() {
+        return branch;
+    }
+
+    public void setBranch(SucursalJpa branch) {
+        this.branch = branch;
+    }
+
+    public Integer getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public CitaJpa getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(CitaJpa appointment) {
+        this.appointment = appointment;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
 }

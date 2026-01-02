@@ -62,8 +62,10 @@ public class EmpleadoController {
         return empleadoService.findById(java.util.Objects.requireNonNull(id))
                 .map(empleado -> {
                     EmpleadoForm form = new EmpleadoForm();
-                    form.setIdPersona(empleado.getIdEmpleado());
-                    form.setIdSucursal(empleado.getFkIdSucursal());
+                    form.setId(empleado.getId());
+                    form.setPersonId(empleado.getId()); // Using getId() instead of getIdPerson() not available directly
+                                                        // or we assuming id is shared
+                    form.setBranchId(empleado.getBranchId());
                     model.addAttribute("empleadoForm", form);
                     model.addAttribute("personas", personaJpaRepository.findAll());
                     model.addAttribute("sucursales", sucursalJpaRepository.findAll());
@@ -101,8 +103,9 @@ public class EmpleadoController {
     }
 
     private void saveEmpleado(EmpleadoJpa e, EmpleadoForm form) {
-        e.setIdEmpleado(form.getIdPersona()); // employee id equals persona id
-        e.setFkIdSucursal(form.getIdSucursal());
+        // Since id attribute was used for persona id too
+        e.setId(form.getPersonId());
+        e.setBranchId(form.getBranchId());
         empleadoService.save(e);
     }
 

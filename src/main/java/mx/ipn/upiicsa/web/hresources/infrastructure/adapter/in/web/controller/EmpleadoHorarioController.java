@@ -36,14 +36,14 @@ public class EmpleadoHorarioController {
     @GetMapping("/edit")
     public String editForm(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado, Model model) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setIdHorario(idHorario);
-        id.setIdEmpleado(idEmpleado);
+        id.setScheduleId(idHorario);
+        id.setEmployeeId(idEmpleado);
 
         return empleadoHorarioService.findById(id)
                 .map(eh -> {
                     EmpleadoHorarioForm form = new EmpleadoHorarioForm();
-                    form.setIdHorario(eh.getIdHorario());
-                    form.setIdEmpleado(eh.getIdEmpleado());
+                    form.setScheduleId(eh.getScheduleId());
+                    form.setEmployeeId(eh.getEmployeeId());
                     model.addAttribute("empleadoHorarioForm", form);
                     return "hresources/empleado-horario/edit";
                 })
@@ -70,8 +70,8 @@ public class EmpleadoHorarioController {
     @GetMapping("/delete")
     public String deleteConfirmation(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado, Model model) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setIdHorario(idHorario);
-        id.setIdEmpleado(idEmpleado);
+        id.setScheduleId(idHorario);
+        id.setEmployeeId(idEmpleado);
 
         return empleadoHorarioService.findById(id)
                 .map(eh -> {
@@ -84,16 +84,16 @@ public class EmpleadoHorarioController {
     @PostMapping("/delete")
     public String delete(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setIdHorario(idHorario);
-        id.setIdEmpleado(idEmpleado);
+        id.setScheduleId(idHorario);
+        id.setEmployeeId(idEmpleado);
 
         empleadoHorarioService.deleteById(id);
         return "redirect:/hresources/empleado-horario/list";
     }
 
     private void saveEmpleadoHorario(EmpleadoHorarioJpa eh, EmpleadoHorarioForm form) {
-        eh.setIdHorario(form.getIdHorario());
-        eh.setIdEmpleado(form.getIdEmpleado());
+        eh.setScheduleId(form.getScheduleId());
+        eh.setEmployeeId(form.getEmployeeId());
         empleadoHorarioService.save(eh);
     }
 }

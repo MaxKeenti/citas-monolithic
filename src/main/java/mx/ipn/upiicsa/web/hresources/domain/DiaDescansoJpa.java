@@ -14,12 +14,44 @@ public class DiaDescansoJpa {
     private Integer id;
 
     @Column(name = "fk_id_empleado")
-    private Integer idEmpleado;
+    private Integer employeeId;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_empleado", insertable = false, updatable = false)
-    private EmpleadoJpa empleado;
+    private EmpleadoJpa employee;
 
     @Column(name = "fh_descanso")
-    private LocalDate fechaDescanso;
+    private LocalDate date;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public EmpleadoJpa getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmpleadoJpa employee) {
+        this.employee = employee;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 }

@@ -6,7 +6,23 @@ import lombok.Data;
 @Data
 public class EmpleadoHorarioForm {
     @NotNull(message = "El horario es requerido")
-    private Integer idHorario;
+    private Integer scheduleId;
     @NotNull(message = "El empleado es requerido")
-    private Integer idEmpleado;
+    private Integer employeeId;
+
+    public Integer getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(Integer scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
 }

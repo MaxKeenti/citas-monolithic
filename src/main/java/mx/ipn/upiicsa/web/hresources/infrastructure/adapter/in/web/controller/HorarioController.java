@@ -39,10 +39,10 @@ public class HorarioController {
                 .map(horario -> {
                     HorarioForm form = new HorarioForm();
                     form.setId(horario.getId());
-                    form.setIdSucursal(horario.getIdSucursal());
-                    form.setIdDia(horario.getIdDia());
-                    form.setHoraInicio(horario.getHoraInicio());
-                    form.setHoraFin(horario.getHoraFin());
+                    form.setBranchId(horario.getBranchId());
+                    form.setDayId(horario.getDayId());
+                    form.setStartTime(horario.getStartTime());
+                    form.setEndTime(horario.getEndTime());
                     model.addAttribute("horarioForm", form);
                     return "hresources/horario/edit";
                 })
@@ -74,10 +74,10 @@ public class HorarioController {
     }
 
     private void saveHorario(HorarioJpa horario, HorarioForm form) {
-        horario.setIdSucursal(form.getIdSucursal());
-        horario.setIdDia(form.getIdDia());
-        horario.setHoraInicio(form.getHoraInicio());
-        horario.setHoraFin(form.getHoraFin());
+        horario.setBranchId(form.getBranchId());
+        horario.setDayId(form.getDayId());
+        horario.setStartTime(form.getStartTime());
+        horario.setEndTime(form.getEndTime());
         horarioService.save(horario);
     }
 }

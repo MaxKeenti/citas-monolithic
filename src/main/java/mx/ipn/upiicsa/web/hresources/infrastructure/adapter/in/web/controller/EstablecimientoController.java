@@ -48,7 +48,7 @@ public class EstablecimientoController {
                 .map(establecimiento -> {
                     EstablecimientoForm form = new EstablecimientoForm();
                     form.setId(establecimiento.getId());
-                    form.setTxNombre(establecimiento.getTxNombre());
+                    form.setName(establecimiento.getName());
                     model.addAttribute("establecimientoForm", form);
                     return "hresources/establecimiento/edit";
                 })
@@ -84,7 +84,7 @@ public class EstablecimientoController {
     }
 
     private void saveEstablecimiento(EstablecimientoJpa e, EstablecimientoForm form) {
-        e.setTxNombre(form.getTxNombre());
+        e.setName(form.getName());
         establecimientoService.save(e);
     }
 }

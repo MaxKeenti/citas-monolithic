@@ -5,9 +5,33 @@ import lombok.Data;
 
 @Data
 public class EmpleadoForm {
-    private Integer idEmpleado; // Will be persona id
+    private Integer id; // Will be persona id
     @NotNull(message = "Seleccione la persona")
-    private Integer idPersona;
+    private Integer personId;
     @NotNull(message = "Seleccione la sucursal")
-    private Integer idSucursal;
+    private Integer branchId;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
+    }
 }

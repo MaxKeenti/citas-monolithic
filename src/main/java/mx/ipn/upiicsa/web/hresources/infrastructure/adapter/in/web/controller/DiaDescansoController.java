@@ -39,8 +39,8 @@ public class DiaDescansoController {
                 .map(dia -> {
                     DiaDescansoForm form = new DiaDescansoForm();
                     form.setId(dia.getId());
-                    form.setIdEmpleado(dia.getIdEmpleado());
-                    form.setFechaDescanso(dia.getFechaDescanso());
+                    form.setEmployeeId(dia.getEmployeeId());
+                    form.setDate(dia.getDate());
                     model.addAttribute("diaDescansoForm", form);
                     return "hresources/dia-descanso/edit";
                 })
@@ -72,8 +72,8 @@ public class DiaDescansoController {
     }
 
     private void saveDiaDescanso(DiaDescansoJpa dia, DiaDescansoForm form) {
-        dia.setIdEmpleado(form.getIdEmpleado());
-        dia.setFechaDescanso(form.getFechaDescanso());
+        dia.setEmployeeId(form.getEmployeeId());
+        dia.setDate(form.getDate());
         diaDescansoService.save(dia);
     }
 }

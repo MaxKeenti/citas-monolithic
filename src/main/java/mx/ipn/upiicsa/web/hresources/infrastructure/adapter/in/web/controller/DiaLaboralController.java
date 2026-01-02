@@ -29,9 +29,9 @@ public class DiaLaboralController {
     @PostMapping("/create")
     public String create(@ModelAttribute DiaLaboralForm form) {
         DiaLaboralJpa dia = new DiaLaboralJpa();
-        dia.setNombre(form.getNombre());
-        dia.setDescripcion(form.getDescripcion());
-        dia.setActivo(form.getActivo());
+        dia.setName(form.getName());
+        dia.setDescription(form.getDescription());
+        dia.setActive(form.getActive());
         diaLaboralService.save(dia);
         return "redirect:/hresources/dia-laboral/list";
     }
@@ -42,9 +42,9 @@ public class DiaLaboralController {
                 .map(dia -> {
                     DiaLaboralForm form = new DiaLaboralForm();
                     form.setId(dia.getId());
-                    form.setNombre(dia.getNombre());
-                    form.setDescripcion(dia.getDescripcion());
-                    form.setActivo(dia.getActivo());
+                    form.setName(dia.getName());
+                    form.setDescription(dia.getDescription());
+                    form.setActive(dia.getActive());
                     model.addAttribute("diaLaboralForm", form);
                     return "hresources/dia-laboral/edit";
                 })
@@ -55,9 +55,9 @@ public class DiaLaboralController {
     public String update(@ModelAttribute DiaLaboralForm form) {
         DiaLaboralJpa dia = new DiaLaboralJpa();
         dia.setId(form.getId());
-        dia.setNombre(form.getNombre());
-        dia.setDescripcion(form.getDescripcion());
-        dia.setActivo(form.getActivo());
+        dia.setName(form.getName());
+        dia.setDescription(form.getDescription());
+        dia.setActive(form.getActive());
         diaLaboralService.save(dia);
         return "redirect:/hresources/dia-laboral/list";
     }
