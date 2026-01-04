@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpSession;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa;
+import mx.ipn.upiicsa.web.accesscontrol.domain.Persona;
 
 @Controller
 @RequestMapping("/citas")
@@ -46,7 +46,7 @@ public class CitaController {
     @GetMapping("/create")
     @RequiresRole({ "ADMIN", "CLIENT" })
     public String createForm(Model model, HttpSession session) {
-        PersonaJpa persona = (PersonaJpa) session.getAttribute("persona");
+        Persona persona = (Persona) session.getAttribute("persona");
         // Clients can only create for themselves
         if (isClient(persona)) {
             model.addAttribute("personas", List.of(persona));
@@ -67,7 +67,7 @@ public class CitaController {
     @RequiresRole({ "ADMIN", "CLIENT" })
     public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model,
             HttpSession session) {
-        PersonaJpa persona = (PersonaJpa) session.getAttribute("persona");
+        Persona persona = (Persona) session.getAttribute("persona");
         // Enforce ownership for clients
         if (isClient(persona) && !form.getIdPersona().equals(persona.getId())) {
             return "redirect:/access-denied";
@@ -183,7 +183,7 @@ public class CitaController {
     @GetMapping("/list")
     @RequiresRole({ "ADMIN", "CLIENT" })
     public String list(Model model, HttpSession session) {
-        PersonaJpa persona = (PersonaJpa) session.getAttribute("persona");
+        Persona persona = (Persona) session.getAttribute("persona");
         if (isClient(persona)) {
             model.addAttribute("citas", citaService.findByPersonaId(persona.getId()));
         } else {
@@ -192,12 +192,12 @@ public class CitaController {
         return "appointment/citas/list";
     }
 
-    private boolean isClient(PersonaJpa persona) {
+    private boolean isClient(Persona persona) {
         return persona != null && persona.getUsuario().getIdRol() == 3; // 3 = Cliente
     }
 
     private boolean isAuthorized(HttpSession session, Integer citaId) {
-        PersonaJpa cur = (PersonaJpa) session.getAttribute("persona");
+        Persona cur = (Persona) session.getAttribute("persona");
         if (cur == null)
             return false;
         // 1 = Admin - can do anything
