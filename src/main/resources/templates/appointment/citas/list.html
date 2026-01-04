@@ -11,13 +11,13 @@
 
     <div class="container mx-auto mt-10">
         <!-- 2. Secondary Tabs -->
-        <div th:replace="~{fragments/tabs :: appointment(activeTab='list')}"></div>
+        <div th:replace="~{fragments/tabs :: appointment(activeTab='historial')}"></div>
 
         <!-- 3. Content Card -->
         <div class="p-6 bg-white rounded-b-lg shadow-lg rounded-tr-lg border border-gray-200">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Citas</h1>
-            <button type="button" th:onclick="|window.location.href='@{/citas/create}'|" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Crear nueva cita</button>
+            <h1 class="text-3xl font-bold text-gray-800">Historial de Citas</h1>
+            <!-- Button deprecated -->
         </div>
         
         <div class="overflow-x-auto">

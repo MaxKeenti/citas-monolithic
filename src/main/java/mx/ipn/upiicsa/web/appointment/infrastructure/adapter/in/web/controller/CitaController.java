@@ -195,6 +195,8 @@ public class CitaController {
         } else {
             model.addAttribute("citas", citaService.findAll());
         }
+        model.addAttribute("activeTab", "historial");
+        model.addAttribute("activeModule", "appointment"); // Ensure consistent with nav
         return "appointment/citas/list";
     }
 

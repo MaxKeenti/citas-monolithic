@@ -45,6 +45,7 @@ public class AgendaController {
         }
 
         model.addAttribute("activeModule", "citas");
+        model.addAttribute("activeTab", "agenda");
 
         // Load data meant for the modal
         model.addAttribute("servicios", servicioJpaRepository.findAll());
