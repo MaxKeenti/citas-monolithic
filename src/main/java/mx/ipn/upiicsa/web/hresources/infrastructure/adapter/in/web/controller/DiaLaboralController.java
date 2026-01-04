@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
+
 @Controller
 @RequestMapping("/hresources/dia-laboral")
 @RequiredArgsConstructor
+@RequiresRole("ADMIN")
 public class DiaLaboralController {
     private final DiaLaboralService diaLaboralService;
 

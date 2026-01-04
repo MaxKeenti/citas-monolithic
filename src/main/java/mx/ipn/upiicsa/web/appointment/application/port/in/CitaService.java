@@ -11,4 +11,6 @@ public interface CitaService {
     java.util.Optional<CitaJpa> findById(Integer id);
 
     void deleteById(Integer id);
+
+    List<CitaJpa> findByPersonaId(Integer idPersona);
 }

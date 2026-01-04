@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import jakarta.servlet.http.HttpSession;
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -27,6 +29,7 @@ public class UsuarioController {
     private final mx.ipn.upiicsa.web.accesscontrol.application.port.in.RolService rolService;
 
     @GetMapping("/create")
+    @RequiresRole("ADMIN")
     public String createForm(Model model) {
         model.addAttribute("usuarioForm", new UsuarioForm());
         // personas that don't have usuario
@@ -40,6 +43,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/create")
+    @RequiresRole("ADMIN")
     public String create(@Valid @ModelAttribute("usuarioForm") UsuarioForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
             populateModel(model);
@@ -51,7 +55,11 @@ public class UsuarioController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+    @RequiresRole({ "ADMIN", "EMPLOYEE" })
+    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model,
+            HttpSession session) {
+        if (!isAuthorized(session, id))
+            return "redirect:/access-denied";
         return usuarioService.findById(id)
                 .map(usuario -> {
                     UsuarioForm form = new UsuarioForm();
@@ -71,7 +79,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("usuarioForm") UsuarioForm form, BindingResult br, Model model) {
+    @RequiresRole({ "ADMIN", "EMPLOYEE" })
+    public String update(@Valid @ModelAttribute("usuarioForm") UsuarioForm form, BindingResult br, Model model,
+            HttpSession session) {
+        if (!isAuthorized(session, form.getIdPersona()))
+            return "redirect:/access-denied";
         if (br.hasErrors()) {
             populateModel(model);
             return "accesscontrol/usuarios/edit";
@@ -89,6 +101,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/delete/{id}")
+    @RequiresRole("ADMIN")
     public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
         return usuarioService.findById(id)
                 .map(usuario -> {
@@ -99,6 +112,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/delete")
+    @RequiresRole("ADMIN")
     public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
         usuarioService.deleteById(id);
         return "redirect:/usuarios/list";
@@ -121,8 +135,21 @@ public class UsuarioController {
     }
 
     @GetMapping("/list")
+    @RequiresRole("ADMIN")
     public String list(Model model) {
         model.addAttribute("usuarios", usuarioService.findAll());
         return "accesscontrol/usuarios/list";
+    }
+
+    @RequiresRole("ADMIN")
+    private boolean isAuthorized(HttpSession session, Integer targetId) {
+        PersonaJpa cur = (PersonaJpa) session.getAttribute("persona");
+        if (cur == null)
+            return false;
+        // 1 = Admin
+        if (cur.getUsuario().getIdRol() == 1)
+            return true;
+        // Check if editing own profile
+        return cur.getId().equals(targetId);
     }
 }
