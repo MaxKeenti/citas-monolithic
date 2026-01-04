@@ -13,4 +13,7 @@ public interface CitaService {
     void deleteById(Integer id);
 
     List<CitaJpa> findByPersonaId(Integer idPersona);
+
+    List<CitaJpa> findByDateRange(java.time.LocalDateTime start, java.time.LocalDateTime end);
+
 }

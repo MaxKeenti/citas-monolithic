@@ -3,6 +3,7 @@ package mx.ipn.upiicsa.web.appointment.infrastructure.adapter.in.web.controller;
 import jakarta.validation.Valid;
 import mx.ipn.upiicsa.web.appointment.domain.CitaJpa;
 import mx.ipn.upiicsa.web.appointment.application.port.in.CitaService;
+import java.util.Optional;
 
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioJpaRepository;
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioListaPrecioJpaRepository;
@@ -44,8 +45,11 @@ public class CitaController {
     private final EmpleadoJpaRepository empleadoJpaRepository;
 
     @GetMapping("/create")
-    @RequiresRole({ "ADMIN", "CLIENT" })
-    public String createForm(Model model, HttpSession session) {
+    @RequiresRole({ "ADMIN", "CLIENT", "EMPLOYEE" })
+
+    public String createForm(Model model, HttpSession session,
+            @RequestParam(required = false) java.time.LocalDateTime fechaHora,
+            @RequestParam(required = false) Integer customDuration) {
         Persona persona = (Persona) session.getAttribute("persona");
         // Clients can only create for themselves
         if (isClient(persona)) {
@@ -54,7 +58,15 @@ public class CitaController {
             model.addAttribute("personas", personaJpaRepository.findAll());
         }
 
-        model.addAttribute("citaForm", new CitaForm());
+        CitaForm form = new CitaForm();
+        if (fechaHora != null) {
+            form.setFechaHora(fechaHora);
+        }
+        if (customDuration != null) {
+            form.setCustomDuration(customDuration);
+        }
+
+        model.addAttribute("citaForm", form);
         model.addAttribute("servicios", servicioJpaRepository.findAll());
         model.addAttribute("sucursales", sucursalJpaRepository.findAll());
         model.addAttribute("empleados", empleadoJpaRepository.findAll());
@@ -64,7 +76,8 @@ public class CitaController {
     }
 
     @PostMapping("/create")
-    @RequiresRole({ "ADMIN", "CLIENT" })
+    @RequiresRole({ "ADMIN", "CLIENT", "EMPLOYEE" })
+
     public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model,
             HttpSession session) {
         Persona persona = (Persona) session.getAttribute("persona");
@@ -78,7 +91,14 @@ public class CitaController {
             return "appointment/citas/create";
         }
         CitaJpa c = new CitaJpa();
-        saveCita(c, form);
+        try {
+            saveCita(c, form);
+        } catch (IllegalStateException e) {
+            String msg = e.getMessage() != null ? e.getMessage() : "Error al guardar cita";
+            br.rejectValue("fechaHora", "error.fechaHora", java.util.Objects.requireNonNull(msg));
+            populateModel(model, form.getIdServicio());
+            return "appointment/citas/create";
+        }
         return "redirect:/citas/list";
     }
 
@@ -99,6 +119,7 @@ public class CitaController {
                     form.setIdSucursal(cita.getFkIdSucursal());
                     form.setIdEmpleado(cita.getFkIdEmpleado());
                     form.setFechaHora(cita.getFechaHora());
+                    form.setCustomDuration(cita.getCustomDuration()); // Map customDuration to form
 
                     model.addAttribute("citaForm", form);
                     populateModel(model, cita.getFkIdServicio());
@@ -122,9 +143,21 @@ public class CitaController {
             populateModel(model, form.getIdServicio());
             return "appointment/citas/edit";
         }
-        CitaJpa c = new CitaJpa();
-        c.setIdCita(form.getId());
-        saveCita(c, form);
+
+        Optional<CitaJpa> existingOpt = citaService.findById(form.getId());
+        if (existingOpt.isEmpty()) {
+            return "redirect:/citas/list";
+        }
+        CitaJpa c = existingOpt.get();
+
+        try {
+            saveCita(c, form);
+        } catch (IllegalStateException e) {
+            String msg = e.getMessage() != null ? e.getMessage() : "Error al guardar cita";
+            br.rejectValue("fechaHora", "error.fechaHora", java.util.Objects.requireNonNull(msg));
+            populateModel(model, form.getIdServicio());
+            return "appointment/citas/edit";
+        }
         return "redirect:/citas/list";
     }
 
@@ -159,7 +192,11 @@ public class CitaController {
         c.setFkIdSucursal(form.getIdSucursal());
         c.setFkIdEmpleado(form.getIdEmpleado());
         c.setFechaHora(form.getFechaHora());
+        if (form.getCustomDuration() != null) {
+            c.setCustomDuration(form.getCustomDuration());
+        }
         citaService.save(c);
+
     }
 
     private void populateModel(Model model, Integer idServicio) {
@@ -189,6 +226,8 @@ public class CitaController {
         } else {
             model.addAttribute("citas", citaService.findAll());
         }
+        model.addAttribute("activeTab", "historial");
+        model.addAttribute("activeModule", "appointment"); // Ensure consistent with nav
         return "appointment/citas/list";
     }
 

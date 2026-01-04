@@ -41,4 +41,13 @@ public class BloqueCitaServiceImpl implements BloqueCitaService {
         }
         bloqueCitaJpaRepository.deleteById(id);
     }
+
+    @Override
+    @org.springframework.transaction.annotation.Transactional
+    public void deleteByCitaId(Integer citaId) {
+        if (citaId == null) {
+            throw new IllegalArgumentException("citaId cannot be null");
+        }
+        bloqueCitaJpaRepository.deleteByIdCita(citaId);
+    }
 }

@@ -7,4 +7,10 @@ import java.util.List;
 
 public interface CitaJpaRepository extends JpaRepository<CitaJpa, Integer> {
     List<CitaJpa> findByFkIdPersona(Integer fkIdPersona);
+
+    List<CitaJpa> findByFechaHoraBetween(java.time.LocalDateTime start, java.time.LocalDateTime end);
+
+    List<CitaJpa> findByFkIdEmpleadoAndFechaHoraBetween(Integer fkIdEmpleado, java.time.LocalDateTime start,
+            java.time.LocalDateTime end);
+
 }

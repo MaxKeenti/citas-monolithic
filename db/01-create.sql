@@ -476,8 +476,10 @@ CREATE TABLE public.tci05_cita (
     fk_id_lista_precio integer NOT NULL,
     fk_id_sucursal integer NOT NULL,
     fk_id_empleado integer NOT NULL,
-    fh_cita timestamp without time zone
+    fh_cita timestamp without time zone,
+    nu_duracion integer
 );
+
 
 
 

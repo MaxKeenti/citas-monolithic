@@ -18,4 +18,5 @@ public class CitaForm {
     @NotNull(message = "Seleccione el empleado")
     private Integer idEmpleado;
     private LocalDateTime fechaHora;
+    private Integer customDuration;
 }
