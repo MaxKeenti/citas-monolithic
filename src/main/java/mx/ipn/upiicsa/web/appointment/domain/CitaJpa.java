@@ -29,6 +29,9 @@ public class CitaJpa {
     @Column(name = "fh_cita")
     private LocalDateTime fechaHora;
 
+    @Column(name = "nu_duracion")
+    private Integer customDuration;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_persona", insertable = false, updatable = false)
     private mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa persona;
@@ -104,6 +107,14 @@ public class CitaJpa {
 
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public Integer getCustomDuration() {
+        return customDuration;
+    }
+
+    public void setCustomDuration(Integer customDuration) {
+        this.customDuration = customDuration;
     }
 
     public mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa getPersona() {

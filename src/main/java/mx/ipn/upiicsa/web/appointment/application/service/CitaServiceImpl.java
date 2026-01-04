@@ -13,6 +13,8 @@ import java.util.List;
 public class CitaServiceImpl implements CitaService {
 
     private final CitaJpaRepository citaJpaRepository;
+    private final mx.ipn.upiicsa.web.hresources.application.port.in.BloqueCitaService bloqueCitaService;
+    private final mx.ipn.upiicsa.web.catalog.application.port.out.ServicioJpaRepository servicioJpaRepository;
 
     @Override
     public List<CitaJpa> findAll() {
@@ -24,7 +26,38 @@ public class CitaServiceImpl implements CitaService {
         if (cita == null) {
             throw new IllegalArgumentException("cita cannot be null");
         }
-        return citaJpaRepository.save(cita);
+
+        CitaJpa savedCita = citaJpaRepository.save(cita);
+
+        // Logic to create BloqueCita entries
+        Integer duration = savedCita.getCustomDuration();
+        if (duration == null) {
+            // Fetch service to get default duration
+            var servicio = servicioJpaRepository.findById(savedCita.getFkIdServicio()).orElse(null);
+            if (servicio != null) {
+                duration = servicio.getNuDuracion();
+            } else {
+                duration = 30; // Fallback
+            }
+        }
+
+        int blocks = (int) Math.ceil((double) duration / 30);
+        java.time.LocalDateTime startTime = savedCita.getFechaHora();
+
+        for (int i = 0; i < blocks; i++) {
+            java.time.LocalDateTime blockStart = startTime.plusMinutes(i * 30);
+            java.time.LocalDateTime blockEnd = blockStart.plusMinutes(30);
+
+            mx.ipn.upiicsa.web.hresources.domain.BloqueCitaJpa bloque = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaJpa();
+            bloque.setIdSucursal(savedCita.getFkIdSucursal());
+            bloque.setIdCita(savedCita.getIdCita());
+            bloque.setFechaInicio(blockStart);
+            bloque.setFechaFin(blockEnd);
+
+            bloqueCitaService.save(bloque);
+        }
+
+        return savedCita;
     }
 
     @Override
@@ -50,4 +83,13 @@ public class CitaServiceImpl implements CitaService {
         }
         return citaJpaRepository.findByFkIdPersona(idPersona);
     }
+
+    @Override
+    public List<CitaJpa> findByDateRange(java.time.LocalDateTime start, java.time.LocalDateTime end) {
+        if (start == null || end == null) {
+            throw new IllegalArgumentException("Start and end dates cannot be null");
+        }
+        return citaJpaRepository.findByFechaHoraBetween(start, end);
+    }
+
 }

@@ -44,7 +44,8 @@ public class CitaController {
     private final EmpleadoJpaRepository empleadoJpaRepository;
 
     @GetMapping("/create")
-    @RequiresRole({ "ADMIN", "CLIENT" })
+    @RequiresRole({ "ADMIN", "CLIENT", "EMPLOYEE" })
+
     public String createForm(Model model, HttpSession session) {
         Persona persona = (Persona) session.getAttribute("persona");
         // Clients can only create for themselves
@@ -64,7 +65,8 @@ public class CitaController {
     }
 
     @PostMapping("/create")
-    @RequiresRole({ "ADMIN", "CLIENT" })
+    @RequiresRole({ "ADMIN", "CLIENT", "EMPLOYEE" })
+
     public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model,
             HttpSession session) {
         Persona persona = (Persona) session.getAttribute("persona");
@@ -159,7 +161,11 @@ public class CitaController {
         c.setFkIdSucursal(form.getIdSucursal());
         c.setFkIdEmpleado(form.getIdEmpleado());
         c.setFechaHora(form.getFechaHora());
+        if (form.getCustomDuration() != null) {
+            c.setCustomDuration(form.getCustomDuration());
+        }
         citaService.save(c);
+
     }
 
     private void populateModel(Model model, Integer idServicio) {
