@@ -34,7 +34,7 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="b : ${bloquesCita}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${b.idSucursal}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${b.sucursal != null ? b.sucursal.txNombre : b.idSucursal}" class="py-3 px-6 text-left"></td>
                         <td th:text="${b.idCita}" class="py-3 px-6 text-left"></td>
                         <td th:text="${b.fechaInicio}" class="py-3 px-6 text-left"></td>
                         <td th:text="${b.fechaFin}" class="py-3 px-6 text-left"></td>
