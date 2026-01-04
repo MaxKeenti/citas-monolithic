@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.PersonaJpa;
+import mx.ipn.upiicsa.web.accesscontrol.domain.Persona;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -38,7 +38,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         }
 
         HttpSession session = request.getSession();
-        PersonaJpa persona = (PersonaJpa) session.getAttribute("persona");
+        Persona persona = (Persona) session.getAttribute("persona");
 
         if (persona == null) {
             log.warn("Access denied: User not authenticated for URL {}", request.getRequestURI());

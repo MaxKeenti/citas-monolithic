@@ -861,6 +861,9 @@ ALTER TABLE ONLY public.tca01_persona
 ALTER TABLE ONLY public.tca02_usuario
     ADD CONSTRAINT tca02_usuario_pkey PRIMARY KEY (id_usuario);
 
+ALTER TABLE ONLY public.tca02_usuario
+    ADD CONSTRAINT uk_tx_login UNIQUE (tx_login);
+
 
 --
 -- TOC entry 4703 (class 2606 OID 18679)
