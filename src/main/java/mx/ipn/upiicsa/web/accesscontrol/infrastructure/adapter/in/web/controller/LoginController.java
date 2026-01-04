@@ -82,4 +82,10 @@ public class LoginController {
     public String accessDenied() {
         return "access-denied";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

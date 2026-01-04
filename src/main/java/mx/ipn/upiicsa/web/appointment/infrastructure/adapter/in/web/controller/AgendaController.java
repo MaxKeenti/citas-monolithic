@@ -44,6 +44,8 @@ public class AgendaController {
             return "redirect:/login";
         }
 
+        model.addAttribute("activeModule", "citas");
+
         // Load data meant for the modal
         model.addAttribute("servicios", servicioJpaRepository.findAll());
         model.addAttribute("sucursales", sucursalJpaRepository.findAll());

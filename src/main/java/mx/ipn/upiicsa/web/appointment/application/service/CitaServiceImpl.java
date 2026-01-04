@@ -33,11 +33,16 @@ public class CitaServiceImpl implements CitaService {
         Integer duration = savedCita.getCustomDuration();
         if (duration == null) {
             // Fetch service to get default duration
-            var servicio = servicioJpaRepository.findById(savedCita.getFkIdServicio()).orElse(null);
-            if (servicio != null) {
-                duration = servicio.getNuDuracion();
+            Integer serviceId = savedCita.getFkIdServicio();
+            if (serviceId != null) {
+                var servicio = servicioJpaRepository.findById(serviceId).orElse(null);
+                if (servicio != null) {
+                    duration = servicio.getNuDuracion();
+                } else {
+                    duration = 30; // Fallback
+                }
             } else {
-                duration = 30; // Fallback
+                duration = 30; // Fallback if no service ID
             }
         }
 
