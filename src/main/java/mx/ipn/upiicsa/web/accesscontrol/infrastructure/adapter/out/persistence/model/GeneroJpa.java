@@ -16,11 +16,11 @@ public class GeneroJpa {
     @Column(name = "id_genero")
     private Integer id;
     @Column(name = "tx_nombre")
-    private String nombre;
+    private String name;
     @Column(name = "tx_descripcion")
-    private String descripcion;
+    private String description;
     @Column(name = "st_activo")
-    private Boolean activo;
+    private Boolean active;
     @OneToMany(mappedBy = "genero")
     List<PersonaJpa> personas;
 }

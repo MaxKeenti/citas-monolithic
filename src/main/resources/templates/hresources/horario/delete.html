@@ -23,9 +23,9 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Sucursal: <span class="font-normal" th:text="${horario.idSucursal}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Día: <span class="font-normal" th:text="${horario.idDia}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Horario: <span class="font-normal" th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">ID Sucursal: <span class="font-normal" th:text="${horario.branchId}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">ID Día: <span class="font-normal" th:text="${horario.dayId}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Horario: <span class="font-normal" th:text="${horario.startTime} + ' - ' + ${horario.endTime}"></span></p>
             </div>
 
             <form th:action="@{/hresources/horario/delete}" method="post">

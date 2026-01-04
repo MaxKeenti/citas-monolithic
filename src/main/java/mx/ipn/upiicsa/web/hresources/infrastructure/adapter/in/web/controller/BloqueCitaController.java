@@ -34,14 +34,14 @@ public class BloqueCitaController {
     }
 
     @GetMapping("/edit")
-    public String editForm(@RequestParam Integer idSucursal,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaInicio,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin,
+    public String editForm(@RequestParam Integer branchId,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime startDate,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime endDate,
             Model model) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setBranchId(idSucursal);
-        id.setStartDate(fechaInicio);
-        id.setEndDate(fechaFin);
+        id.setBranchId(branchId);
+        id.setStartDate(startDate);
+        id.setEndDate(endDate);
 
         return bloqueCitaService.findById(id)
                 .map(bc -> {
@@ -64,14 +64,14 @@ public class BloqueCitaController {
     }
 
     @GetMapping("/delete")
-    public String deleteConfirmation(@RequestParam Integer idSucursal,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaInicio,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin,
+    public String deleteConfirmation(@RequestParam Integer branchId,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime startDate,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime endDate,
             Model model) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setBranchId(idSucursal);
-        id.setStartDate(fechaInicio);
-        id.setEndDate(fechaFin);
+        id.setBranchId(branchId);
+        id.setStartDate(startDate);
+        id.setEndDate(endDate);
 
         return bloqueCitaService.findById(id)
                 .map(bc -> {
@@ -82,13 +82,13 @@ public class BloqueCitaController {
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam Integer idSucursal,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaInicio,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime fechaFin) {
+    public String delete(@RequestParam Integer branchId,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime startDate,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime endDate) {
         mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id = new mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId();
-        id.setBranchId(idSucursal);
-        id.setStartDate(fechaInicio);
-        id.setEndDate(fechaFin);
+        id.setBranchId(branchId);
+        id.setStartDate(startDate);
+        id.setEndDate(endDate);
 
         bloqueCitaService.deleteById(id);
         return "redirect:/hresources/bloque-cita/list";

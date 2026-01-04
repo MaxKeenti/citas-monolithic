@@ -32,7 +32,7 @@ public class UsuarioController {
         // personas that don't have usuario
         List<PersonaJpa> personas = personaService.findAll()
                 .stream().filter(p -> p.getUser() == null).collect(Collectors.toList());
-        List<RolJpa> roles = rolService.findAll().stream().filter(r -> Boolean.TRUE.equals(r.getActivo()))
+        List<RolJpa> roles = rolService.findAll().stream().filter(r -> Boolean.TRUE.equals(r.getActive()))
                 .collect(Collectors.toList());
         model.addAttribute("personas", personas);
         model.addAttribute("roles", roles);
@@ -117,7 +117,7 @@ public class UsuarioController {
     private void populateModel(Model model) {
         model.addAttribute("personas", personaService.findAll()); // All personas, or logic for edit
         model.addAttribute("roles", rolService.findAll().stream()
-                .filter(r -> Boolean.TRUE.equals(r.getActivo())).collect(Collectors.toList()));
+                .filter(r -> Boolean.TRUE.equals(r.getActive())).collect(Collectors.toList()));
     }
 
     @GetMapping("/list")

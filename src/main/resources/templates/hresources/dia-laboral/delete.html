@@ -23,8 +23,8 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">Nombre: <span class="font-normal" th:text="${dia.nombre}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Descripción: <span class="font-normal" th:text="${dia.descripcion}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Nombre: <span class="font-normal" th:text="${dia.name}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Descripción: <span class="font-normal" th:text="${dia.description}"></span></p>
             </div>
 
             <form th:action="@{/hresources/dia-laboral/delete}" method="post">

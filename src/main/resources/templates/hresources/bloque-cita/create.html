@@ -19,26 +19,26 @@
         
         <form th:action="@{/hresources/bloque-cita/create}" th:object="${bloqueCitaForm}" method="post">
             <div class="mb-4">
-                <label for="idSucursal" class="block text-gray-700 text-sm font-bold mb-2">ID Sucursal:</label>
-                <input type="number" id="idSucursal" th:field="*{idSucursal}" 
+                <label for="branchId" class="block text-gray-700 text-sm font-bold mb-2">ID Sucursal:</label>
+                <input type="number" id="branchId" th:field="*{branchId}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="idCita" class="block text-gray-700 text-sm font-bold mb-2">ID Cita:</label>
-                <input type="number" id="idCita" th:field="*{idCita}" 
+                <label for="appointmentId" class="block text-gray-700 text-sm font-bold mb-2">ID Cita:</label>
+                <input type="number" id="appointmentId" th:field="*{appointmentId}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="fechaInicio" class="block text-gray-700 text-sm font-bold mb-2">Fecha Inicio:</label>
-                <input type="datetime-local" id="fechaInicio" th:field="*{fechaInicio}" 
+                <label for="startDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha Inicio:</label>
+                <input type="datetime-local" id="startDate" th:field="*{startDate}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="fechaFin" class="block text-gray-700 text-sm font-bold mb-2">Fecha Fin:</label>
-                <input type="datetime-local" id="fechaFin" th:field="*{fechaFin}" 
+                <label for="endDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha Fin:</label>
+                <input type="datetime-local" id="endDate" th:field="*{endDate}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 

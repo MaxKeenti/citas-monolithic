@@ -34,10 +34,10 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="h : ${horarios}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${h.idSucursal}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${h.idDia}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${h.horaInicio}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${h.horaFin}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.branchId}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.dayId}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.startTime}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${h.endTime}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
                             <button type="button" th:onclick="|window.location.href='@{/hresources/horario/edit/{id}(id=${h.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head> 
     <meta charset="UTF-8" />
     <title>Sucursales</title>
     <link rel="stylesheet" href="/css/output.css">
@@ -33,14 +33,14 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="s : ${sucursales}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${s.idSucursal}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${s.txNombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${s.establecimiento != null ? s.establecimiento.txNombre : ''}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${s.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                        <td th:text="${s.name}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${s.establishment != null ? s.establishment.name : ''}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/sucursales/edit/{id}(id=${s.idSucursal})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/sucursales/edit/{id}(id=${s.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/sucursales/delete/{id}(id=${s.idSucursal})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/sucursales/delete/{id}(id=${s.id})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>

@@ -36,20 +36,20 @@
                     <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                         <th class="py-3 px-6 text-left">ID</th>
                         <th class="py-3 px-6 text-left">Nombre</th>
-                        <th class="py-3 px-6 text-left">Descripción</th>
-                        <th class="py-3 px-6 text-left">Activo</th>
-                        <th class="py-3 px-6 text-center">Editar</th>
-                        <th class="py-3 px-6 text-center">Eliminar</th>
+                        <th class="py-3 px-6 text-left">Description</th>
+                        <th class="py-3 px-6 text-left">Active</th>
+                        <th class="py-3 px-6 text-center">Edit</th>
+                        <th class="py-3 px-6 text-center">Delete</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="r : ${roles}" class="border-b border-gray-200 hover:bg-gray-100">
                         <td th:text="${r.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${r.nombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${r.descripcion}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${r.name}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${r.description}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-left">
-                            <span th:if="${r.activo}" class="bg-teal-200 text-teal-600 py-1 px-3 rounded-full text-xs">Activo</span>
-                            <span th:unless="${r.activo}" class="bg-rose-200 text-rose-600 py-1 px-3 rounded-full text-xs">Inactivo</span>
+                            <span th:if="${r.active}" class="bg-teal-200 text-teal-600 py-1 px-3 rounded-full text-xs">Active</span>
+                            <span th:unless="${r.active}" class="bg-rose-200 text-rose-600 py-1 px-3 rounded-full text-xs">Inactive</span>
                         </td>
                         <td class="py-3 px-6 text-center">
                             <button type="button" th:onclick="|window.location.href='@{/roles/edit/{id}(id=${r.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>

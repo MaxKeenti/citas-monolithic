@@ -30,17 +30,17 @@
                 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2 required">Establecimiento</label>
-                    <select th:field="*{idEstablecimiento}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <select th:field="*{establishmentId}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         <option value="">Seleccione...</option>
-                        <option th:each="e : ${establecimientos}" th:value="${e.id}" th:text="${e.txNombre}"></option>
+                        <option th:each="e : ${establecimientos}" th:value="${e.id}" th:text="${e.name}"></option>
                     </select>
-                    <p th:if="${#fields.hasErrors('idEstablecimiento')}" th:errors="*{idEstablecimiento}" class="text-rose-500 text-xs italic mt-1"></p>
+                    <p th:if="${#fields.hasErrors('establishmentId')}" th:errors="*{establishmentId}" class="text-rose-500 text-xs italic mt-1"></p>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2 required">Nombre de la Sucursal</label>
-                    <input type="text" th:field="*{nombre}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-rose-500 text-xs italic mt-1"></p>
+                    <input type="text" th:field="*{name}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-rose-500 text-xs italic mt-1"></p>
                 </div>
 
                 <div class="mb-6">
@@ -48,10 +48,10 @@
                     <div id="map"></div>
                     <p class="text-sm text-gray-600 mb-2">Haga clic en el mapa para actualizar la ubicación.</p>
                     
-                    <input type="hidden" id="latitud" th:field="*{latitud}">
-                    <input type="hidden" id="longitud" th:field="*{longitud}">
+                    <input type="hidden" id="latitude" th:field="*{latitude}">
+                    <input type="hidden" id="longitude" th:field="*{longitude}">
                     
-                    <p th:if="${#fields.hasErrors('latitud')}" class="text-rose-500 text-xs italic mt-1">Debe seleccionar una ubicación en el mapa.</p>
+                    <p th:if="${#fields.hasErrors('latitude')}" class="text-rose-500 text-xs italic mt-1">Debe seleccionar una ubicación en el mapa.</p>
                 </div>
 
                 <div class="flex items-center justify-between gap-4">
@@ -64,8 +64,8 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var initialLat = /*[[${sucursalForm.latitud}]]*/ 19.4326;
-        var initialLng = /*[[${sucursalForm.longitud}]]*/ -99.1332;
+        var initialLat = /*[[${sucursalForm.latitude}]]*/ 19.4326;
+        var initialLng = /*[[${sucursalForm.longitude}]]*/ -99.1332;
         
         // Initialize map
         var map = L.map('map').setView([initialLat, initialLng], 13);
@@ -73,7 +73,7 @@
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <button type="button" onclick="window.location.href='http://www.openstreetmap.org/copyright'" >OpenStreetMap</button>'
+            attribution: '&copy; <button type="button" onclick="window.location.href=\'http://www.openstreetmap.org/copyright\'" >OpenStreetMap</button>'
         }).addTo(map);
 
         if (initialLat && initialLng) {
@@ -85,8 +85,8 @@
                 map.removeLayer(marker);
             }
             marker = L.marker(e.latlng).addTo(map);
-            document.getElementById('latitud').value = e.latlng.lat;
-            document.getElementById('longitud').value = e.latlng.lng;
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
         }
 
         map.on('click', onMapClick);

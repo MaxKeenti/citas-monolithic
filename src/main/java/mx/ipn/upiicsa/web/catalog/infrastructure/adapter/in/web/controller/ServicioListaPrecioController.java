@@ -31,14 +31,32 @@ public class ServicioListaPrecioController {
 
     @GetMapping("/create")
     public String createForm(Model model) {
-        model.addAttribute("precio", new ServicioListaPrecioJpa());
+        model.addAttribute("precio",
+                new mx.ipn.upiicsa.web.catalog.infrastructure.adapter.in.web.dto.ServicioListaPrecioForm());
         model.addAttribute("servicios", servicioService.findAll());
         model.addAttribute("listas", listaPrecioService.findAll());
         return "catalog/servicio-lista-precios/create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ServicioListaPrecioJpa precio, RedirectAttributes redirectAttributes) {
+    public String save(
+            @ModelAttribute("precio") mx.ipn.upiicsa.web.catalog.infrastructure.adapter.in.web.dto.ServicioListaPrecioForm form,
+            RedirectAttributes redirectAttributes) {
+        ServicioListaPrecioJpa precio = new ServicioListaPrecioJpa();
+        if (form.getId() != null) {
+            precio = servicioListaPrecioService.findById(form.getId()).orElse(new ServicioListaPrecioJpa());
+        }
+
+        mx.ipn.upiicsa.web.catalog.domain.ServicioJpa servicio = new mx.ipn.upiicsa.web.catalog.domain.ServicioJpa();
+        servicio.setId(form.getServiceId());
+        precio.setService(servicio);
+
+        mx.ipn.upiicsa.web.catalog.domain.ListaPrecioJpa lista = new mx.ipn.upiicsa.web.catalog.domain.ListaPrecioJpa();
+        lista.setId(form.getPriceListId());
+        precio.setPriceList(lista);
+
+        precio.setPrice(form.getPrice());
+
         servicioListaPrecioService.save(precio);
         redirectAttributes.addFlashAttribute("message", "Precio guardado exitosamente");
         return "redirect:/servicio-lista-precios/list";
@@ -47,7 +65,15 @@ public class ServicioListaPrecioController {
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Integer id, Model model) {
         return servicioListaPrecioService.findById(id).map(p -> {
-            model.addAttribute("precio", p);
+            mx.ipn.upiicsa.web.catalog.infrastructure.adapter.in.web.dto.ServicioListaPrecioForm form = new mx.ipn.upiicsa.web.catalog.infrastructure.adapter.in.web.dto.ServicioListaPrecioForm();
+            form.setId(p.getId());
+            if (p.getService() != null)
+                form.setServiceId(p.getService().getId());
+            if (p.getPriceList() != null)
+                form.setPriceListId(p.getPriceList().getId());
+            form.setPrice(p.getPrice());
+
+            model.addAttribute("precio", form);
             model.addAttribute("servicios", servicioService.findAll());
             model.addAttribute("listas", listaPrecioService.findAll());
             return "catalog/servicio-lista-precios/edit";

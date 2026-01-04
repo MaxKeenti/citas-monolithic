@@ -23,12 +23,12 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID: <span class="font-normal" th:text="${cita.idCita}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Fecha: <span class="font-normal" th:text="${cita.fechaHora}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">ID: <span class="font-normal" th:text="${cita.id}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Fecha: <span class="font-normal" th:text="${cita.dateTime}"></span></p>
             </div>
 
             <form th:action="@{/citas/delete}" method="post">
-                <input type="hidden" name="id" th:value="${cita.idCita}" />
+                <input type="hidden" name="id" th:value="${cita.id}" />
                 
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

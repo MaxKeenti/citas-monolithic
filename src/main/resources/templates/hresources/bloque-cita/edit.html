@@ -20,26 +20,26 @@
         <form th:action="@{/hresources/bloque-cita/update}" th:object="${bloqueCitaForm}" method="post">
             
             <div class="mb-4">
-                <label for="idSucursal" class="block text-gray-700 text-sm font-bold mb-2">ID Sucursal (No editable):</label>
-                <input type="number" id="idSucursal" th:field="*{idSucursal}" readonly
+                <label for="branchId" class="block text-gray-700 text-sm font-bold mb-2">ID Sucursal (No editable):</label>
+                <input type="number" id="branchId" th:field="*{branchId}" readonly
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200">
             </div>
 
             <div class="mb-4">
-                <label for="idCita" class="block text-gray-700 text-sm font-bold mb-2">ID Cita:</label>
-                <input type="number" id="idCita" th:field="*{idCita}" 
+                <label for="appointmentId" class="block text-gray-700 text-sm font-bold mb-2">ID Cita:</label>
+                <input type="number" id="appointmentId" th:field="*{appointmentId}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="fechaInicio" class="block text-gray-700 text-sm font-bold mb-2">Fecha Inicio (No editable):</label>
-                <input type="datetime-local" id="fechaInicio" th:field="*{fechaInicio}" readonly
+                <label for="startDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha Inicio (No editable):</label>
+                <input type="datetime-local" id="startDate" th:field="*{startDate}" readonly
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200">
             </div>
 
             <div class="mb-4">
-                <label for="fechaFin" class="block text-gray-700 text-sm font-bold mb-2">Fecha Fin (No editable):</label>
-                <input type="datetime-local" id="fechaFin" th:field="*{fechaFin}" readonly
+                <label for="endDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha Fin (No editable):</label>
+                <input type="datetime-local" id="endDate" th:field="*{endDate}" readonly
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200">
             </div>
 

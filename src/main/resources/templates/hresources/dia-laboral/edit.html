@@ -21,22 +21,22 @@
             <input type="hidden" th:field="*{id}" />
             
             <div class="mb-4">
-                <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-                <input type="text" id="nombre" th:field="*{nombre}" 
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                <input type="text" id="name" th:field="*{name}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       placeholder="Ej: Lunes, Festivo...">
+                       placeholder="Ex: Monday, Holiday...">
             </div>
 
             <div class="mb-4">
-                <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
-                <input type="text" id="descripcion" th:field="*{descripcion}" 
+                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                <input type="text" id="description" th:field="*{description}" 
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-6">
                 <label class="flex items-center">
-                    <input type="checkbox" th:field="*{activo}" value="1" class="form-checkbox h-5 w-5 text-teal-600" />
-                    <span class="ml-2 text-gray-700 text-sm font-bold">Activo</span>
+                    <input type="checkbox" th:field="*{active}" value="1" class="form-checkbox h-5 w-5 text-teal-600" />
+                    <span class="ml-2 text-gray-700 text-sm font-bold">Active</span>
                 </label>
             </div>
 

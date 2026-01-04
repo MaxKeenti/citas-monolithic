@@ -35,9 +35,9 @@
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="p : ${personas}" class="border-b border-gray-200 hover:bg-gray-100">
                         <td th:text="${p.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                        <td th:text="${p.nombre}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${p.primerApellido}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${p.segundoApellido}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.firstName}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.lastName}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${p.secondLastName}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
                             <button type="button" th:onclick="|window.location.href='@{/personas/edit/{id}(id=${p.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>

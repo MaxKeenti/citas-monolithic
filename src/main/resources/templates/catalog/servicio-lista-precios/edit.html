@@ -26,7 +26,7 @@
                     </label>
                     <div class="relative">
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="servicio" th:field="*{service}" required>
+                                id="servicio" th:field="*{serviceId}" required>
                             <option value="">Seleccione un servicio</option>
                             <option th:each="s : ${servicios}" th:value="${s.id}" th:text="${s.name}"></option>
                         </select>
@@ -42,7 +42,7 @@
                     </label>
                     <div class="relative">
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="listaPrecio" th:field="*{priceList}" required>
+                                id="listaPrecio" th:field="*{priceListId}" required>
                             <option value="">Seleccione una lista</option>
                             <option th:each="l : ${listas}" th:value="${l.id}" th:text="${l.name}"></option>
                         </select>

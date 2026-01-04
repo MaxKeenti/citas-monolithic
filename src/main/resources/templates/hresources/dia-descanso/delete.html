@@ -23,8 +23,8 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${dia.idEmpleado}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Fecha Descanso: <span class="font-normal" th:text="${dia.fechaDescanso}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${dia.employeeId}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Fecha Descanso: <span class="font-normal" th:text="${dia.date}"></span></p>
             </div>
 
             <form th:action="@{/hresources/dia-descanso/delete}" method="post">

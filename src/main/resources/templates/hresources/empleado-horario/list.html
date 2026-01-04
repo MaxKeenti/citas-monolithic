@@ -32,13 +32,13 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="eh : ${empleadoHorarios}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${eh.idHorario}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${eh.idEmpleado}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${eh.scheduleId}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${eh.employeeId}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/hresources/empleado-horario/edit(idHorario=${eh.idHorario}, idEmpleado=${eh.idEmpleado})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/hresources/empleado-horario/edit(scheduleId=${eh.scheduleId}, employeeId=${eh.employeeId})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/hresources/empleado-horario/delete(idHorario=${eh.idHorario}, idEmpleado=${eh.idEmpleado})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/hresources/empleado-horario/delete(scheduleId=${eh.scheduleId}, employeeId=${eh.employeeId})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>

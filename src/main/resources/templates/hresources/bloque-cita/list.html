@@ -34,15 +34,15 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="b : ${bloquesCita}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${b.idSucursal}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${b.idCita}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${b.fechaInicio}" class="py-3 px-6 text-left"></td>
-                        <td th:text="${b.fechaFin}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${b.branchId}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${b.appointmentId}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${#temporals.format(b.startDate, 'dd-MM-yyyy HH:mm')}" class="py-3 px-6 text-left"></td>
+                        <td th:text="${#temporals.format(b.endDate, 'dd-MM-yyyy HH:mm')}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/hresources/bloque-cita/edit(idSucursal=${b.idSucursal}, fechaInicio=${b.fechaInicio}, fechaFin=${b.fechaFin})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/hresources/bloque-cita/edit(branchId=${b.branchId}, startDate=${b.startDate}, endDate=${b.endDate})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/hresources/bloque-cita/delete(idSucursal=${b.idSucursal}, fechaInicio=${b.fechaInicio}, fechaFin=${b.fechaFin})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/hresources/bloque-cita/delete(branchId=${b.branchId}, startDate=${b.startDate}, endDate=${b.endDate})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>

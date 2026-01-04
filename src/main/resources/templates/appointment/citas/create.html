@@ -20,32 +20,32 @@
         <form th:action="@{/citas/create}" th:object="${citaForm}" method="post">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
-                <select th:field="*{idPersona}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <select th:field="*{personId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.firstName + ' ' + p.lastName}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Servicio</label>
-                <select th:field="*{idServicio}" id="servicio-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <select th:field="*{serviceId}" id="servicio-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="s : ${servicios}" th:value="${s.id}" th:text="${s.name}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Lista de Precio</label>
-                <select th:field="*{idListaPrecio}" id="lista-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <select th:field="*{priceListId}" id="lista-select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option th:each="l : ${listas}" th:value="${l.id}" th:text="${l.name}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Sucursal</label>
-                <select th:field="*{idSucursal}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
+                <select th:field="*{branchId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="s : ${sucursales}" th:value="${s.id}" th:text="${s.name}"></option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Empleado</label>
-                <select th:field="*{idEmpleado}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="e : ${empleados}" th:value="${e.idEmpleado}" th:text="${e.idEmpleado}"></option>
+                <select th:field="*{employeeId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option th:each="e : ${empleados}" th:value="${e.id}" th:text="${e.id}"></option>
                 </select>
             </div>
             <div class="flex items-center justify-between">

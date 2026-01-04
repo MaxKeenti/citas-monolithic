@@ -28,7 +28,7 @@
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Rol</label>
                 <select th:field="*{roleId}" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
+                    <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.name}"></option>
                 </select>
             </div>
             <div class="mb-4">

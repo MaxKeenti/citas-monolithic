@@ -55,7 +55,7 @@ public class CitaController {
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            populateModel(model, form.getIdServicio());
+            populateModel(model, form.getServiceId());
             return "appointment/citas/create";
         }
         CitaJpa c = new CitaJpa();
@@ -68,16 +68,16 @@ public class CitaController {
         return citaService.findById(id)
                 .map(cita -> {
                     CitaForm form = new CitaForm();
-                    form.setId(cita.getIdCita());
-                    form.setIdPersona(cita.getFkIdPersona());
-                    form.setIdServicio(cita.getFkIdServicio());
-                    form.setIdListaPrecio(cita.getFkIdListaPrecio());
-                    form.setIdSucursal(cita.getFkIdSucursal());
-                    form.setIdEmpleado(cita.getFkIdEmpleado());
-                    form.setFechaHora(cita.getFechaHora());
+                    form.setId(cita.getId());
+                    form.setPersonId(cita.getPersonId());
+                    form.setServiceId(cita.getServiceId());
+                    form.setPriceListId(cita.getPriceListId());
+                    form.setBranchId(cita.getBranchId());
+                    form.setEmployeeId(cita.getEmployeeId());
+                    form.setDateTime(cita.getDateTime());
 
                     model.addAttribute("citaForm", form);
-                    populateModel(model, cita.getFkIdServicio());
+                    populateModel(model, cita.getServiceId());
                     return "appointment/citas/edit";
                 })
                 .orElse("redirect:/citas/list");
@@ -86,11 +86,11 @@ public class CitaController {
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            populateModel(model, form.getIdServicio());
+            populateModel(model, form.getServiceId());
             return "appointment/citas/edit";
         }
         CitaJpa c = new CitaJpa();
-        c.setIdCita(form.getId());
+        c.setId(form.getId());
         saveCita(c, form);
         return "redirect:/citas/list";
     }
@@ -112,12 +112,12 @@ public class CitaController {
     }
 
     private void saveCita(CitaJpa c, CitaForm form) {
-        c.setFkIdPersona(form.getIdPersona());
-        c.setFkIdServicio(form.getIdServicio());
-        c.setFkIdListaPrecio(form.getIdListaPrecio());
-        c.setFkIdSucursal(form.getIdSucursal());
-        c.setFkIdEmpleado(form.getIdEmpleado());
-        c.setFechaHora(form.getFechaHora());
+        c.setPersonId(form.getPersonId());
+        c.setServiceId(form.getServiceId());
+        c.setPriceListId(form.getPriceListId());
+        c.setBranchId(form.getBranchId());
+        c.setEmployeeId(form.getEmployeeId());
+        c.setDateTime(form.getDateTime());
         citaService.save(c);
     }
 

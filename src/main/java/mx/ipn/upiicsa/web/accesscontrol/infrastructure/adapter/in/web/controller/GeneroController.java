@@ -1,6 +1,7 @@
 package mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.controller;
 
 import mx.ipn.upiicsa.web.accesscontrol.application.port.in.GeneroService;
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.in.web.dto.GeneroForm;
 import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.model.GeneroJpa;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,18 @@ public class GeneroController {
 
     @GetMapping("/create")
     public String createForm(Model model) {
-        model.addAttribute("genero", new GeneroJpa());
+        model.addAttribute("generoForm", new GeneroForm());
         return "accesscontrol/generos/create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute GeneroJpa genero, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute GeneroForm form, RedirectAttributes redirectAttributes) {
+        GeneroJpa genero = new GeneroJpa();
+        genero.setId(form.getId());
+        genero.setName(form.getName());
+        genero.setDescription(form.getDescription());
+        genero.setActive(form.getActive());
+
         generoService.save(genero);
         redirectAttributes.addFlashAttribute("message", "Género guardado exitosamente");
         return "redirect:/generos/list";
@@ -37,7 +44,12 @@ public class GeneroController {
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Integer id, Model model) {
         return generoService.findById(id).map(g -> {
-            model.addAttribute("genero", g);
+            GeneroForm form = new GeneroForm();
+            form.setId(g.getId());
+            form.setName(g.getName());
+            form.setDescription(g.getDescription());
+            form.setActive(g.getActive());
+            model.addAttribute("generoForm", form);
             return "accesscontrol/generos/edit";
         }).orElse("redirect:/generos/list");
     }

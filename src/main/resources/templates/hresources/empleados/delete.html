@@ -23,12 +23,12 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${empleado.idEmpleado}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal ID: <span class="font-normal" th:text="${empleado.fkIdSucursal}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${empleado.id}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal ID: <span class="font-normal" th:text="${empleado.branchId}"></span></p>
             </div>
 
             <form th:action="@{/empleados/delete}" method="post">
-                <input type="hidden" name="id" th:value="${empleado.idEmpleado}" />
+                <input type="hidden" name="id" th:value="${empleado.id}" />
                 
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

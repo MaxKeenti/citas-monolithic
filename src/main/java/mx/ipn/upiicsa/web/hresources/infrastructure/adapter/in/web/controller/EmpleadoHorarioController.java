@@ -34,10 +34,10 @@ public class EmpleadoHorarioController {
     }
 
     @GetMapping("/edit")
-    public String editForm(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado, Model model) {
+    public String editForm(@RequestParam Integer scheduleId, @RequestParam Integer employeeId, Model model) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setScheduleId(idHorario);
-        id.setEmployeeId(idEmpleado);
+        id.setScheduleId(scheduleId);
+        id.setEmployeeId(employeeId);
 
         return empleadoHorarioService.findById(id)
                 .map(eh -> {
@@ -53,25 +53,15 @@ public class EmpleadoHorarioController {
     @PostMapping("/update")
     public String update(@ModelAttribute EmpleadoHorarioForm form) {
         EmpleadoHorarioJpa eh = new EmpleadoHorarioJpa();
-        // Since it's a composite ID and we can't change part of it without changing the
-        // identity,
-        // update essentially works like create if new IDs, or update non-key fields.
-        // But EmpleadoHorario only has Key fields!
-        // So Update is probably redundant or means "Delete old + Create new".
-        // For simplicity, we just save, which might be same as create.
-        // If the user changed the IDs in the form, it creates a new assignment.
-        // If we want to replace, we need the "original" IDs which is hard without
-        // hidden fields for old values.
-        // Given the constraints, I will treat Update as "Save" which merges.
         saveEmpleadoHorario(eh, form);
         return "redirect:/hresources/empleado-horario/list";
     }
 
     @GetMapping("/delete")
-    public String deleteConfirmation(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado, Model model) {
+    public String deleteConfirmation(@RequestParam Integer scheduleId, @RequestParam Integer employeeId, Model model) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setScheduleId(idHorario);
-        id.setEmployeeId(idEmpleado);
+        id.setScheduleId(scheduleId);
+        id.setEmployeeId(employeeId);
 
         return empleadoHorarioService.findById(id)
                 .map(eh -> {
@@ -82,10 +72,10 @@ public class EmpleadoHorarioController {
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam Integer idHorario, @RequestParam Integer idEmpleado) {
+    public String delete(@RequestParam Integer scheduleId, @RequestParam Integer employeeId) {
         mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId id = new mx.ipn.upiicsa.web.hresources.domain.EmpleadoHorarioId();
-        id.setScheduleId(idHorario);
-        id.setEmployeeId(idEmpleado);
+        id.setScheduleId(scheduleId);
+        id.setEmployeeId(employeeId);
 
         empleadoHorarioService.deleteById(id);
         return "redirect:/hresources/empleado-horario/list";
