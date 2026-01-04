@@ -32,13 +32,13 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     <tr th:each="e : ${estados}" class="border-b border-gray-200 hover:bg-gray-100">
-                        <td th:text="${e.idEstadoListaPrecio}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                        <td th:text="${e.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
                         <td th:text="${e.nombre}" class="py-3 px-6 text-left"></td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/catalog/estado-lista-precio/edit/{id}(id=${e.idEstadoListaPrecio})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/catalog/estado-lista-precio/edit/{id}(id=${e.id})}'|" class="text-teal-500 hover:text-teal-700 font-semibold">Editar</button>
                         </td>
                         <td class="py-3 px-6 text-center">
-                            <button type="button" th:onclick="|window.location.href='@{/catalog/estado-lista-precio/delete/{id}(id=${e.idEstadoListaPrecio})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
+                            <button type="button" th:onclick="|window.location.href='@{/catalog/estado-lista-precio/delete/{id}(id=${e.id})}'|" class="text-rose-500 hover:text-rose-700 font-semibold">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>

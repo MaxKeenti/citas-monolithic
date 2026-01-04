@@ -23,7 +23,7 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal ID: <span class="font-normal" th:text="${bloque.idSucursal}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal: <span class="font-normal" th:text="${bloque.sucursal != null ? bloque.sucursal.txNombre : bloque.idSucursal}"></span></p>
                 <p class="text-gray-700 text-sm font-bold mb-2">Inicio: <span class="font-normal" th:text="${bloque.fechaInicio}"></span></p>
                 <p class="text-gray-700 text-sm font-bold mb-2">Fin: <span class="font-normal" th:text="${bloque.fechaFin}"></span></p>
             </div>

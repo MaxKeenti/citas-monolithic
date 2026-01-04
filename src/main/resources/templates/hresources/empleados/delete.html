@@ -23,8 +23,8 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${empleado.idEmpleado}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal ID: <span class="font-normal" th:text="${empleado.fkIdSucursal}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Empleado: <span class="font-normal" th:text="${empleado.persona != null ? empleado.persona.nombre + ' ' + empleado.persona.primerApellido : empleado.idEmpleado}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Sucursal: <span class="font-normal" th:text="${empleado.sucursal != null ? empleado.sucursal.txNombre : empleado.fkIdSucursal}"></span></p>
             </div>
 
             <form th:action="@{/empleados/delete}" method="post">

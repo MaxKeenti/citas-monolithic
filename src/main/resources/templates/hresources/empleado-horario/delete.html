@@ -23,8 +23,8 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Horario: <span class="font-normal" th:text="${empleadoHorario.idHorario}"></span></p>
-                <p class="text-gray-700 text-sm font-bold mb-2">ID Empleado: <span class="font-normal" th:text="${empleadoHorario.idEmpleado}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Horario: <span class="font-normal" th:text="${empleadoHorario.horario != null && empleadoHorario.horario.diaLaboral != null ? empleadoHorario.horario.diaLaboral.nombre + ' ' + empleadoHorario.horario.horaInicio + '-' + empleadoHorario.horario.horaFin : empleadoHorario.idHorario}"></span></p>
+                <p class="text-gray-700 text-sm font-bold mb-2">Empleado: <span class="font-normal" th:text="${empleadoHorario.empleado != null && empleadoHorario.empleado.persona != null ? empleadoHorario.empleado.persona.nombre + ' ' + empleadoHorario.empleado.persona.primerApellido : empleadoHorario.idEmpleado}"></span></p>
             </div>
 
             <form th:action="@{/hresources/empleado-horario/delete}" method="post">
