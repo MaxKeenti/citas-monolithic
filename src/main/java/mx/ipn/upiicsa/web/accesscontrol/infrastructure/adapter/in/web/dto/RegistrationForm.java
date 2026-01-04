@@ -24,4 +24,6 @@ public class RegistrationForm {
     private String login;
     @NotBlank(message = "Favor de proporcionar la contraseña")
     private String password;
+    @NotBlank(message = "Favor de confirmar la contraseña")
+    private String confirmPassword;
 }

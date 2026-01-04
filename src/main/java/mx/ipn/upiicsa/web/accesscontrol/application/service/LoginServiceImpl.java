@@ -7,7 +7,13 @@ import mx.ipn.upiicsa.web.accesscontrol.application.port.out.LoginRepository;
 import mx.ipn.upiicsa.web.accesscontrol.application.port.in.LoginService;
 import mx.ipn.upiicsa.web.accesscontrol.domain.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 @Slf4j
 @Service
@@ -16,7 +22,8 @@ public class LoginServiceImpl implements LoginService {
     private LoginRepository loginRepository;
 
     public Either<Integer, Persona> login(LoginDto login) {
-        var resultadoLogin = loginRepository.findByLoginAndPassword(login.getUsername(), login.getPassword());
+        String encodedPassword = encodePassword(login.getPassword());
+        var resultadoLogin = loginRepository.findByLoginAndPassword(login.getUsername(), encodedPassword);
         Either<Integer, Persona> resultado;
         if (resultadoLogin.isPresent()) {
             var persona = resultadoLogin.get();
@@ -31,5 +38,15 @@ public class LoginServiceImpl implements LoginService {
             log.info("Error en la autenticación del usuario");
         }
         return resultado;
+    }
+
+    private String encodePassword(String rawPassword) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error encoding password", e);
+        }
     }
 }

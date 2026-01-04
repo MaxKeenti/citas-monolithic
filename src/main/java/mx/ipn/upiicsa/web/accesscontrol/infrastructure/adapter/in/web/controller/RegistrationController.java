@@ -11,10 +11,16 @@ import mx.ipn.upiicsa.web.accesscontrol.infrastructure.adapter.out.persistence.m
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 @Slf4j
 @Controller
@@ -42,6 +48,24 @@ public class RegistrationController {
             return "accesscontrol/login/register";
         }
 
+        // Custom Validation
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            br.addError(new FieldError("registrationForm", "confirmPassword", "Las contraseñas no coinciden"));
+        }
+        if (form.getPassword().length() <= 8) {
+            br.addError(new FieldError("registrationForm", "password", "La contraseña debe tener más de 8 caracteres"));
+        }
+        // Regex: at least one special character (non-alphanumeric)
+        if (!form.getPassword().matches(".*[^a-zA-Z0-9].*")) {
+            br.addError(new FieldError("registrationForm", "password",
+                    "La contraseña debe contener al menos un carácter especial"));
+        }
+
+        if (br.hasErrors()) {
+            model.addAttribute("generos", generoService.findAll());
+            return "accesscontrol/login/register";
+        }
+
         // 1. Create Persona
         PersonaJpa p = new PersonaJpa();
         p.setIdGenero(form.getIdGenero());
@@ -61,12 +85,22 @@ public class RegistrationController {
         u.setId(p.getId()); // OneToOne shared PK
         u.setIdRol(rolCliente.getId());
         u.setLogin(form.getLogin());
-        u.setPassword(form.getPassword());
+        u.setPassword(encodePassword(form.getPassword()));
         u.setActivo(true);
         usuarioService.save(u);
 
         log.info("Registered new client: {}", form.getLogin());
 
         return "redirect:/?registered=true";
+    }
+
+    private String encodePassword(String rawPassword) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error encoding password", e);
+        }
     }
 }
