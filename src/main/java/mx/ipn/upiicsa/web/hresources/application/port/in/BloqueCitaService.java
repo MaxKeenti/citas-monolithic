@@ -11,4 +11,6 @@ public interface BloqueCitaService {
     java.util.Optional<BloqueCitaJpa> findById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id);
 
     void deleteById(mx.ipn.upiicsa.web.hresources.domain.BloqueCitaId id);
+
+    void deleteByCitaId(Integer citaId);
 }

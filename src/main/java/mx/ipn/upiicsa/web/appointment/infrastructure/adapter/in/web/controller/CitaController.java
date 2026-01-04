@@ -3,6 +3,7 @@ package mx.ipn.upiicsa.web.appointment.infrastructure.adapter.in.web.controller;
 import jakarta.validation.Valid;
 import mx.ipn.upiicsa.web.appointment.domain.CitaJpa;
 import mx.ipn.upiicsa.web.appointment.application.port.in.CitaService;
+import java.util.Optional;
 
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioJpaRepository;
 import mx.ipn.upiicsa.web.catalog.application.port.out.ServicioListaPrecioJpaRepository;
@@ -80,7 +81,14 @@ public class CitaController {
             return "appointment/citas/create";
         }
         CitaJpa c = new CitaJpa();
-        saveCita(c, form);
+        try {
+            saveCita(c, form);
+        } catch (IllegalStateException e) {
+            String msg = e.getMessage() != null ? e.getMessage() : "Error al guardar cita";
+            br.rejectValue("fechaHora", "error.fechaHora", java.util.Objects.requireNonNull(msg));
+            populateModel(model, form.getIdServicio());
+            return "appointment/citas/create";
+        }
         return "redirect:/citas/list";
     }
 
@@ -101,6 +109,7 @@ public class CitaController {
                     form.setIdSucursal(cita.getFkIdSucursal());
                     form.setIdEmpleado(cita.getFkIdEmpleado());
                     form.setFechaHora(cita.getFechaHora());
+                    form.setCustomDuration(cita.getCustomDuration()); // Map customDuration to form
 
                     model.addAttribute("citaForm", form);
                     populateModel(model, cita.getFkIdServicio());
@@ -124,9 +133,21 @@ public class CitaController {
             populateModel(model, form.getIdServicio());
             return "appointment/citas/edit";
         }
-        CitaJpa c = new CitaJpa();
-        c.setIdCita(form.getId());
-        saveCita(c, form);
+
+        Optional<CitaJpa> existingOpt = citaService.findById(form.getId());
+        if (existingOpt.isEmpty()) {
+            return "redirect:/citas/list";
+        }
+        CitaJpa c = existingOpt.get();
+
+        try {
+            saveCita(c, form);
+        } catch (IllegalStateException e) {
+            String msg = e.getMessage() != null ? e.getMessage() : "Error al guardar cita";
+            br.rejectValue("fechaHora", "error.fechaHora", java.util.Objects.requireNonNull(msg));
+            populateModel(model, form.getIdServicio());
+            return "appointment/citas/edit";
+        }
         return "redirect:/citas/list";
     }
 

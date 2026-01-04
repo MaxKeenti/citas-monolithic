@@ -252,11 +252,11 @@
 
                 appointments.forEach(app => {
                     const block = document.createElement('div');
-                    block.className = `appointment-block ${app.canViewDetails ? '' : 'occupied'}`;
+                    // Add cursor-pointer if owner
+                    block.className = `appointment-block ${app.canViewDetails ? 'cursor-pointer hover:bg-rose-500' : 'occupied'}`;
                     
                     const startDate = new Date(app.start);
                     const startMinutes = (startDate.getHours() * 60) + startDate.getMinutes();
-                    const top = startMinutes; 
                     
                     // Slot height is 30px for 30mins -> 1px per min
                     block.style.top = `${startMinutes}px`;
@@ -264,6 +264,14 @@
                     
                     block.innerHTML = `<strong>${app.title}</strong>`;
                     block.title = app.title; // Tooltip
+
+                    if (app.canViewDetails) {
+                        block.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            window.location.href = `/citas/edit/${app.id}`;
+                        });
+                    }
+
                     dayColumn.appendChild(block);
                 });
             }
@@ -347,48 +355,25 @@
                 e.preventDefault();
                 const formData = new FormData(bookingForm);
                 
-                // We reuse the existing CitaController create logic but we need to adapt it 
-                // OR we can make a POST request to our new endpoint if we created one. 
-                // In the plan I said "Reuses CitaService.save" in new controller.
-                // Let's implement an endpoint in AgendaController to handle this JSON post or Form Post. 
-                
-                // Currently sending as Form Data to /citas/create expect a full page reload.
-                // To keep it SPA-like, we should fetch. 
-                // But /citas/create returns a redirect.
-                
-                // Let's modify the form to submit conventionally for now to reuse standard logic?
-                // OR better, duplicate simple logic in generic endpoint.
-                // Creating a specific endpoint in AgendaController is safer.
-                
-                // For now, let's assume we post to /citas/create but we need to handle the redirect.
-                // Ideally, we create a specialized endpoint.
-                
-                // Let's add the action dynamically or use fetch.
-                // Using fetch:
-                
                 const data = new URLSearchParams(formData);
                 try {
-                    const response = await fetch('/citas/create', { // Reusing existing controller endpoint? 
-                        // Wait, existing controller expects session attributes and redirects. 
-                        // It might be messy.
-                        // I will assume I need to implement the POST in AgendaController.
+                    const response = await fetch('/citas/create', { 
                         method: 'POST',
                         body: data,
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
-
                     });
 
                     if (response.redirected) {
                          window.location.reload(); // Success
                     } else {
-                        // Ideally we check for errors.
-                        window.location.reload();
+                        // If not redirected, it means error (HTML form with errors returned)
+                        alert('Error al agendar: Verifique que el horario no esté ocupado.');
                     }
 
                 } catch(err) {
-                    alert('Error creating appointment');
+                    alert('Error creando la cita');
                 }
             });
         });
