@@ -72,7 +72,7 @@
                 <div class="flex items-center gap-4">
                     <input type="date" id="datePicker" class="border rounded px-3 py-2 text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-rose-500">
                     <button id="bookBtn" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded shadow opacity-50 cursor-not-allowed" disabled>
-                        Agendar Cita
+                        Reservar
                     </button>
                 </div>
             </div>
@@ -88,34 +88,54 @@
             </div>
         </div>
     </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal with Tabbed Design -->
     <div id="bookingModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 text-center">Nueva Cita</h3>
+        <div class="relative top-20 mx-auto p-0 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-transparent">
+            
+            <!-- Fake Tabs to match design -->
+            <div class="flex border-b border-gray-200 bg-gray-100 rounded-t-lg">
+                <button type="button" class="-mb-px mr-1 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-rose-500 font-semibold cursor-default">
+                   Agendar Cita
+                </button>
+                <button type="button" th:onclick="|window.location.href='@{/citas/list}'|" class="mr-1 bg-gray-100 inline-block py-2 px-4 text-rose-800 hover:text-rose-600 font-semibold">
+                   Historial
+                </button>
+            </div>
+
+            <div class="p-6 bg-white rounded-b-lg shadow-lg border border-gray-200 relative">
+                <!-- Close X -->
+                <button id="closeModalX" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <h1 class="text-3xl font-bold text-gray-800 mb-6">Crear Cita</h1>
                 <form id="bookingForm" class="mt-4">
                     <input type="hidden" id="startDateTime" name="fechaHora">
                     <input type="hidden" id="duration" name="customDuration">
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Hora Inicio</label>
-                        <p id="displayTime" class="text-gray-900"></p>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Fecha y Hora</label>
+                        <input type="text" id="displayTime" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight bg-gray-100" readonly>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Persona</label>
-                        <select id="personaSelect" name="idPersona" class="w-full border rounded px-3 py-2" th:if="${personas.size() > 1}">
+                        <select id="personaSelect" name="idPersona" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             <option th:each="p : ${personas}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.primerApellido}"></option>
                         </select>
-                        <input type="hidden" name="idPersona" th:value="${personas[0].id}" th:if="${personas.size() == 1}">
-                        <p class="text-gray-900" th:if="${personas.size() == 1}" th:text="${personas[0].nombre + ' ' + personas[0].primerApellido}"></p>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Servicio</label>
-                        <select id="servicioSelect" name="idServicio" class="w-full border rounded px-3 py-2" required>
+                        <select id="servicioSelect" name="idServicio" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                             <option value="">Seleccione...</option>
                             <option th:each="s : ${servicios}" 
                                     th:value="${s.idServicio}" 
@@ -127,32 +147,31 @@
 
                     <div class="mb-4" th:classappend="${session.persona.usuario.idRol == 3} ? 'hidden' : ''">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Lista de Precio</label>
-                        <select id="listaSelect" name="idListaPrecio" class="w-full border rounded px-3 py-2" required>
+                        <select id="listaSelect" name="idListaPrecio" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                             <option value="">Seleccione servicio primero</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Sucursal</label>
-                        <select name="idSucursal" class="w-full border rounded px-3 py-2" required>
+                        <select name="idSucursal" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                             <option th:each="s : ${sucursales}" th:value="${s.idSucursal}" th:text="${s.txNombre}"></option>
                         </select>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Empleado</label>
-                        <select name="idEmpleado" class="w-full border rounded px-3 py-2" required>
+                        <select name="idEmpleado" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                             <option th:each="e : ${empleados}" th:value="${e.idEmpleado}" th:text="${e.persona.nombre + ' ' + e.persona.primerApellido}"></option>
                         </select>
-
                     </div>
 
                     <div class="flex items-center justify-between mt-6">
-                        <button type="button" id="cancelBtn" class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
-                            Cancelar
-                        </button>
-                        <button type="submit" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                             Confirmar
+                        </button>
+                        <button type="button" id="cancelBtn" class="inline-block align-baseline font-bold text-sm text-rose-500 hover:text-rose-800">
+                            Volver a la Agenda
                         </button>
                     </div>
                 </form>
@@ -163,12 +182,9 @@
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', () => {
 
-            const datePicker = document.getElementById('datePicker');
-            const dayColumn = document.getElementById('dayColumn');
-            const timeLabels = document.getElementById('timeLabels');
-            const bookBtn = document.getElementById('bookBtn');
             const modal = document.getElementById('bookingModal');
             const cancelBtn = document.getElementById('cancelBtn');
+            const closeModalX = document.getElementById('closeModalX');
             const bookingForm = document.getElementById('bookingForm');
             const servicioSelect = document.getElementById('servicioSelect');
             const listaSelect = document.getElementById('listaSelect');
@@ -295,8 +311,6 @@
                 document.getElementById('startDateTime').value = `${date}T${timeStr}`;
                 
                 // Calculate duration
-                // If endSlot is null, duration is 30 mins (single slot)
-                // If endSlot is set, duration is (end - start) + 30
                 const end = endSlot !== null ? endSlot : startSlot;
                 const duration = (end - startSlot) + 30;
                 
@@ -310,14 +324,14 @@
                     timeDisplay += ` - ${endTimeStr} (${duration} min)`;
                 }
                 
-                document.getElementById('displayTime').textContent = timeDisplay;
+                document.getElementById('displayTime').value = timeDisplay;
                 
                 modal.classList.remove('hidden');
             });
 
-            cancelBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
+            const hideModal = () => modal.classList.add('hidden');
+            cancelBtn.addEventListener('click', hideModal);
+            closeModalX.addEventListener('click', hideModal);
 
             // Dynamic Price List Loading
             servicioSelect.addEventListener('change', async (e) => {

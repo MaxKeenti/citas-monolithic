@@ -47,7 +47,9 @@ public class CitaController {
     @GetMapping("/create")
     @RequiresRole({ "ADMIN", "CLIENT", "EMPLOYEE" })
 
-    public String createForm(Model model, HttpSession session) {
+    public String createForm(Model model, HttpSession session,
+            @RequestParam(required = false) java.time.LocalDateTime fechaHora,
+            @RequestParam(required = false) Integer customDuration) {
         Persona persona = (Persona) session.getAttribute("persona");
         // Clients can only create for themselves
         if (isClient(persona)) {
@@ -56,7 +58,15 @@ public class CitaController {
             model.addAttribute("personas", personaJpaRepository.findAll());
         }
 
-        model.addAttribute("citaForm", new CitaForm());
+        CitaForm form = new CitaForm();
+        if (fechaHora != null) {
+            form.setFechaHora(fechaHora);
+        }
+        if (customDuration != null) {
+            form.setCustomDuration(customDuration);
+        }
+
+        model.addAttribute("citaForm", form);
         model.addAttribute("servicios", servicioJpaRepository.findAll());
         model.addAttribute("sucursales", sucursalJpaRepository.findAll());
         model.addAttribute("empleados", empleadoJpaRepository.findAll());
