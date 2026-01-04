@@ -7,6 +7,7 @@ import mx.ipn.upiicsa.web.hresources.infrastructure.adapter.in.web.dto.HorarioFo
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
 
 @Controller
 @RequestMapping("/hresources/horario")
@@ -15,18 +16,21 @@ public class HorarioController {
     private final HorarioService horarioService;
 
     @GetMapping("/list")
+    @RequiresRole({ "ADMIN", "EMPLOYEE" })
     public String list(Model model) {
         model.addAttribute("horarios", horarioService.findAll());
         return "hresources/horario/list";
     }
 
     @GetMapping("/create")
+    @RequiresRole("ADMIN")
     public String createForm(Model model) {
         model.addAttribute("horarioForm", new HorarioForm());
         return "hresources/horario/create";
     }
 
     @PostMapping("/create")
+    @RequiresRole("ADMIN")
     public String create(@ModelAttribute HorarioForm form) {
         HorarioJpa horario = new HorarioJpa();
         saveHorario(horario, form);
@@ -34,6 +38,7 @@ public class HorarioController {
     }
 
     @GetMapping("/edit/{id}")
+    @RequiresRole("ADMIN")
     public String editForm(@PathVariable Integer id, Model model) {
         return horarioService.findById(id)
                 .map(horario -> {
@@ -50,6 +55,7 @@ public class HorarioController {
     }
 
     @PostMapping("/update")
+    @RequiresRole("ADMIN")
     public String update(@ModelAttribute HorarioForm form) {
         HorarioJpa horario = new HorarioJpa();
         horario.setId(form.getId());
@@ -58,6 +64,7 @@ public class HorarioController {
     }
 
     @GetMapping("/delete/{id}")
+    @RequiresRole("ADMIN")
     public String deleteConfirmation(@PathVariable Integer id, Model model) {
         return horarioService.findById(id)
                 .map(horario -> {
@@ -68,6 +75,7 @@ public class HorarioController {
     }
 
     @PostMapping("/delete")
+    @RequiresRole("ADMIN")
     public String delete(@RequestParam Integer id) {
         horarioService.deleteById(id);
         return "redirect:/hresources/horario/list";

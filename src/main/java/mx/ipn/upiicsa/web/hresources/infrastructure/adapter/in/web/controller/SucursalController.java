@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class SucursalController {
     private final EstablecimientoJpaRepository establecimientoJpaRepository;
 
     @GetMapping("/create")
+    @RequiresRole("ADMIN")
     public String createForm(Model model) {
         model.addAttribute("sucursalForm", new SucursalForm());
         List<EstablecimientoJpa> establecimientos = establecimientoJpaRepository.findAll();
@@ -33,6 +35,7 @@ public class SucursalController {
     }
 
     @PostMapping("/create")
+    @RequiresRole("ADMIN")
     public String create(@Valid @ModelAttribute("sucursalForm") SucursalForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("establecimientos", establecimientoJpaRepository.findAll());
@@ -44,6 +47,7 @@ public class SucursalController {
     }
 
     @GetMapping("/edit/{id}")
+    @RequiresRole("ADMIN")
     public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
         return sucursalService.findById(id)
                 .map(sucursal -> {
@@ -63,6 +67,7 @@ public class SucursalController {
     }
 
     @PostMapping("/update")
+    @RequiresRole("ADMIN")
     public String update(@Valid @ModelAttribute("sucursalForm") SucursalForm form, BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("establecimientos", establecimientoJpaRepository.findAll());
@@ -75,6 +80,7 @@ public class SucursalController {
     }
 
     @GetMapping("/delete/{id}")
+    @RequiresRole("ADMIN")
     public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
         return sucursalService.findById(id)
                 .map(sucursal -> {
@@ -85,6 +91,7 @@ public class SucursalController {
     }
 
     @PostMapping("/delete")
+    @RequiresRole("ADMIN")
     public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
         sucursalService.deleteById(id);
         return "redirect:/sucursales/list";
@@ -104,6 +111,7 @@ public class SucursalController {
     }
 
     @GetMapping("/list")
+    @RequiresRole({ "ADMIN", "EMPLOYEE" })
     public String list(Model model) {
         model.addAttribute("sucursales", sucursalService.findAll());
         return "hresources/sucursales/list";

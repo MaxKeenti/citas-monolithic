@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Objects;
 
 import java.util.stream.Collectors;
+import jakarta.servlet.http.HttpSession;
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
+import mx.ipn.upiicsa.web.accesscontrol.domain.Persona;
 
 @Controller
 @RequestMapping("/citas")
@@ -41,9 +44,17 @@ public class CitaController {
     private final EmpleadoJpaRepository empleadoJpaRepository;
 
     @GetMapping("/create")
-    public String createForm(Model model) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String createForm(Model model, HttpSession session) {
+        Persona persona = (Persona) session.getAttribute("persona");
+        // Clients can only create for themselves
+        if (isClient(persona)) {
+            model.addAttribute("personas", List.of(persona));
+        } else {
+            model.addAttribute("personas", personaJpaRepository.findAll());
+        }
+
         model.addAttribute("citaForm", new CitaForm());
-        model.addAttribute("personas", personaJpaRepository.findAll());
         model.addAttribute("servicios", servicioJpaRepository.findAll());
         model.addAttribute("sucursales", sucursalJpaRepository.findAll());
         model.addAttribute("empleados", empleadoJpaRepository.findAll());
@@ -53,7 +64,15 @@ public class CitaController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String create(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model,
+            HttpSession session) {
+        Persona persona = (Persona) session.getAttribute("persona");
+        // Enforce ownership for clients
+        if (isClient(persona) && !form.getIdPersona().equals(persona.getId())) {
+            return "redirect:/access-denied";
+        }
+
         if (br.hasErrors()) {
             populateModel(model, form.getIdServicio());
             return "appointment/citas/create";
@@ -64,7 +83,12 @@ public class CitaController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String editForm(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model,
+            HttpSession session) {
+        if (!isAuthorized(session, id))
+            return "redirect:/access-denied";
+
         return citaService.findById(id)
                 .map(cita -> {
                     CitaForm form = new CitaForm();
@@ -84,7 +108,16 @@ public class CitaController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String update(@Valid @ModelAttribute("citaForm") CitaForm form, BindingResult br, Model model,
+            HttpSession session) {
+        // Since ID is in the form, we need to check the existing Cita to verify
+        // ownership,
+        // OR rely on the fact that they loaded the form via edit/{id} which checked it.
+        // Better to check again using the form ID.
+        if (!isAuthorized(session, form.getId()))
+            return "redirect:/access-denied";
+
         if (br.hasErrors()) {
             populateModel(model, form.getIdServicio());
             return "appointment/citas/edit";
@@ -96,7 +129,12 @@ public class CitaController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String deleteConfirmation(@org.springframework.web.bind.annotation.PathVariable Integer id, Model model,
+            HttpSession session) {
+        if (!isAuthorized(session, id))
+            return "redirect:/access-denied";
+
         return citaService.findById(id)
                 .map(cita -> {
                     model.addAttribute("cita", cita);
@@ -106,7 +144,10 @@ public class CitaController {
     }
 
     @PostMapping("/delete")
-    public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id) {
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String delete(@org.springframework.web.bind.annotation.RequestParam Integer id, HttpSession session) {
+        if (!isAuthorized(session, id))
+            return "redirect:/access-denied";
         citaService.deleteById(id);
         return "redirect:/citas/list";
     }
@@ -140,9 +181,33 @@ public class CitaController {
     }
 
     @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("citas", citaService.findAll());
+    @RequiresRole({ "ADMIN", "CLIENT" })
+    public String list(Model model, HttpSession session) {
+        Persona persona = (Persona) session.getAttribute("persona");
+        if (isClient(persona)) {
+            model.addAttribute("citas", citaService.findByPersonaId(persona.getId()));
+        } else {
+            model.addAttribute("citas", citaService.findAll());
+        }
         return "appointment/citas/list";
+    }
+
+    private boolean isClient(Persona persona) {
+        return persona != null && persona.getUsuario().getIdRol() == 3; // 3 = Cliente
+    }
+
+    private boolean isAuthorized(HttpSession session, Integer citaId) {
+        Persona cur = (Persona) session.getAttribute("persona");
+        if (cur == null)
+            return false;
+        // 1 = Admin - can do anything
+        if (cur.getUsuario().getIdRol() == 1)
+            return true;
+
+        // Clients can only access their own appointments
+        return citaService.findById(citaId)
+                .map(c -> c.getFkIdPersona().equals(cur.getId()))
+                .orElse(false);
     }
 
     // Endpoint to fetch active listas filtered by servicio (used by AJAX from the

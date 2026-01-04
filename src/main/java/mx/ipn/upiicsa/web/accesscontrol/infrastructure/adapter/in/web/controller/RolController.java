@@ -9,9 +9,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 
+import mx.ipn.upiicsa.web.accesscontrol.infrastructure.security.RequiresRole;
+
 @Controller
 @RequestMapping("/roles")
 @RequiredArgsConstructor
+@RequiresRole("ADMIN")
 public class RolController {
 
     private final RolService rolService;

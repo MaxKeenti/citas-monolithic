@@ -42,4 +42,12 @@ public class CitaServiceImpl implements CitaService {
         }
         citaJpaRepository.deleteById(id);
     }
+
+    @Override
+    public List<CitaJpa> findByPersonaId(Integer idPersona) {
+        if (idPersona == null) {
+            throw new IllegalArgumentException("idPersona cannot be null");
+        }
+        return citaJpaRepository.findByFkIdPersona(idPersona);
+    }
 }
